@@ -316,7 +316,7 @@
         "type": "ui_tab",
         "name": "Line F",
         "icon": "dashboard",
-        "order": 2,
+        "order": 1,
         "disabled": false,
         "hidden": false
     },
@@ -324,10 +324,10 @@
         "id": "85b12cf0fa38d858",
         "type": "ui_group",
         "name": "Production Output",
-        "tab": "f395572c963bf4ed",
+        "tab": "d5e27fdb153bf0a3",
         "order": 2,
         "disp": true,
-        "width": 10,
+        "width": "16",
         "collapse": false,
         "className": ""
     },
@@ -347,7 +347,7 @@
         "type": "ui_tab",
         "name": "TEST",
         "icon": "dashboard",
-        "order": 12,
+        "order": 3,
         "disabled": false,
         "hidden": false
     },
@@ -386,27 +386,104 @@
         "type": "ui_tab",
         "name": "ui-table command",
         "icon": "fa-table",
+        "order": 4,
         "disabled": false,
         "hidden": false
-    },
-    {
-        "id": "c78df158e6751759",
-        "type": "ui_group",
-        "name": "table-handler-demo #1",
-        "tab": "8a7eaac6a919cdf0",
-        "order": 2,
-        "disp": true,
-        "width": "9",
-        "collapse": true
     },
     {
         "id": "8a7eaac6a919cdf0",
         "type": "ui_tab",
         "name": "ui-table",
         "icon": "dashboard",
-        "order": 6,
+        "order": 5,
         "disabled": false,
         "hidden": false
+    },
+    {
+        "id": "8e34121cef5b559c",
+        "type": "ui_group",
+        "name": "Cell A",
+        "tab": "f395572c963bf4ed",
+        "order": 1,
+        "disp": true,
+        "width": 6,
+        "collapse": false,
+        "className": ""
+    },
+    {
+        "id": "d5e27fdb153bf0a3",
+        "type": "ui_tab",
+        "name": "Data",
+        "icon": "dashboard",
+        "order": 2,
+        "disabled": false,
+        "hidden": false
+    },
+    {
+        "id": "72a409debd40a171",
+        "type": "ui_group",
+        "name": "Cell B",
+        "tab": "f395572c963bf4ed",
+        "order": 2,
+        "disp": true,
+        "width": 6,
+        "collapse": false,
+        "className": ""
+    },
+    {
+        "id": "1ee6fae1e6dd0ff9",
+        "type": "ui_group",
+        "name": "Cell C",
+        "tab": "f395572c963bf4ed",
+        "order": 3,
+        "disp": true,
+        "width": 9,
+        "collapse": false,
+        "className": ""
+    },
+    {
+        "id": "4ad3863a54fa3a9f",
+        "type": "ui_group",
+        "name": "Cell D1",
+        "tab": "f395572c963bf4ed",
+        "order": 4,
+        "disp": true,
+        "width": 6,
+        "collapse": false,
+        "className": ""
+    },
+    {
+        "id": "be5530b09ed4e2d1",
+        "type": "ui_group",
+        "name": "Cell D2",
+        "tab": "f395572c963bf4ed",
+        "order": 5,
+        "disp": true,
+        "width": 6,
+        "collapse": false,
+        "className": ""
+    },
+    {
+        "id": "54c1916e62442956",
+        "type": "ui_group",
+        "name": "Cell E1",
+        "tab": "f395572c963bf4ed",
+        "order": 6,
+        "disp": true,
+        "width": 6,
+        "collapse": false,
+        "className": ""
+    },
+    {
+        "id": "ed4f37bf1c12fb43",
+        "type": "ui_group",
+        "name": "Cell E2",
+        "tab": "f395572c963bf4ed",
+        "order": 7,
+        "disp": true,
+        "width": 6,
+        "collapse": false,
+        "className": ""
     },
     {
         "id": "0538b16727054d9a",
@@ -440,13 +517,13 @@
         ],
         "repeat": "",
         "crontab": "",
-        "once": true,
+        "once": false,
         "onceDelay": 0.1,
         "topic": "",
-        "payload": "[{\"Id\":\"1\",\"Line\":\"F\",\"Cell\":\"A\",\"Back No\":\"AUK021\",\"Plan\":0,\"Actual\":0},{\"Id\":\"2\",\"Line\":\"F\",\"Cell\":\"A\",\"Back No\":\"AUK022\",\"Plan\":0,\"Actual\":0},{\"Id\":\"3\",\"Line\":\"F\",\"Cell\":\"A\",\"Back No\":\"AUK016\",\"Plan\":0,\"Actual\":0},{\"Id\":\"4\",\"Line\":\"F\",\"Cell\":\"A\",\"Back No\":\"AUK017\",\"Plan\":0,\"Actual\":0},{\"Id\":\"5\",\"Line\":\"F\",\"Cell\":\"A\",\"Back No\":\"AUK015\",\"Plan\":0,\"Actual\":0}]",
+        "payload": "[{\"Id\":\"1\",\"Line\":\"F\",\"Cell\":\"A-1\",\"Back No\":\"AUK013\",\"Plan\":0,\"Actual\":0},{\"Id\":\"2\",\"Line\":\"F\",\"Cell\":\"A-2\",\"Back No\":\"AUK005\",\"Plan\":0,\"Actual\":0},{\"Id\":\"3\",\"Line\":\"F\",\"Cell\":\"B-1\",\"Back No\":\"AUK012\",\"Plan\":0,\"Actual\":0},{\"Id\":\"4\",\"Line\":\"F\",\"Cell\":\"B-2\",\"Back No\":\"AUK004\",\"Plan\":0,\"Actual\":0},{\"Id\":\"5\",\"Line\":\"F\",\"Cell\":\"C-1\",\"Back No\":\"AUK006\",\"Plan\":0,\"Actual\":0},{\"Id\":\"5\",\"Line\":\"F\",\"Cell\":\"C-2\",\"Back No\":\"AUK007\",\"Plan\":0,\"Actual\":0},{\"Id\":\"5\",\"Line\":\"F\",\"Cell\":\"C-3\",\"Back No\":\"AUK009\",\"Plan\":0,\"Actual\":0},{\"Id\":\"6\",\"Line\":\"F\",\"Cell\":\"D1-1\",\"Back No\":\"AUK002\",\"Plan\":0,\"Actual\":0},{\"Id\":\"6\",\"Line\":\"F\",\"Cell\":\"D1-2\",\"Back No\":\"AUK011\",\"Plan\":0,\"Actual\":0},{\"Id\":\"7\",\"Line\":\"F\",\"Cell\":\"D2-1\",\"Back No\":\"AUK003\",\"Plan\":0,\"Actual\":0},{\"Id\":\"8\",\"Line\":\"F\",\"Cell\":\"D2-2\",\"Back No\":\"AUK010\",\"Plan\":0,\"Actual\":0},{\"Id\":\"9\",\"Line\":\"F\",\"Cell\":\"E1-1\",\"Back No\":\"AUK017\",\"Plan\":0,\"Actual\":0},{\"Id\":\"5\",\"Line\":\"F\",\"Cell\":\"E1-2\",\"Back No\":\"AUK020\",\"Plan\":0,\"Actual\":0},{\"Id\":\"9\",\"Line\":\"F\",\"Cell\":\"E2-1\",\"Back No\":\"AUK016\",\"Plan\":0,\"Actual\":0},{\"Id\":\"5\",\"Line\":\"F\",\"Cell\":\"E2-2\",\"Back No\":\"AUK021\",\"Plan\":0,\"Actual\":0}]",
         "payloadType": "json",
-        "x": 260,
-        "y": 400,
+        "x": 120,
+        "y": 140,
         "wires": [
             [
                 "fc35efef32c5cf97"
@@ -457,28 +534,14 @@
         "id": "fc35efef32c5cf97",
         "type": "change",
         "z": "562197b4f4a67922",
-        "name": "Transform raw data",
+        "name": "Transform & filesave raw data",
         "rules": [
             {
                 "t": "set",
                 "p": "tableData",
                 "pt": "flow",
-                "to": "payload.{\t    \"Id\":`Id`,\t    \"Line\":`Line`,\t    \"Cell\":`Cell`,\t    \"Back No\":`Back No`,\t    \"Plan\":`Plan`,\t    \"Actual\":`Actual`,\t    \"Progress\": Plan = 0 ? 0 : (`Actual`/`Plan`)*100\t}",
+                "to": "payload.{\t    \"Id\":`Id`,\t    \"Line\":`Line`,\t    \"Cell\":`Cell`,\t    \"TM\":\"\",\t    \"Back No\":`Back No`,\t    \"Plan\":`Plan`,\t    \"Actual\":`Actual`,\t    \"Progress\": Plan = 0 ? 0 : ((`Actual`/`Plan`)*100),\t    \"Created At\": $now()\t}",
                 "tot": "jsonata"
-            },
-            {
-                "t": "set",
-                "p": "keepEdits",
-                "pt": "msg",
-                "to": "true",
-                "tot": "bool"
-            },
-            {
-                "t": "set",
-                "p": "topic",
-                "pt": "msg",
-                "to": "Id",
-                "tot": "str"
             }
         ],
         "action": "",
@@ -487,85 +550,39 @@
         "to": "",
         "reg": false,
         "x": 450,
-        "y": 400,
+        "y": 140,
         "wires": [
             [
-                "4f1139a306c97fea"
+                "5418e74923417250"
             ]
         ]
-    },
-    {
-        "id": "703807bc20dee7f1",
-        "type": "debug",
-        "z": "562197b4f4a67922",
-        "name": "debug 2",
-        "active": true,
-        "tosidebar": true,
-        "console": false,
-        "tostatus": false,
-        "complete": "false",
-        "statusVal": "",
-        "statusType": "auto",
-        "x": 900,
-        "y": 360,
-        "wires": []
-    },
-    {
-        "id": "b6cc69e2dd71435b",
-        "type": "debug",
-        "z": "562197b4f4a67922",
-        "name": "debug 3",
-        "active": true,
-        "tosidebar": true,
-        "console": false,
-        "tostatus": false,
-        "complete": "false",
-        "statusVal": "",
-        "statusType": "auto",
-        "x": 700,
-        "y": 640,
-        "wires": []
     },
     {
         "id": "9765f3da2d535ee3",
         "type": "ui_table",
         "z": "562197b4f4a67922",
         "group": "85b12cf0fa38d858",
-        "name": "",
+        "name": "Line Table",
         "order": 1,
-        "width": 10,
-        "height": 5,
+        "width": 16,
+        "height": 9,
         "columns": [],
         "outputs": 1,
         "cts": true,
-        "x": 750,
-        "y": 400,
+        "x": 530,
+        "y": 220,
         "wires": [
             [
-                "703807bc20dee7f1"
+                "aea8981076227a62",
+                "e1c8c5460b5100ea"
             ]
         ]
-    },
-    {
-        "id": "f5d86b720d24cec4",
-        "type": "debug",
-        "z": "562197b4f4a67922",
-        "name": "debug 4",
-        "active": true,
-        "tosidebar": true,
-        "console": false,
-        "tostatus": false,
-        "complete": "false",
-        "statusVal": "",
-        "statusType": "auto",
-        "x": 680,
-        "y": 320,
-        "wires": []
     },
     {
         "id": "f11114f9961458dd",
         "type": "subflow:11f19efd79056b77",
         "z": "562197b4f4a67922",
+        "d": true,
         "name": "",
         "env": [
             {
@@ -604,33 +621,12 @@
                 "type": "json"
             }
         ],
-        "x": 580,
-        "y": 500,
+        "x": 100,
+        "y": 440,
         "wires": [
-            [
-                "9765f3da2d535ee3",
-                "f5d86b720d24cec4"
-            ],
-            [
-                "b6cc69e2dd71435b"
-            ]
+            [],
+            []
         ]
-    },
-    {
-        "id": "4f1139a306c97fea",
-        "type": "debug",
-        "z": "562197b4f4a67922",
-        "name": "debug 5",
-        "active": true,
-        "tosidebar": true,
-        "console": false,
-        "tostatus": false,
-        "complete": "false",
-        "statusVal": "",
-        "statusType": "auto",
-        "x": 440,
-        "y": 320,
-        "wires": []
     },
     {
         "id": "9429cca408847a85",
@@ -638,42 +634,33 @@
         "z": "562197b4f4a67922",
         "name": "",
         "events": "all",
-        "x": 320,
-        "y": 500,
+        "x": 80,
+        "y": 220,
         "wires": [
             [
-                "f11114f9961458dd",
-                "0ab2a3f0bfd4504d"
+                "657d21fce3ecd7ea"
             ]
         ]
-    },
-    {
-        "id": "0ab2a3f0bfd4504d",
-        "type": "debug",
-        "z": "562197b4f4a67922",
-        "name": "debug 6",
-        "active": true,
-        "tosidebar": true,
-        "console": false,
-        "tostatus": false,
-        "complete": "false",
-        "statusVal": "",
-        "statusType": "auto",
-        "x": 440,
-        "y": 620,
-        "wires": []
     },
     {
         "id": "657d21fce3ecd7ea",
         "type": "change",
         "z": "562197b4f4a67922",
-        "name": "Setup ui_control",
+        "name": "Setup payload and  ui_control",
         "rules": [
             {
                 "t": "set",
                 "p": "payload",
                 "pt": "msg",
-                "to": "{\"tabulator\":{\"responsiveLayout\":\"collapse\",\"layout\":\"fitColumns\",\"movableColumns\":true,\"index\":\"Id\",\"groupBy\":\"Cell\",\"columns\":[{\"align\":\"center\",\"headerSort\":false,\"frozen\":true,\"title\":\"Id\",\"field\":\"Id\"},{\"formatter\":\"function(cell, formatterParams, onRendered) {      var html = cell.getValue(); return html;  }\",\"frozen\":true,\"title\":\"Line\",\"field\":\"Line\"},{\"formatter\":\"function(cell, formatterParams, onRendered) {     var html = cell.getValue(); return html;  }\",\"title\":\"Cell\",\"field\":\"Cell\",\"frozen\":true},{\"title\":\"Back No\",\"field\":\"Back No\",\"frozen\":true},{\"title\":\"Plan\",\"field\":\"Plan\",\"width\":100,\"align\":\"left\",\"editor\":\"number\"},{\"title\":\"Actual\",\"field\":\"Actual\",\"width\":100,\"align\":\"left\",\"editor\":\"number\"},{\"title\":\"Progress\",\"field\":\"Progress\",\"align\":\"left\",\"formatter\":\"progress\"}],\"columnResized\":\"function(column){     var newColumn = {         field: column._column.field,         visible: column._column.visible,         width: column._column.width,         widthFixed: column._column.widthFixed,         widthStyled: column._column.widthStyled     }; this.send({topic:this.config.topic,ui_control:{callback:'columnResized',columnWidths:newColumn}}); }\",\"columnMoved\":\"function(column, columns){     var newColumns=[];     columns.forEach(function (column) {         newColumns.push({'field': column._column.definition.field, 'title': column._column.definition.title});     });     this.send({topic:this.config.topic,ui_control:{callback:'columnMoved',columns:newColumns}}); }\",\"rowFormatter\":\"function(row){     var data = row.getData();     switch (data.$state) {         case \\\"lost\\\":             row.getElement().style.backgroundColor = \\\"#9e2e66\\\";             row.getElement().style.color = \\\"#a6a6a6\\\";             break;         case \\\"sleeping\\\":             row.getElement().style.backgroundColor = \\\"#336699\\\";             break;         case \\\"disconnected\\\":             row.getElement().style.backgroundColor = \\\"#cc3300\\\";             row.getElement().style.color = \\\"#a6a6a6\\\";             break;         case \\\"alert\\\":             row.getElement().style.backgroundColor = \\\"#A6A6DF\\\";             break;         case \\\"init\\\":             row.getElement().style.backgroundColor = \\\"#f2f20d\\\";             break;         case \\\"ready\\\":             row.getElement().style.backgroundColor = \\\"\\\";             row.getElement().style.color = \\\"\\\";             break;         } }\",\"cellEdited\":\"function (cell) {     this.send(         {              ui_control: {callback:'cellEdited'},                               payload: cell.getValue(),                      oldValue: cell.getOldValue(),                      field: cell.getColumn().getField(),                      id: cell.getRow().getCell('Id').getValue()     }); }\"},\"customHeight\":12}",
+                "to": "tableData",
+                "tot": "flow",
+                "dc": true
+            },
+            {
+                "t": "set",
+                "p": "ui_control",
+                "pt": "msg",
+                "to": "{\"tabulator\":{\"responsiveLayout\":\"collapse\",\"layout\":\"fitColumns\",\"movableColumns\":true,\"index\":\"Id\",\"groupBy\":\"Line\",\"columns\":[{\"align\":\"center\",\"headerSort\":false,\"frozen\":true,\"title\":\"Id\",\"field\":\"Id\"},{\"frozen\":true,\"title\":\"Line\",\"field\":\"Line\"},{\"title\":\"Cell\",\"field\":\"Cell\",\"frozen\":true},{\"title\":\"Back No\",\"field\":\"Back No\",\"frozen\":true,\"editable\":\"input\"},{\"title\":\"Team Member\",\"field\":\"TM\",\"editor\":\"input\"},{\"title\":\"Plan\",\"field\":\"Plan\",\"align\":\"left\",\"editor\":\"number\"},{\"title\":\"Actual\",\"field\":\"Actual\",\"align\":\"left\",\"editor\":\"number\"},{\"title\":\"Progress\",\"field\":\"Progress\",\"align\":\"left\",\"formatter\":\"progress\"}],\"columnResized\":\"function(column){     var newColumn = {         field: column._column.field,         visible: column._column.visible,         width: column._column.width,         widthFixed: column._column.widthFixed,         widthStyled: column._column.widthStyled     }; this.send({topic:this.config.topic,ui_control:{callback:'columnResized',columnWidths:newColumn}}); }\",\"columnMoved\":\"function(column, columns){     var newColumns=[];     columns.forEach(function (column) {         newColumns.push({'field': column._column.definition.field, 'title': column._column.definition.title});     });     this.send({topic:this.config.topic,ui_control:{callback:'columnMoved',columns:newColumns}}); }\",\"rowFormatter\":\"function(row){     var data = row.getData();     switch (data.$state) {         case \\\"lost\\\":             row.getElement().style.backgroundColor = \\\"#9e2e66\\\";             row.getElement().style.color = \\\"#a6a6a6\\\";             break;         case \\\"sleeping\\\":             row.getElement().style.backgroundColor = \\\"#336699\\\";             break;         case \\\"disconnected\\\":             row.getElement().style.backgroundColor = \\\"#cc3300\\\";             row.getElement().style.color = \\\"#a6a6a6\\\";             break;         case \\\"alert\\\":             row.getElement().style.backgroundColor = \\\"#A6A6DF\\\";             break;         case \\\"init\\\":             row.getElement().style.backgroundColor = \\\"#f2f20d\\\";             break;         case \\\"ready\\\":             row.getElement().style.backgroundColor = \\\"\\\";             row.getElement().style.color = \\\"\\\";             break;         } }\",\"cellEdited\":\"function (cell) { console.log('celledited callback called');    this.send(         {              ui_control: {callback:'cellEdited'},payload: cell.getValue(),oldValue: cell.getOldValue(),field: cell.getColumn().getField(),id: cell.getRow().getCell('Id').getValue()});console.log('table edit success');}\"},\"customHeight\":12}",
                 "tot": "json"
             }
         ],
@@ -682,11 +669,1669 @@
         "from": "",
         "to": "",
         "reg": false,
-        "x": 440,
-        "y": 720,
+        "x": 300,
+        "y": 220,
+        "wires": [
+            [
+                "9765f3da2d535ee3",
+                "403b9d6d5a094913",
+                "b8d8617f0c4b9440",
+                "18d6b91713c6ccc2",
+                "262dece09ffccbe8",
+                "0933bb5b17de3a3e",
+                "385819fd3a27168d",
+                "8c341b4f021ac8bd",
+                "aa10825ae8f424d1",
+                "b4257dcdf0b8a91b",
+                "e5a00f183ba35867",
+                "76ec42689385a5c0",
+                "7ad91f0c4dfc7f70",
+                "d47b2a2ebd1b6959",
+                "d3947d221334bca4",
+                "497bd9d36c5f423e"
+            ]
+        ]
+    },
+    {
+        "id": "d46645c44a1a1553",
+        "type": "comment",
+        "z": "562197b4f4a67922",
+        "name": "Gunakan ni utk masukkan data permulaan",
+        "info": "",
+        "x": 180,
+        "y": 60,
+        "wires": []
+    },
+    {
+        "id": "80625bcdc3601279",
+        "type": "comment",
+        "z": "562197b4f4a67922",
+        "name": "data diambil drpd flow.tableData",
+        "info": "",
+        "x": 150,
+        "y": 180,
+        "wires": []
+    },
+    {
+        "id": "190544d376618b4e",
+        "type": "function",
+        "z": "562197b4f4a67922",
+        "d": true,
+        "name": "function 2",
+        "func": "celledited = function (cell) {     \n    console.log('celledited callback called'); \n    this.send(         \n        {              \n            ui_control: {callback:'cellEdited'},\n            payload: cell.getValue(),\n            oldValue: cell.getOldValue(),\n            field: cell.getColumn().getField(),\n            id: cell.getRow().getCell('Id').getValue()\n        });\n    console.log('table edit success');\n}",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 80,
+        "y": 400,
         "wires": [
             []
         ]
+    },
+    {
+        "id": "aea8981076227a62",
+        "type": "debug",
+        "z": "562197b4f4a67922",
+        "name": "from table",
+        "active": false,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "true",
+        "targetType": "full",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 700,
+        "y": 280,
+        "wires": []
+    },
+    {
+        "id": "ca748a580d870274",
+        "type": "function",
+        "z": "562197b4f4a67922",
+        "name": "process cell edit",
+        "func": "var tableData = flow.get(\"tableData\");\ntableData[msg.id-1][msg.field] = msg.payload;\ntableData[msg.id-1][\"Modified\"] = Date.now();\nflow.set(\"tableData\",tableData);\n\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 960,
+        "y": 220,
+        "wires": [
+            [
+                "eb08a14f33272cc0"
+            ]
+        ]
+    },
+    {
+        "id": "e1c8c5460b5100ea",
+        "type": "switch",
+        "z": "562197b4f4a67922",
+        "name": "select only cellEdited",
+        "property": "ui_control.callback",
+        "propertyType": "msg",
+        "rules": [
+            {
+                "t": "eq",
+                "v": "cellEdited",
+                "vt": "str"
+            }
+        ],
+        "checkall": "true",
+        "repair": false,
+        "outputs": 1,
+        "x": 740,
+        "y": 220,
+        "wires": [
+            [
+                "ca748a580d870274"
+            ]
+        ]
+    },
+    {
+        "id": "5418e74923417250",
+        "type": "change",
+        "z": "562197b4f4a67922",
+        "name": "set lastUpdatedAt",
+        "rules": [
+            {
+                "t": "set",
+                "p": "lastUpdatedAt",
+                "pt": "flow",
+                "to": "",
+                "tot": "date"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 770,
+        "y": 140,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "eb08a14f33272cc0",
+        "type": "change",
+        "z": "562197b4f4a67922",
+        "name": "update lastUpdatedAt",
+        "rules": [
+            {
+                "t": "set",
+                "p": "lastUpdatedAt",
+                "pt": "flow",
+                "to": "",
+                "tot": "date"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 1180,
+        "y": 220,
+        "wires": [
+            [
+                "657d21fce3ecd7ea"
+            ]
+        ]
+    },
+    {
+        "id": "10029de9489aac10",
+        "type": "ui_level",
+        "z": "562197b4f4a67922",
+        "group": "8e34121cef5b559c",
+        "order": 3,
+        "width": 3,
+        "height": 2,
+        "name": "A-1",
+        "label": "",
+        "colorHi": "#00e60f",
+        "colorWarn": "#ff9900",
+        "colorNormal": "#f00000",
+        "colorOff": "#595959",
+        "min": 0,
+        "max": 100,
+        "segWarn": "",
+        "segHigh": "",
+        "unit": "PCS",
+        "layout": "sv",
+        "channelA": "",
+        "channelB": "",
+        "decimals": 0,
+        "animations": "off",
+        "shape": "3",
+        "colorschema": "rainbow",
+        "textoptions": "custom",
+        "colorText": "#eeeeee",
+        "fontLabel": "1.6",
+        "fontValue": "2.5",
+        "fontSmall": "",
+        "colorFromTheme": true,
+        "textAnimations": false,
+        "hideValue": false,
+        "tickmode": "off",
+        "peakmode": false,
+        "property": "payload",
+        "peaktime": 3000,
+        "x": 850,
+        "y": 400,
+        "wires": []
+    },
+    {
+        "id": "403b9d6d5a094913",
+        "type": "change",
+        "z": "562197b4f4a67922",
+        "name": "setup display for Line F Cell A Part 1",
+        "rules": [
+            {
+                "t": "set",
+                "p": "control",
+                "pt": "msg",
+                "to": "payload[Line = \"F\" and Cell = \"A-1\"].{\t    \"label\":`Back No`,\t    \"max\":`Plan`,\t    \"min\": 0\t}",
+                "tot": "jsonata"
+            },
+            {
+                "t": "set",
+                "p": "team",
+                "pt": "msg",
+                "to": "payload[Line = \"F\" and Cell = \"A-1\"].TM",
+                "tot": "jsonata"
+            },
+            {
+                "t": "set",
+                "p": "plan",
+                "pt": "msg",
+                "to": "payload[Line = \"F\" and Cell = \"A-1\"].Plan",
+                "tot": "jsonata"
+            },
+            {
+                "t": "set",
+                "p": "payload",
+                "pt": "msg",
+                "to": "payload[Line = \"F\" and Cell = \"A-1\"].Actual",
+                "tot": "jsonata"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 610,
+        "y": 400,
+        "wires": [
+            [
+                "10029de9489aac10",
+                "b3ee9cd221053421",
+                "b3ac89e913b6f9b8"
+            ]
+        ]
+    },
+    {
+        "id": "83604711510e05c5",
+        "type": "ui_level",
+        "z": "562197b4f4a67922",
+        "group": "8e34121cef5b559c",
+        "order": 4,
+        "width": 3,
+        "height": 2,
+        "name": "A-2",
+        "label": "",
+        "colorHi": "#00e60f",
+        "colorWarn": "#ff9900",
+        "colorNormal": "#f00000",
+        "colorOff": "#595959",
+        "min": 0,
+        "max": 100,
+        "segWarn": "",
+        "segHigh": "",
+        "unit": "Pcs",
+        "layout": "sv",
+        "channelA": "",
+        "channelB": "",
+        "decimals": 0,
+        "animations": "off",
+        "shape": "3",
+        "colorschema": "rainbow",
+        "textoptions": "custom",
+        "colorText": "#eeeeee",
+        "fontLabel": "1.6",
+        "fontValue": "",
+        "fontSmall": "",
+        "colorFromTheme": true,
+        "textAnimations": false,
+        "hideValue": false,
+        "tickmode": "off",
+        "peakmode": false,
+        "property": "payload",
+        "peaktime": 3000,
+        "x": 850,
+        "y": 460,
+        "wires": []
+    },
+    {
+        "id": "b8d8617f0c4b9440",
+        "type": "change",
+        "z": "562197b4f4a67922",
+        "name": "setup display for Line F Cell A Part 2",
+        "rules": [
+            {
+                "t": "set",
+                "p": "control",
+                "pt": "msg",
+                "to": "payload[Line = \"F\" and Cell = \"A-2\"].{\t    \"label\":`Back No`,\t    \"max\":`Plan`,\t    \"min\": 0\t}",
+                "tot": "jsonata"
+            },
+            {
+                "t": "set",
+                "p": "payload",
+                "pt": "msg",
+                "to": "payload[Line = \"F\" and Cell = \"A-2\"].Actual",
+                "tot": "jsonata"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 610,
+        "y": 460,
+        "wires": [
+            [
+                "83604711510e05c5"
+            ]
+        ]
+    },
+    {
+        "id": "918169a106107887",
+        "type": "ui_level",
+        "z": "562197b4f4a67922",
+        "group": "72a409debd40a171",
+        "order": 3,
+        "width": 3,
+        "height": 2,
+        "name": "",
+        "label": "",
+        "colorHi": "#00e60f",
+        "colorWarn": "#ff9900",
+        "colorNormal": "#f00000",
+        "colorOff": "#595959",
+        "min": 0,
+        "max": 100,
+        "segWarn": "",
+        "segHigh": "",
+        "unit": "Pcs",
+        "layout": "sv",
+        "channelA": "",
+        "channelB": "",
+        "decimals": 0,
+        "animations": "off",
+        "shape": 2,
+        "colorschema": "rainbow",
+        "textoptions": "custom",
+        "colorText": "#eeeeee",
+        "fontLabel": "1.6",
+        "fontValue": "",
+        "fontSmall": "",
+        "colorFromTheme": true,
+        "textAnimations": false,
+        "hideValue": false,
+        "tickmode": "off",
+        "peakmode": false,
+        "property": "payload",
+        "peaktime": 3000,
+        "x": 850,
+        "y": 600,
+        "wires": []
+    },
+    {
+        "id": "18d6b91713c6ccc2",
+        "type": "change",
+        "z": "562197b4f4a67922",
+        "name": "setup display for Line F Cell B Part 1",
+        "rules": [
+            {
+                "t": "set",
+                "p": "control",
+                "pt": "msg",
+                "to": "payload[Line = \"F\" and Cell = \"B-1\"].{\t    \"label\":`Back No`,\t    \"max\":`Plan`,\t    \"min\": 0\t}",
+                "tot": "jsonata"
+            },
+            {
+                "t": "set",
+                "p": "team",
+                "pt": "msg",
+                "to": "payload[Line = \"F\" and Cell = \"B-1\"].TM",
+                "tot": "jsonata"
+            },
+            {
+                "t": "set",
+                "p": "plan",
+                "pt": "msg",
+                "to": "payload[Line = \"F\" and Cell = \"B-1\"].Plan",
+                "tot": "jsonata"
+            },
+            {
+                "t": "set",
+                "p": "payload",
+                "pt": "msg",
+                "to": "payload[Line = \"F\" and Cell = \"B-1\"].Actual",
+                "tot": "jsonata"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 610,
+        "y": 600,
+        "wires": [
+            [
+                "918169a106107887",
+                "60b1418a1c39bd3c",
+                "f46114d79b2dd959"
+            ]
+        ]
+    },
+    {
+        "id": "aa5a89c726bb7710",
+        "type": "ui_level",
+        "z": "562197b4f4a67922",
+        "group": "72a409debd40a171",
+        "order": 4,
+        "width": 3,
+        "height": 2,
+        "name": "",
+        "label": "",
+        "colorHi": "#00e60f",
+        "colorWarn": "#ff9900",
+        "colorNormal": "#f00000",
+        "colorOff": "#595959",
+        "min": 0,
+        "max": 100,
+        "segWarn": "",
+        "segHigh": "",
+        "unit": "Pcs",
+        "layout": "sv",
+        "channelA": "",
+        "channelB": "",
+        "decimals": 0,
+        "animations": "off",
+        "shape": 2,
+        "colorschema": "rainbow",
+        "textoptions": "custom",
+        "colorText": "#eeeeee",
+        "fontLabel": "1.6",
+        "fontValue": "",
+        "fontSmall": "",
+        "colorFromTheme": true,
+        "textAnimations": false,
+        "hideValue": false,
+        "tickmode": "off",
+        "peakmode": false,
+        "property": "payload",
+        "peaktime": 3000,
+        "x": 850,
+        "y": 660,
+        "wires": []
+    },
+    {
+        "id": "262dece09ffccbe8",
+        "type": "change",
+        "z": "562197b4f4a67922",
+        "name": "setup display for Line F Cell B Part 2",
+        "rules": [
+            {
+                "t": "set",
+                "p": "control",
+                "pt": "msg",
+                "to": "payload[Line = \"F\" and Cell = \"B-2\"].{\t    \"label\":`Back No`,\t    \"max\":`Plan`,\t    \"min\": 0\t}",
+                "tot": "jsonata"
+            },
+            {
+                "t": "set",
+                "p": "payload",
+                "pt": "msg",
+                "to": "payload[Line = \"F\" and Cell = \"B-2\"].Actual",
+                "tot": "jsonata"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 610,
+        "y": 660,
+        "wires": [
+            [
+                "aa5a89c726bb7710"
+            ]
+        ]
+    },
+    {
+        "id": "b3ee9cd221053421",
+        "type": "ui_text",
+        "z": "562197b4f4a67922",
+        "group": "8e34121cef5b559c",
+        "order": 1,
+        "width": 0,
+        "height": 0,
+        "name": "",
+        "label": "Team Member:",
+        "format": "<h1>{{msg.team | uppercase}}</h1>",
+        "layout": "row-center",
+        "className": "",
+        "x": 880,
+        "y": 320,
+        "wires": []
+    },
+    {
+        "id": "b3ac89e913b6f9b8",
+        "type": "ui_text",
+        "z": "562197b4f4a67922",
+        "group": "8e34121cef5b559c",
+        "order": 2,
+        "width": 0,
+        "height": 0,
+        "name": "",
+        "label": "Target:",
+        "format": "<h1>{{msg.plan}}</h1>",
+        "layout": "row-center",
+        "className": "",
+        "x": 850,
+        "y": 360,
+        "wires": []
+    },
+    {
+        "id": "60b1418a1c39bd3c",
+        "type": "ui_text",
+        "z": "562197b4f4a67922",
+        "group": "72a409debd40a171",
+        "order": 1,
+        "width": 0,
+        "height": 0,
+        "name": "",
+        "label": "Team Member:",
+        "format": "<h1>{{msg.team | uppercase}}</h1>",
+        "layout": "row-center",
+        "className": "",
+        "x": 880,
+        "y": 520,
+        "wires": []
+    },
+    {
+        "id": "f46114d79b2dd959",
+        "type": "ui_text",
+        "z": "562197b4f4a67922",
+        "group": "72a409debd40a171",
+        "order": 2,
+        "width": 0,
+        "height": 0,
+        "name": "",
+        "label": "Target:",
+        "format": "<h1>{{msg.plan}}</h1>",
+        "layout": "row-center",
+        "className": "",
+        "x": 850,
+        "y": 560,
+        "wires": []
+    },
+    {
+        "id": "fa0751e8d1ed93ee",
+        "type": "ui_level",
+        "z": "562197b4f4a67922",
+        "group": "1ee6fae1e6dd0ff9",
+        "order": 3,
+        "width": 3,
+        "height": 2,
+        "name": "",
+        "label": "",
+        "colorHi": "#00e60f",
+        "colorWarn": "#ff9900",
+        "colorNormal": "#f00000",
+        "colorOff": "#595959",
+        "min": 0,
+        "max": 100,
+        "segWarn": "",
+        "segHigh": "",
+        "unit": "Pcs",
+        "layout": "sv",
+        "channelA": "",
+        "channelB": "",
+        "decimals": 0,
+        "animations": "off",
+        "shape": 2,
+        "colorschema": "rainbow",
+        "textoptions": "custom",
+        "colorText": "#eeeeee",
+        "fontLabel": "1.6",
+        "fontValue": "",
+        "fontSmall": "",
+        "colorFromTheme": true,
+        "textAnimations": false,
+        "hideValue": false,
+        "tickmode": "off",
+        "peakmode": false,
+        "property": "payload",
+        "peaktime": 3000,
+        "x": 850,
+        "y": 800,
+        "wires": []
+    },
+    {
+        "id": "0933bb5b17de3a3e",
+        "type": "change",
+        "z": "562197b4f4a67922",
+        "name": "setup display for Line F Cell C Part 1",
+        "rules": [
+            {
+                "t": "set",
+                "p": "control",
+                "pt": "msg",
+                "to": "payload[Line = \"F\" and Cell = \"C-1\"].{\t    \"label\":`Back No`,\t    \"max\":`Plan`,\t    \"min\": 0\t}",
+                "tot": "jsonata"
+            },
+            {
+                "t": "set",
+                "p": "team",
+                "pt": "msg",
+                "to": "payload[Line = \"F\" and Cell = \"C-1\"].TM",
+                "tot": "jsonata"
+            },
+            {
+                "t": "set",
+                "p": "plan",
+                "pt": "msg",
+                "to": "payload[Line = \"F\" and Cell = \"C-1\"].Plan",
+                "tot": "jsonata"
+            },
+            {
+                "t": "set",
+                "p": "payload",
+                "pt": "msg",
+                "to": "payload[Line = \"F\" and Cell = \"C-1\"].Actual",
+                "tot": "jsonata"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 610,
+        "y": 800,
+        "wires": [
+            [
+                "fa0751e8d1ed93ee",
+                "a9a72adbdc7694b5",
+                "ddf0d970d5e950d7"
+            ]
+        ]
+    },
+    {
+        "id": "e9a66bb185278b7e",
+        "type": "ui_level",
+        "z": "562197b4f4a67922",
+        "group": "1ee6fae1e6dd0ff9",
+        "order": 4,
+        "width": 3,
+        "height": 2,
+        "name": "",
+        "label": "",
+        "colorHi": "#00e60f",
+        "colorWarn": "#ff9900",
+        "colorNormal": "#f00000",
+        "colorOff": "#595959",
+        "min": 0,
+        "max": 100,
+        "segWarn": "",
+        "segHigh": "",
+        "unit": "Pcs",
+        "layout": "sv",
+        "channelA": "",
+        "channelB": "",
+        "decimals": 0,
+        "animations": "off",
+        "shape": 2,
+        "colorschema": "rainbow",
+        "textoptions": "custom",
+        "colorText": "#eeeeee",
+        "fontLabel": "1.6",
+        "fontValue": "",
+        "fontSmall": "",
+        "colorFromTheme": true,
+        "textAnimations": false,
+        "hideValue": false,
+        "tickmode": "off",
+        "peakmode": false,
+        "property": "payload",
+        "peaktime": 3000,
+        "x": 850,
+        "y": 860,
+        "wires": []
+    },
+    {
+        "id": "385819fd3a27168d",
+        "type": "change",
+        "z": "562197b4f4a67922",
+        "name": "setup display for Line F Cell C Part 2",
+        "rules": [
+            {
+                "t": "set",
+                "p": "control",
+                "pt": "msg",
+                "to": "payload[Line = \"F\" and Cell = \"C-2\"].{\t    \"label\":`Back No`,\t    \"max\":`Plan`,\t    \"min\": 0\t}",
+                "tot": "jsonata"
+            },
+            {
+                "t": "set",
+                "p": "payload",
+                "pt": "msg",
+                "to": "payload[Line = \"F\" and Cell = \"C-2\"].Actual",
+                "tot": "jsonata"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 610,
+        "y": 860,
+        "wires": [
+            [
+                "e9a66bb185278b7e"
+            ]
+        ]
+    },
+    {
+        "id": "a9a72adbdc7694b5",
+        "type": "ui_text",
+        "z": "562197b4f4a67922",
+        "group": "1ee6fae1e6dd0ff9",
+        "order": 1,
+        "width": 0,
+        "height": 0,
+        "name": "",
+        "label": "Team Member:",
+        "format": "<h1>{{msg.team | uppercase}}</h1>",
+        "layout": "row-center",
+        "className": "",
+        "x": 880,
+        "y": 720,
+        "wires": []
+    },
+    {
+        "id": "ddf0d970d5e950d7",
+        "type": "ui_text",
+        "z": "562197b4f4a67922",
+        "group": "1ee6fae1e6dd0ff9",
+        "order": 2,
+        "width": 0,
+        "height": 0,
+        "name": "",
+        "label": "Target:",
+        "format": "<h1>{{msg.plan}}</h1>",
+        "layout": "row-center",
+        "className": "",
+        "x": 850,
+        "y": 760,
+        "wires": []
+    },
+    {
+        "id": "ddf20301e822cc4d",
+        "type": "ui_level",
+        "z": "562197b4f4a67922",
+        "group": "1ee6fae1e6dd0ff9",
+        "order": 5,
+        "width": 3,
+        "height": 2,
+        "name": "",
+        "label": "",
+        "colorHi": "#00e60f",
+        "colorWarn": "#ff9900",
+        "colorNormal": "#f00000",
+        "colorOff": "#595959",
+        "min": 0,
+        "max": 100,
+        "segWarn": "",
+        "segHigh": "",
+        "unit": "Pcs",
+        "layout": "sv",
+        "channelA": "",
+        "channelB": "",
+        "decimals": 0,
+        "animations": "off",
+        "shape": 2,
+        "colorschema": "rainbow",
+        "textoptions": "custom",
+        "colorText": "#eeeeee",
+        "fontLabel": "1.6",
+        "fontValue": "",
+        "fontSmall": "",
+        "colorFromTheme": true,
+        "textAnimations": false,
+        "hideValue": false,
+        "tickmode": "off",
+        "peakmode": false,
+        "property": "payload",
+        "peaktime": 3000,
+        "x": 850,
+        "y": 920,
+        "wires": []
+    },
+    {
+        "id": "8c341b4f021ac8bd",
+        "type": "change",
+        "z": "562197b4f4a67922",
+        "name": "setup display for Line F Cell C Part 3",
+        "rules": [
+            {
+                "t": "set",
+                "p": "control",
+                "pt": "msg",
+                "to": "payload[Line = \"F\" and Cell = \"C-3\"].{\t    \"label\":`Back No`,\t    \"max\":`Plan`,\t    \"min\": 0\t}",
+                "tot": "jsonata"
+            },
+            {
+                "t": "set",
+                "p": "payload",
+                "pt": "msg",
+                "to": "payload[Line = \"F\" and Cell = \"C-3\"].Actual",
+                "tot": "jsonata"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 610,
+        "y": 920,
+        "wires": [
+            [
+                "ddf20301e822cc4d"
+            ]
+        ]
+    },
+    {
+        "id": "2a6a26b8b8c93b5e",
+        "type": "ui_level",
+        "z": "562197b4f4a67922",
+        "group": "4ad3863a54fa3a9f",
+        "order": 3,
+        "width": 3,
+        "height": 2,
+        "name": "",
+        "label": "",
+        "colorHi": "#00e60f",
+        "colorWarn": "#ff9900",
+        "colorNormal": "#f00000",
+        "colorOff": "#595959",
+        "min": 0,
+        "max": 100,
+        "segWarn": "",
+        "segHigh": "",
+        "unit": "Pcs",
+        "layout": "sv",
+        "channelA": "",
+        "channelB": "",
+        "decimals": 0,
+        "animations": "off",
+        "shape": 2,
+        "colorschema": "rainbow",
+        "textoptions": "custom",
+        "colorText": "#eeeeee",
+        "fontLabel": "1.6",
+        "fontValue": "",
+        "fontSmall": "",
+        "colorFromTheme": true,
+        "textAnimations": false,
+        "hideValue": false,
+        "tickmode": "off",
+        "peakmode": false,
+        "property": "payload",
+        "peaktime": 3000,
+        "x": 850,
+        "y": 1060,
+        "wires": []
+    },
+    {
+        "id": "aa10825ae8f424d1",
+        "type": "change",
+        "z": "562197b4f4a67922",
+        "name": "setup display for Line F Cell D1 Part 1",
+        "rules": [
+            {
+                "t": "set",
+                "p": "control",
+                "pt": "msg",
+                "to": "payload[Line = \"F\" and Cell = \"D1-1\"].{\t    \"label\":`Back No`,\t    \"max\":`Plan`,\t    \"min\": 0\t}",
+                "tot": "jsonata"
+            },
+            {
+                "t": "set",
+                "p": "team",
+                "pt": "msg",
+                "to": "payload[Line = \"F\" and Cell = \"D1-1\"].TM",
+                "tot": "jsonata"
+            },
+            {
+                "t": "set",
+                "p": "plan",
+                "pt": "msg",
+                "to": "payload[Line = \"F\" and Cell = \"D1-1\"].Plan",
+                "tot": "jsonata"
+            },
+            {
+                "t": "set",
+                "p": "payload",
+                "pt": "msg",
+                "to": "payload[Line = \"F\" and Cell = \"D1-1\"].Actual",
+                "tot": "jsonata"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 610,
+        "y": 1060,
+        "wires": [
+            [
+                "2a6a26b8b8c93b5e",
+                "9b228d5390edd44d",
+                "923aeda19c7d1746"
+            ]
+        ]
+    },
+    {
+        "id": "8eef3b829bcdd82b",
+        "type": "ui_level",
+        "z": "562197b4f4a67922",
+        "group": "4ad3863a54fa3a9f",
+        "order": 4,
+        "width": 3,
+        "height": 2,
+        "name": "",
+        "label": "",
+        "colorHi": "#00e60f",
+        "colorWarn": "#ff9900",
+        "colorNormal": "#f00000",
+        "colorOff": "#595959",
+        "min": 0,
+        "max": 100,
+        "segWarn": "",
+        "segHigh": "",
+        "unit": "Pcs",
+        "layout": "sv",
+        "channelA": "",
+        "channelB": "",
+        "decimals": 0,
+        "animations": "off",
+        "shape": 2,
+        "colorschema": "rainbow",
+        "textoptions": "custom",
+        "colorText": "#eeeeee",
+        "fontLabel": "1.6",
+        "fontValue": "",
+        "fontSmall": "",
+        "colorFromTheme": true,
+        "textAnimations": false,
+        "hideValue": false,
+        "tickmode": "off",
+        "peakmode": false,
+        "property": "payload",
+        "peaktime": 3000,
+        "x": 850,
+        "y": 1120,
+        "wires": []
+    },
+    {
+        "id": "b4257dcdf0b8a91b",
+        "type": "change",
+        "z": "562197b4f4a67922",
+        "name": "setup display for Line F Cell D1 Part 2",
+        "rules": [
+            {
+                "t": "set",
+                "p": "control",
+                "pt": "msg",
+                "to": "payload[Line = \"F\" and Cell = \"D1-2\"].{\t    \"label\":`Back No`,\t    \"max\":`Plan`,\t    \"min\": 0\t}",
+                "tot": "jsonata"
+            },
+            {
+                "t": "set",
+                "p": "payload",
+                "pt": "msg",
+                "to": "payload[Line = \"F\" and Cell = \"D1-2\"].Actual",
+                "tot": "jsonata"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 610,
+        "y": 1120,
+        "wires": [
+            [
+                "8eef3b829bcdd82b"
+            ]
+        ]
+    },
+    {
+        "id": "9b228d5390edd44d",
+        "type": "ui_text",
+        "z": "562197b4f4a67922",
+        "group": "4ad3863a54fa3a9f",
+        "order": 1,
+        "width": 0,
+        "height": 0,
+        "name": "",
+        "label": "Team Member:",
+        "format": "<h1>{{msg.team | uppercase}}</h1>",
+        "layout": "row-center",
+        "className": "",
+        "x": 880,
+        "y": 980,
+        "wires": []
+    },
+    {
+        "id": "923aeda19c7d1746",
+        "type": "ui_text",
+        "z": "562197b4f4a67922",
+        "group": "4ad3863a54fa3a9f",
+        "order": 2,
+        "width": 0,
+        "height": 0,
+        "name": "",
+        "label": "Target:",
+        "format": "<h1>{{msg.plan}}</h1>",
+        "layout": "row-center",
+        "className": "",
+        "x": 850,
+        "y": 1020,
+        "wires": []
+    },
+    {
+        "id": "8343dcc4412b5877",
+        "type": "ui_level",
+        "z": "562197b4f4a67922",
+        "group": "be5530b09ed4e2d1",
+        "order": 3,
+        "width": 3,
+        "height": 2,
+        "name": "",
+        "label": "",
+        "colorHi": "#00e60f",
+        "colorWarn": "#ff9900",
+        "colorNormal": "#f00000",
+        "colorOff": "#595959",
+        "min": 0,
+        "max": 100,
+        "segWarn": "",
+        "segHigh": "",
+        "unit": "Pcs",
+        "layout": "sv",
+        "channelA": "",
+        "channelB": "",
+        "decimals": 0,
+        "animations": "off",
+        "shape": 2,
+        "colorschema": "rainbow",
+        "textoptions": "custom",
+        "colorText": "#eeeeee",
+        "fontLabel": "1.6",
+        "fontValue": "",
+        "fontSmall": "",
+        "colorFromTheme": true,
+        "textAnimations": false,
+        "hideValue": false,
+        "tickmode": "off",
+        "peakmode": false,
+        "property": "payload",
+        "peaktime": 3000,
+        "x": 850,
+        "y": 1260,
+        "wires": []
+    },
+    {
+        "id": "e5a00f183ba35867",
+        "type": "change",
+        "z": "562197b4f4a67922",
+        "name": "setup display for Line F Cell D2 Part 1",
+        "rules": [
+            {
+                "t": "set",
+                "p": "control",
+                "pt": "msg",
+                "to": "payload[Line = \"F\" and Cell = \"D2-1\"].{\t    \"label\":`Back No`,\t    \"max\":`Plan`,\t    \"min\": 0\t}",
+                "tot": "jsonata"
+            },
+            {
+                "t": "set",
+                "p": "team",
+                "pt": "msg",
+                "to": "payload[Line = \"F\" and Cell = \"D2-1\"].TM",
+                "tot": "jsonata"
+            },
+            {
+                "t": "set",
+                "p": "plan",
+                "pt": "msg",
+                "to": "payload[Line = \"F\" and Cell = \"D2-1\"].Plan",
+                "tot": "jsonata"
+            },
+            {
+                "t": "set",
+                "p": "payload",
+                "pt": "msg",
+                "to": "payload[Line = \"F\" and Cell = \"D2-1\"].Actual",
+                "tot": "jsonata"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 610,
+        "y": 1260,
+        "wires": [
+            [
+                "8343dcc4412b5877",
+                "7746a6714c2680da",
+                "3136f7f19d7d497a"
+            ]
+        ]
+    },
+    {
+        "id": "c10e300dbfac4b73",
+        "type": "ui_level",
+        "z": "562197b4f4a67922",
+        "group": "be5530b09ed4e2d1",
+        "order": 4,
+        "width": 3,
+        "height": 2,
+        "name": "",
+        "label": "",
+        "colorHi": "#00e60f",
+        "colorWarn": "#ff9900",
+        "colorNormal": "#f00000",
+        "colorOff": "#595959",
+        "min": 0,
+        "max": 100,
+        "segWarn": "",
+        "segHigh": "",
+        "unit": "Pcs",
+        "layout": "sv",
+        "channelA": "",
+        "channelB": "",
+        "decimals": 0,
+        "animations": "off",
+        "shape": 2,
+        "colorschema": "rainbow",
+        "textoptions": "custom",
+        "colorText": "#eeeeee",
+        "fontLabel": "1.6",
+        "fontValue": "",
+        "fontSmall": "",
+        "colorFromTheme": true,
+        "textAnimations": false,
+        "hideValue": false,
+        "tickmode": "off",
+        "peakmode": false,
+        "property": "payload",
+        "peaktime": 3000,
+        "x": 850,
+        "y": 1320,
+        "wires": []
+    },
+    {
+        "id": "76ec42689385a5c0",
+        "type": "change",
+        "z": "562197b4f4a67922",
+        "name": "setup display for Line F Cell D2 Part 2",
+        "rules": [
+            {
+                "t": "set",
+                "p": "control",
+                "pt": "msg",
+                "to": "payload[Line = \"F\" and Cell = \"D2-2\"].{\t    \"label\":`Back No`,\t    \"max\":`Plan`,\t    \"min\": 0\t}",
+                "tot": "jsonata"
+            },
+            {
+                "t": "set",
+                "p": "payload",
+                "pt": "msg",
+                "to": "payload[Line = \"F\" and Cell = \"D2-2\"].Actual",
+                "tot": "jsonata"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 610,
+        "y": 1320,
+        "wires": [
+            [
+                "c10e300dbfac4b73"
+            ]
+        ]
+    },
+    {
+        "id": "7746a6714c2680da",
+        "type": "ui_text",
+        "z": "562197b4f4a67922",
+        "group": "be5530b09ed4e2d1",
+        "order": 1,
+        "width": 0,
+        "height": 0,
+        "name": "",
+        "label": "Team Member:",
+        "format": "<h1>{{msg.team | uppercase}}</h1>",
+        "layout": "row-center",
+        "className": "",
+        "x": 880,
+        "y": 1180,
+        "wires": []
+    },
+    {
+        "id": "3136f7f19d7d497a",
+        "type": "ui_text",
+        "z": "562197b4f4a67922",
+        "group": "be5530b09ed4e2d1",
+        "order": 2,
+        "width": 0,
+        "height": 0,
+        "name": "",
+        "label": "Target:",
+        "format": "<h1>{{msg.plan}}</h1>",
+        "layout": "row-center",
+        "className": "",
+        "x": 850,
+        "y": 1220,
+        "wires": []
+    },
+    {
+        "id": "8bad3adc2db84a5a",
+        "type": "ui_level",
+        "z": "562197b4f4a67922",
+        "group": "54c1916e62442956",
+        "order": 3,
+        "width": 3,
+        "height": 2,
+        "name": "",
+        "label": "",
+        "colorHi": "#00e60f",
+        "colorWarn": "#ff9900",
+        "colorNormal": "#f00000",
+        "colorOff": "#595959",
+        "min": 0,
+        "max": 100,
+        "segWarn": "",
+        "segHigh": "",
+        "unit": "Pcs",
+        "layout": "sv",
+        "channelA": "",
+        "channelB": "",
+        "decimals": 0,
+        "animations": "off",
+        "shape": 2,
+        "colorschema": "rainbow",
+        "textoptions": "custom",
+        "colorText": "#eeeeee",
+        "fontLabel": "1.6",
+        "fontValue": "",
+        "fontSmall": "",
+        "colorFromTheme": true,
+        "textAnimations": false,
+        "hideValue": false,
+        "tickmode": "off",
+        "peakmode": false,
+        "property": "payload",
+        "peaktime": 3000,
+        "x": 850,
+        "y": 1460,
+        "wires": []
+    },
+    {
+        "id": "7ad91f0c4dfc7f70",
+        "type": "change",
+        "z": "562197b4f4a67922",
+        "name": "setup display for Line F Cell E1 Part 1",
+        "rules": [
+            {
+                "t": "set",
+                "p": "control",
+                "pt": "msg",
+                "to": "payload[Line = \"F\" and Cell = \"E1-1\"].{\t    \"label\":`Back No`,\t    \"max\":`Plan`,\t    \"min\": 0\t}",
+                "tot": "jsonata"
+            },
+            {
+                "t": "set",
+                "p": "team",
+                "pt": "msg",
+                "to": "payload[Line = \"F\" and Cell = \"E1-1\"].TM",
+                "tot": "jsonata"
+            },
+            {
+                "t": "set",
+                "p": "plan",
+                "pt": "msg",
+                "to": "payload[Line = \"F\" and Cell = \"E1-1\"].Plan",
+                "tot": "jsonata"
+            },
+            {
+                "t": "set",
+                "p": "payload",
+                "pt": "msg",
+                "to": "payload[Line = \"F\" and Cell = \"E1-1\"].Actual",
+                "tot": "jsonata"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 610,
+        "y": 1460,
+        "wires": [
+            [
+                "8bad3adc2db84a5a",
+                "03f536f45243ab41",
+                "6f0652475df246d6"
+            ]
+        ]
+    },
+    {
+        "id": "b7718196b64b6987",
+        "type": "ui_level",
+        "z": "562197b4f4a67922",
+        "group": "54c1916e62442956",
+        "order": 4,
+        "width": 3,
+        "height": 2,
+        "name": "",
+        "label": "",
+        "colorHi": "#00e60f",
+        "colorWarn": "#ff9900",
+        "colorNormal": "#f00000",
+        "colorOff": "#595959",
+        "min": 0,
+        "max": 100,
+        "segWarn": "",
+        "segHigh": "",
+        "unit": "Pcs",
+        "layout": "sv",
+        "channelA": "",
+        "channelB": "",
+        "decimals": 0,
+        "animations": "off",
+        "shape": 2,
+        "colorschema": "rainbow",
+        "textoptions": "custom",
+        "colorText": "#eeeeee",
+        "fontLabel": "1.6",
+        "fontValue": "",
+        "fontSmall": "",
+        "colorFromTheme": true,
+        "textAnimations": false,
+        "hideValue": false,
+        "tickmode": "off",
+        "peakmode": false,
+        "property": "payload",
+        "peaktime": 3000,
+        "x": 850,
+        "y": 1520,
+        "wires": []
+    },
+    {
+        "id": "d47b2a2ebd1b6959",
+        "type": "change",
+        "z": "562197b4f4a67922",
+        "name": "setup display for Line F Cell E1 Part 2",
+        "rules": [
+            {
+                "t": "set",
+                "p": "control",
+                "pt": "msg",
+                "to": "payload[Line = \"F\" and Cell = \"E1-2\"].{\t    \"label\":`Back No`,\t    \"max\":`Plan`,\t    \"min\": 0\t}",
+                "tot": "jsonata"
+            },
+            {
+                "t": "set",
+                "p": "payload",
+                "pt": "msg",
+                "to": "payload[Line = \"F\" and Cell = \"E1-2\"].Actual",
+                "tot": "jsonata"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 610,
+        "y": 1520,
+        "wires": [
+            [
+                "b7718196b64b6987"
+            ]
+        ]
+    },
+    {
+        "id": "03f536f45243ab41",
+        "type": "ui_text",
+        "z": "562197b4f4a67922",
+        "group": "54c1916e62442956",
+        "order": 1,
+        "width": 0,
+        "height": 0,
+        "name": "",
+        "label": "Team Member:",
+        "format": "<h1>{{msg.team | uppercase}}</h1>",
+        "layout": "row-center",
+        "className": "",
+        "x": 880,
+        "y": 1380,
+        "wires": []
+    },
+    {
+        "id": "6f0652475df246d6",
+        "type": "ui_text",
+        "z": "562197b4f4a67922",
+        "group": "54c1916e62442956",
+        "order": 2,
+        "width": 0,
+        "height": 0,
+        "name": "",
+        "label": "Target:",
+        "format": "<h1>{{msg.plan}}</h1>",
+        "layout": "row-center",
+        "className": "",
+        "x": 850,
+        "y": 1420,
+        "wires": []
+    },
+    {
+        "id": "b95e0e10c742f257",
+        "type": "ui_level",
+        "z": "562197b4f4a67922",
+        "group": "ed4f37bf1c12fb43",
+        "order": 3,
+        "width": 3,
+        "height": 2,
+        "name": "",
+        "label": "",
+        "colorHi": "#00e60f",
+        "colorWarn": "#ff9900",
+        "colorNormal": "#f00000",
+        "colorOff": "#595959",
+        "min": 0,
+        "max": 100,
+        "segWarn": "",
+        "segHigh": "",
+        "unit": "Pcs",
+        "layout": "sv",
+        "channelA": "",
+        "channelB": "",
+        "decimals": 0,
+        "animations": "off",
+        "shape": 2,
+        "colorschema": "rainbow",
+        "textoptions": "custom",
+        "colorText": "#eeeeee",
+        "fontLabel": "1.6",
+        "fontValue": "",
+        "fontSmall": "",
+        "colorFromTheme": true,
+        "textAnimations": false,
+        "hideValue": false,
+        "tickmode": "off",
+        "peakmode": false,
+        "property": "payload",
+        "peaktime": 3000,
+        "x": 850,
+        "y": 1660,
+        "wires": []
+    },
+    {
+        "id": "d3947d221334bca4",
+        "type": "change",
+        "z": "562197b4f4a67922",
+        "name": "setup display for Line F Cell E2 Part 1",
+        "rules": [
+            {
+                "t": "set",
+                "p": "control",
+                "pt": "msg",
+                "to": "payload[Line = \"F\" and Cell = \"E2-1\"].{\t    \"label\":`Back No`,\t    \"max\":`Plan`,\t    \"min\": 0\t}",
+                "tot": "jsonata"
+            },
+            {
+                "t": "set",
+                "p": "team",
+                "pt": "msg",
+                "to": "payload[Line = \"F\" and Cell = \"E2-1\"].TM",
+                "tot": "jsonata"
+            },
+            {
+                "t": "set",
+                "p": "plan",
+                "pt": "msg",
+                "to": "payload[Line = \"F\" and Cell = \"E2-1\"].Plan",
+                "tot": "jsonata"
+            },
+            {
+                "t": "set",
+                "p": "payload",
+                "pt": "msg",
+                "to": "payload[Line = \"F\" and Cell = \"E2-1\"].Actual",
+                "tot": "jsonata"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 610,
+        "y": 1660,
+        "wires": [
+            [
+                "b95e0e10c742f257",
+                "189121105006a79c",
+                "4921be461d386f70"
+            ]
+        ]
+    },
+    {
+        "id": "b26dcb242b489723",
+        "type": "ui_level",
+        "z": "562197b4f4a67922",
+        "group": "ed4f37bf1c12fb43",
+        "order": 4,
+        "width": 3,
+        "height": 2,
+        "name": "",
+        "label": "",
+        "colorHi": "#00e60f",
+        "colorWarn": "#ff9900",
+        "colorNormal": "#f00000",
+        "colorOff": "#595959",
+        "min": 0,
+        "max": 100,
+        "segWarn": "",
+        "segHigh": "",
+        "unit": "Pcs",
+        "layout": "sv",
+        "channelA": "",
+        "channelB": "",
+        "decimals": 0,
+        "animations": "off",
+        "shape": 2,
+        "colorschema": "rainbow",
+        "textoptions": "custom",
+        "colorText": "#eeeeee",
+        "fontLabel": "1.6",
+        "fontValue": "",
+        "fontSmall": "",
+        "colorFromTheme": true,
+        "textAnimations": false,
+        "hideValue": false,
+        "tickmode": "off",
+        "peakmode": false,
+        "property": "payload",
+        "peaktime": 3000,
+        "x": 850,
+        "y": 1720,
+        "wires": []
+    },
+    {
+        "id": "497bd9d36c5f423e",
+        "type": "change",
+        "z": "562197b4f4a67922",
+        "name": "setup display for Line F Cell E2 Part 2",
+        "rules": [
+            {
+                "t": "set",
+                "p": "control",
+                "pt": "msg",
+                "to": "payload[Line = \"F\" and Cell = \"E2-2\"].{\t    \"label\":`Back No`,\t    \"max\":`Plan`,\t    \"min\": 0\t}",
+                "tot": "jsonata"
+            },
+            {
+                "t": "set",
+                "p": "payload",
+                "pt": "msg",
+                "to": "payload[Line = \"F\" and Cell = \"E2-2\"].Actual",
+                "tot": "jsonata"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 610,
+        "y": 1720,
+        "wires": [
+            [
+                "b26dcb242b489723"
+            ]
+        ]
+    },
+    {
+        "id": "189121105006a79c",
+        "type": "ui_text",
+        "z": "562197b4f4a67922",
+        "group": "ed4f37bf1c12fb43",
+        "order": 1,
+        "width": 0,
+        "height": 0,
+        "name": "",
+        "label": "Team Member:",
+        "format": "<h1>{{msg.team | uppercase}}</h1>",
+        "layout": "row-center",
+        "className": "",
+        "x": 880,
+        "y": 1580,
+        "wires": []
+    },
+    {
+        "id": "4921be461d386f70",
+        "type": "ui_text",
+        "z": "562197b4f4a67922",
+        "group": "ed4f37bf1c12fb43",
+        "order": 2,
+        "width": 0,
+        "height": 0,
+        "name": "",
+        "label": "Target:",
+        "format": "<h1>{{msg.plan}}</h1>",
+        "layout": "row-center",
+        "className": "",
+        "x": 850,
+        "y": 1620,
+        "wires": []
     },
     {
         "id": "2e6a6379.742abc",
@@ -1699,6 +3344,18 @@
         "type": "inject",
         "z": "3426577f90538292",
         "name": "change",
+        "props": [
+            {
+                "p": "payload",
+                "v": "change",
+                "vt": "str"
+            },
+            {
+                "p": "topic",
+                "v": "",
+                "vt": "str"
+            }
+        ],
         "repeat": "",
         "crontab": "",
         "once": false,
