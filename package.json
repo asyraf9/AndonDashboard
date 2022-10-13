@@ -2,7 +2,12 @@
     "name": "AndonDashboard",
     "description": "A Node-RED Project",
     "version": "0.0.1",
-    "dependencies": {},
+    "dependencies": {
+        "node-red-contrib-moment": "4.0.0",
+        "node-red-contrib-ui-level": "0.1.46",
+        "node-red-dashboard": "3.2.0",
+        "node-red-node-ui-table": "0.4.3"
+    },
     "node-red": {
         "settings": {
             "flowFile": "flows.json",
