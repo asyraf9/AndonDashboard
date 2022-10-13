@@ -2,7 +2,15 @@
     {
         "id": "562197b4f4a67922",
         "type": "tab",
-        "label": "Flow 1",
+        "label": "Main Dashboard Flow",
+        "disabled": false,
+        "info": "",
+        "env": []
+    },
+    {
+        "id": "327571d15da5aceb",
+        "type": "tab",
+        "label": "Calling System Flow",
         "disabled": false,
         "info": "",
         "env": []
@@ -319,7 +327,7 @@
                 "accents": "blue",
                 "warn": "red",
                 "background": "grey",
-                "palette": "dark"
+                "palette": "light"
             }
         },
         "site": {
@@ -514,6 +522,54 @@
         "order": 8,
         "disp": false,
         "width": 27,
+        "collapse": false,
+        "className": ""
+    },
+    {
+        "id": "56edfd93d9c67181",
+        "type": "mqtt-broker",
+        "name": "",
+        "broker": "8a8b53b135b04c51bbc202862a1eddc9.s2.eu.hivemq.cloud",
+        "port": "8883",
+        "tls": "",
+        "clientid": "asyraf9-nodered",
+        "autoConnect": true,
+        "usetls": true,
+        "protocolVersion": "5",
+        "keepalive": "60",
+        "cleansession": true,
+        "birthTopic": "AKSB/SA/CONNECTION",
+        "birthQos": "0",
+        "birthPayload": "Node Red Line F Connected",
+        "birthMsg": {},
+        "closeTopic": "AKSB/SA/CONNECTION",
+        "closeQos": "0",
+        "closePayload": "Node Red Line F Disconnecting",
+        "closeMsg": {},
+        "willTopic": "AKSB/SA/CONNECTION",
+        "willQos": "0",
+        "willPayload": "Node Red Line F Disconnected",
+        "willMsg": {},
+        "userProps": "",
+        "sessionExpiry": "0"
+    },
+    {
+        "id": "7f97a1b59fccc5ce",
+        "type": "ui_tab",
+        "name": "Alert",
+        "icon": "dashboard",
+        "order": 5,
+        "disabled": false,
+        "hidden": true
+    },
+    {
+        "id": "108d9ada7efb9c58",
+        "type": "ui_group",
+        "name": "Alert",
+        "tab": "7f97a1b59fccc5ce",
+        "order": 1,
+        "disp": false,
+        "width": "6",
         "collapse": false,
         "className": ""
     },
@@ -2562,8 +2618,8 @@
         "targetType": "full",
         "statusVal": "",
         "statusType": "auto",
-        "x": 550,
-        "y": 540,
+        "x": 670,
+        "y": 600,
         "wires": []
     },
     {
@@ -2769,6 +2825,203 @@
                 "4667633f2b995232"
             ]
         ]
+    },
+    {
+        "id": "d7197fbf265fda54",
+        "type": "mqtt in",
+        "z": "327571d15da5aceb",
+        "name": "from trial WISE ",
+        "topic": "AKSB/SA/Call",
+        "qos": "1",
+        "datatype": "json",
+        "broker": "56edfd93d9c67181",
+        "nl": false,
+        "rap": true,
+        "rh": 0,
+        "inputs": 0,
+        "x": 220,
+        "y": 140,
+        "wires": [
+            [
+                "79d2dbe7240fa5dc",
+                "b68dc461b688c83c"
+            ]
+        ]
+    },
+    {
+        "id": "79d2dbe7240fa5dc",
+        "type": "debug",
+        "z": "327571d15da5aceb",
+        "name": "debug 1",
+        "active": false,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "true",
+        "targetType": "full",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 460,
+        "y": 100,
+        "wires": []
+    },
+    {
+        "id": "b68dc461b688c83c",
+        "type": "switch",
+        "z": "327571d15da5aceb",
+        "name": "",
+        "property": "payload.SV",
+        "propertyType": "msg",
+        "rules": [
+            {
+                "t": "false"
+            },
+            {
+                "t": "true"
+            }
+        ],
+        "checkall": "true",
+        "repair": false,
+        "outputs": 2,
+        "x": 410,
+        "y": 160,
+        "wires": [
+            [
+                "2022fca4a20f48d0",
+                "71fb53ac05b27fe8"
+            ],
+            [
+                "60ec8fc7c03081d6",
+                "75defea908c5d128"
+            ]
+        ]
+    },
+    {
+        "id": "80b1fb2dd47643d8",
+        "type": "ui_ui_control",
+        "z": "327571d15da5aceb",
+        "name": "",
+        "events": "all",
+        "x": 780,
+        "y": 140,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "2022fca4a20f48d0",
+        "type": "change",
+        "z": "327571d15da5aceb",
+        "name": "",
+        "rules": [
+            {
+                "t": "set",
+                "p": "payload",
+                "pt": "msg",
+                "to": "{\"tab\":\"Line F\"}",
+                "tot": "json"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 600,
+        "y": 140,
+        "wires": [
+            [
+                "80b1fb2dd47643d8"
+            ]
+        ]
+    },
+    {
+        "id": "39f563b3717d924b",
+        "type": "ui_ui_control",
+        "z": "327571d15da5aceb",
+        "name": "",
+        "events": "all",
+        "x": 780,
+        "y": 200,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "60ec8fc7c03081d6",
+        "type": "change",
+        "z": "327571d15da5aceb",
+        "name": "",
+        "rules": [
+            {
+                "t": "set",
+                "p": "payload",
+                "pt": "msg",
+                "to": "{\"tab\":\"Alert\"}",
+                "tot": "json"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 600,
+        "y": 200,
+        "wires": [
+            [
+                "39f563b3717d924b"
+            ]
+        ]
+    },
+    {
+        "id": "2b88cec2f9534aac",
+        "type": "ui_text",
+        "z": "327571d15da5aceb",
+        "group": "108d9ada7efb9c58",
+        "order": 0,
+        "width": 0,
+        "height": 0,
+        "name": "",
+        "label": "CALL:",
+        "format": "ALARMMMM!!!",
+        "layout": "row-center",
+        "className": "",
+        "x": 310,
+        "y": 280,
+        "wires": []
+    },
+    {
+        "id": "75defea908c5d128",
+        "type": "debug",
+        "z": "327571d15da5aceb",
+        "name": "debug 2",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "false",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 600,
+        "y": 280,
+        "wires": []
+    },
+    {
+        "id": "71fb53ac05b27fe8",
+        "type": "debug",
+        "z": "327571d15da5aceb",
+        "name": "debug 3",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "false",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 680,
+        "y": 80,
+        "wires": []
     },
     {
         "id": "2e6a6379.742abc",
