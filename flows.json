@@ -215,37 +215,67 @@
         ]
     },
     {
+        "id": "f6caa57a45bb92af",
+        "type": "junction",
+        "z": "562197b4f4a67922",
+        "x": 1320,
+        "y": 780,
+        "wires": [
+            [
+                "403b9d6d5a094913",
+                "b8d8617f0c4b9440",
+                "18d6b91713c6ccc2",
+                "262dece09ffccbe8",
+                "0933bb5b17de3a3e",
+                "385819fd3a27168d",
+                "aa10825ae8f424d1",
+                "b4257dcdf0b8a91b",
+                "e5a00f183ba35867",
+                "76ec42689385a5c0",
+                "7ad91f0c4dfc7f70",
+                "d3947d221334bca4",
+                "497bd9d36c5f423e",
+                "d47b2a2ebd1b6959",
+                "8c341b4f021ac8bd",
+                "30914a070604fcaa",
+                "75fc3f3c85b641b3"
+            ]
+        ]
+    },
+    {
         "id": "d2bd110790f6ae19",
         "type": "ui_base",
         "theme": {
             "name": "theme-light",
             "lightTheme": {
                 "default": "#0094CE",
-                "baseColor": "#0094CE",
+                "baseColor": "#0075a3",
                 "baseFont": "-apple-system,BlinkMacSystemFont,Segoe UI,Roboto,Oxygen-Sans,Ubuntu,Cantarell,Helvetica Neue,sans-serif",
                 "edited": true,
                 "reset": false
             },
             "darkTheme": {
                 "default": "#097479",
-                "baseColor": "#097479",
+                "baseColor": "#e6e6e6",
                 "baseFont": "-apple-system,BlinkMacSystemFont,Segoe UI,Roboto,Oxygen-Sans,Ubuntu,Cantarell,Helvetica Neue,sans-serif",
-                "edited": false
+                "edited": true,
+                "reset": false
             },
             "customTheme": {
                 "name": "Untitled Theme 1",
                 "default": "#4B7930",
                 "baseColor": "#4B7930",
-                "baseFont": "-apple-system,BlinkMacSystemFont,Segoe UI,Roboto,Oxygen-Sans,Ubuntu,Cantarell,Helvetica Neue,sans-serif"
+                "baseFont": "-apple-system,BlinkMacSystemFont,Segoe UI,Roboto,Oxygen-Sans,Ubuntu,Cantarell,Helvetica Neue,sans-serif",
+                "reset": false
             },
             "themeState": {
                 "base-color": {
                     "default": "#0094CE",
-                    "value": "#0094CE",
-                    "edited": false
+                    "value": "#0075a3",
+                    "edited": true
                 },
                 "page-titlebar-backgroundColor": {
-                    "value": "#0094CE",
+                    "value": "#0075a3",
                     "edited": false
                 },
                 "page-backgroundColor": {
@@ -253,11 +283,11 @@
                     "edited": false
                 },
                 "page-sidebar-backgroundColor": {
-                    "value": "#ffffff",
+                    "value": "#333333",
                     "edited": false
                 },
                 "group-textColor": {
-                    "value": "#1bbfff",
+                    "value": "#00acef",
                     "edited": false
                 },
                 "group-borderColor": {
@@ -273,7 +303,7 @@
                     "edited": false
                 },
                 "widget-backgroundColor": {
-                    "value": "#0094ce",
+                    "value": "#0075a3",
                     "edited": false
                 },
                 "widget-borderColor": {
@@ -289,7 +319,7 @@
                 "accents": "blue",
                 "warn": "red",
                 "background": "grey",
-                "palette": "light"
+                "palette": "dark"
             }
         },
         "site": {
@@ -302,8 +332,8 @@
             "sizes": {
                 "sx": 48,
                 "sy": 48,
-                "gx": 6,
-                "gy": 6,
+                "gx": 10,
+                "gy": 10,
                 "cx": 6,
                 "cy": 6,
                 "px": 0,
@@ -391,21 +421,12 @@
         "hidden": false
     },
     {
-        "id": "8a7eaac6a919cdf0",
-        "type": "ui_tab",
-        "name": "ui-table",
-        "icon": "dashboard",
-        "order": 5,
-        "disabled": false,
-        "hidden": false
-    },
-    {
         "id": "8e34121cef5b559c",
         "type": "ui_group",
         "name": "Cell A",
         "tab": "f395572c963bf4ed",
         "order": 1,
-        "disp": true,
+        "disp": false,
         "width": 6,
         "collapse": false,
         "className": ""
@@ -425,7 +446,7 @@
         "name": "Cell B",
         "tab": "f395572c963bf4ed",
         "order": 2,
-        "disp": true,
+        "disp": false,
         "width": 6,
         "collapse": false,
         "className": ""
@@ -436,8 +457,8 @@
         "name": "Cell C",
         "tab": "f395572c963bf4ed",
         "order": 3,
-        "disp": true,
-        "width": 9,
+        "disp": false,
+        "width": 15,
         "collapse": false,
         "className": ""
     },
@@ -447,8 +468,8 @@
         "name": "Cell D1",
         "tab": "f395572c963bf4ed",
         "order": 4,
-        "disp": true,
-        "width": 6,
+        "disp": false,
+        "width": "6",
         "collapse": false,
         "className": ""
     },
@@ -458,8 +479,8 @@
         "name": "Cell D2",
         "tab": "f395572c963bf4ed",
         "order": 5,
-        "disp": true,
-        "width": 6,
+        "disp": false,
+        "width": "6",
         "collapse": false,
         "className": ""
     },
@@ -469,8 +490,8 @@
         "name": "Cell E1",
         "tab": "f395572c963bf4ed",
         "order": 6,
-        "disp": true,
-        "width": 6,
+        "disp": false,
+        "width": "6",
         "collapse": false,
         "className": ""
     },
@@ -480,8 +501,19 @@
         "name": "Cell E2",
         "tab": "f395572c963bf4ed",
         "order": 7,
-        "disp": true,
-        "width": 6,
+        "disp": false,
+        "width": "6",
+        "collapse": false,
+        "className": ""
+    },
+    {
+        "id": "6708d78d72cc1a6d",
+        "type": "ui_group",
+        "name": "Last Update",
+        "tab": "f395572c963bf4ed",
+        "order": 8,
+        "disp": false,
+        "width": 27,
         "collapse": false,
         "className": ""
     },
@@ -520,7 +552,7 @@
         "once": false,
         "onceDelay": 0.1,
         "topic": "",
-        "payload": "[{\"Id\":\"1\",\"Line\":\"F\",\"Cell\":\"A-1\",\"Back No\":\"AUK013\",\"Plan\":0,\"Actual\":0},{\"Id\":\"2\",\"Line\":\"F\",\"Cell\":\"A-2\",\"Back No\":\"AUK005\",\"Plan\":0,\"Actual\":0},{\"Id\":\"3\",\"Line\":\"F\",\"Cell\":\"B-1\",\"Back No\":\"AUK012\",\"Plan\":0,\"Actual\":0},{\"Id\":\"4\",\"Line\":\"F\",\"Cell\":\"B-2\",\"Back No\":\"AUK004\",\"Plan\":0,\"Actual\":0},{\"Id\":\"5\",\"Line\":\"F\",\"Cell\":\"C-1\",\"Back No\":\"AUK006\",\"Plan\":0,\"Actual\":0},{\"Id\":\"5\",\"Line\":\"F\",\"Cell\":\"C-2\",\"Back No\":\"AUK007\",\"Plan\":0,\"Actual\":0},{\"Id\":\"5\",\"Line\":\"F\",\"Cell\":\"C-3\",\"Back No\":\"AUK009\",\"Plan\":0,\"Actual\":0},{\"Id\":\"6\",\"Line\":\"F\",\"Cell\":\"D1-1\",\"Back No\":\"AUK002\",\"Plan\":0,\"Actual\":0},{\"Id\":\"6\",\"Line\":\"F\",\"Cell\":\"D1-2\",\"Back No\":\"AUK011\",\"Plan\":0,\"Actual\":0},{\"Id\":\"7\",\"Line\":\"F\",\"Cell\":\"D2-1\",\"Back No\":\"AUK003\",\"Plan\":0,\"Actual\":0},{\"Id\":\"8\",\"Line\":\"F\",\"Cell\":\"D2-2\",\"Back No\":\"AUK010\",\"Plan\":0,\"Actual\":0},{\"Id\":\"9\",\"Line\":\"F\",\"Cell\":\"E1-1\",\"Back No\":\"AUK017\",\"Plan\":0,\"Actual\":0},{\"Id\":\"5\",\"Line\":\"F\",\"Cell\":\"E1-2\",\"Back No\":\"AUK020\",\"Plan\":0,\"Actual\":0},{\"Id\":\"9\",\"Line\":\"F\",\"Cell\":\"E2-1\",\"Back No\":\"AUK016\",\"Plan\":0,\"Actual\":0},{\"Id\":\"5\",\"Line\":\"F\",\"Cell\":\"E2-2\",\"Back No\":\"AUK021\",\"Plan\":0,\"Actual\":0}]",
+        "payload": "[{\"Id\":\"1\",\"Line\":\"F\",\"Cell\":\"A-1\",\"Back No\":\"AUK013\",\"Plan\":0,\"Actual\":0},{\"Id\":\"2\",\"Line\":\"F\",\"Cell\":\"A-2\",\"Back No\":\"AUK005\",\"Plan\":0,\"Actual\":0},{\"Id\":\"3\",\"Line\":\"F\",\"Cell\":\"B-1\",\"Back No\":\"AUK012\",\"Plan\":0,\"Actual\":0},{\"Id\":\"4\",\"Line\":\"F\",\"Cell\":\"B-2\",\"Back No\":\"AUK004\",\"Plan\":0,\"Actual\":0},{\"Id\":\"5\",\"Line\":\"F\",\"Cell\":\"C-1\",\"Back No\":\"AUK006\",\"Plan\":0,\"Actual\":0},{\"Id\":\"6\",\"Line\":\"F\",\"Cell\":\"C-2\",\"Back No\":\"AUK007\",\"Plan\":0,\"Actual\":0},{\"Id\":\"7\",\"Line\":\"F\",\"Cell\":\"C-3\",\"Back No\":\"AUK009\",\"Plan\":0,\"Actual\":0},{\"Id\":\"8\",\"Line\":\"F\",\"Cell\":\"C-4\",\"Back No\":\"AUK024\",\"Plan\":0,\"Actual\":0},{\"Id\":\"9\",\"Line\":\"F\",\"Cell\":\"C-5\",\"Back No\":\"AUK025\",\"Plan\":0,\"Actual\":0},{\"Id\":\"10\",\"Line\":\"F\",\"Cell\":\"D1-1\",\"Back No\":\"AUK002\",\"Plan\":0,\"Actual\":0},{\"Id\":\"11\",\"Line\":\"F\",\"Cell\":\"D1-2\",\"Back No\":\"AUK011\",\"Plan\":0,\"Actual\":0},{\"Id\":\"12\",\"Line\":\"F\",\"Cell\":\"D2-1\",\"Back No\":\"AUK003\",\"Plan\":0,\"Actual\":0},{\"Id\":\"13\",\"Line\":\"F\",\"Cell\":\"D2-2\",\"Back No\":\"AUK010\",\"Plan\":0,\"Actual\":0},{\"Id\":\"14\",\"Line\":\"F\",\"Cell\":\"E1-1\",\"Back No\":\"AUK017\",\"Plan\":0,\"Actual\":0},{\"Id\":\"15\",\"Line\":\"F\",\"Cell\":\"E1-2\",\"Back No\":\"AUK020\",\"Plan\":0,\"Actual\":0},{\"Id\":\"16\",\"Line\":\"F\",\"Cell\":\"E2-1\",\"Back No\":\"AUK016\",\"Plan\":0,\"Actual\":0},{\"Id\":\"17\",\"Line\":\"F\",\"Cell\":\"E2-2\",\"Back No\":\"AUK021\",\"Plan\":0,\"Actual\":0}]",
         "payloadType": "json",
         "x": 120,
         "y": 140,
@@ -540,7 +572,7 @@
                 "t": "set",
                 "p": "tableData",
                 "pt": "flow",
-                "to": "payload.{\t    \"Id\":`Id`,\t    \"Line\":`Line`,\t    \"Cell\":`Cell`,\t    \"TM\":\"\",\t    \"Back No\":`Back No`,\t    \"Plan\":`Plan`,\t    \"Actual\":`Actual`,\t    \"Progress\": Plan = 0 ? 0 : ((`Actual`/`Plan`)*100),\t    \"Created At\": $now()\t}",
+                "to": "payload.{\t    \"Id\":`Id`,\t    \"Line\":`Line`,\t    \"Cell\":`Cell`,\t    \"TM\":\"\",\t    \"Back No\":`Back No`,\t    \"Plan\":`Plan`,\t    \"Actual\":`Actual`\t}",
                 "tot": "jsonata"
             }
         ],
@@ -569,8 +601,8 @@
         "columns": [],
         "outputs": 1,
         "cts": true,
-        "x": 530,
-        "y": 220,
+        "x": 350,
+        "y": 820,
         "wires": [
             [
                 "aea8981076227a62",
@@ -621,8 +653,8 @@
                 "type": "json"
             }
         ],
-        "x": 100,
-        "y": 440,
+        "x": 1040,
+        "y": 140,
         "wires": [
             [],
             []
@@ -634,8 +666,8 @@
         "z": "562197b4f4a67922",
         "name": "",
         "events": "all",
-        "x": 80,
-        "y": 220,
+        "x": 100,
+        "y": 620,
         "wires": [
             [
                 "657d21fce3ecd7ea"
@@ -660,7 +692,7 @@
                 "t": "set",
                 "p": "ui_control",
                 "pt": "msg",
-                "to": "{\"tabulator\":{\"responsiveLayout\":\"collapse\",\"layout\":\"fitColumns\",\"movableColumns\":true,\"index\":\"Id\",\"groupBy\":\"Line\",\"columns\":[{\"align\":\"center\",\"headerSort\":false,\"frozen\":true,\"title\":\"Id\",\"field\":\"Id\"},{\"frozen\":true,\"title\":\"Line\",\"field\":\"Line\"},{\"title\":\"Cell\",\"field\":\"Cell\",\"frozen\":true},{\"title\":\"Back No\",\"field\":\"Back No\",\"frozen\":true,\"editable\":\"input\"},{\"title\":\"Team Member\",\"field\":\"TM\",\"editor\":\"input\"},{\"title\":\"Plan\",\"field\":\"Plan\",\"align\":\"left\",\"editor\":\"number\"},{\"title\":\"Actual\",\"field\":\"Actual\",\"align\":\"left\",\"editor\":\"number\"},{\"title\":\"Progress\",\"field\":\"Progress\",\"align\":\"left\",\"formatter\":\"progress\"}],\"columnResized\":\"function(column){     var newColumn = {         field: column._column.field,         visible: column._column.visible,         width: column._column.width,         widthFixed: column._column.widthFixed,         widthStyled: column._column.widthStyled     }; this.send({topic:this.config.topic,ui_control:{callback:'columnResized',columnWidths:newColumn}}); }\",\"columnMoved\":\"function(column, columns){     var newColumns=[];     columns.forEach(function (column) {         newColumns.push({'field': column._column.definition.field, 'title': column._column.definition.title});     });     this.send({topic:this.config.topic,ui_control:{callback:'columnMoved',columns:newColumns}}); }\",\"rowFormatter\":\"function(row){     var data = row.getData();     switch (data.$state) {         case \\\"lost\\\":             row.getElement().style.backgroundColor = \\\"#9e2e66\\\";             row.getElement().style.color = \\\"#a6a6a6\\\";             break;         case \\\"sleeping\\\":             row.getElement().style.backgroundColor = \\\"#336699\\\";             break;         case \\\"disconnected\\\":             row.getElement().style.backgroundColor = \\\"#cc3300\\\";             row.getElement().style.color = \\\"#a6a6a6\\\";             break;         case \\\"alert\\\":             row.getElement().style.backgroundColor = \\\"#A6A6DF\\\";             break;         case \\\"init\\\":             row.getElement().style.backgroundColor = \\\"#f2f20d\\\";             break;         case \\\"ready\\\":             row.getElement().style.backgroundColor = \\\"\\\";             row.getElement().style.color = \\\"\\\";             break;         } }\",\"cellEdited\":\"function (cell) { console.log('celledited callback called');    this.send(         {              ui_control: {callback:'cellEdited'},payload: cell.getValue(),oldValue: cell.getOldValue(),field: cell.getColumn().getField(),id: cell.getRow().getCell('Id').getValue()});console.log('table edit success');}\"},\"customHeight\":12}",
+                "to": "{\"tabulator\":{\"responsiveLayout\":\"collapse\",\"layout\":\"fitColumns\",\"movableColumns\":true,\"index\":\"Id\",\"groupBy\":\"Line\",\"columns\":[{\"align\":\"center\",\"headerSort\":false,\"frozen\":true,\"title\":\"Id\",\"field\":\"Id\"},{\"frozen\":true,\"title\":\"Line\",\"field\":\"Line\"},{\"title\":\"Cell\",\"field\":\"Cell\",\"frozen\":true},{\"title\":\"Back No\",\"field\":\"Back No\",\"frozen\":true,\"editor\":\"input\",\"selectContents\":true,\"verticalNavigation\":\"table\"},{\"title\":\"Team Member\",\"field\":\"TM\",\"editor\":\"input\",\"selectContents\":true,\"verticalNavigation\":\"table\"},{\"title\":\"Plan\",\"field\":\"Plan\",\"align\":\"left\",\"editor\":\"number\",\"selectContents\":true,\"verticalNavigation\":\"table\"},{\"title\":\"Actual\",\"field\":\"Actual\",\"align\":\"left\",\"editor\":\"number\",\"selectContents\":true,\"verticalNavigation\":\"table\"},{\"title\":\"Progress\",\"field\":\"Progress\",\"align\":\"left\",\"formatter\":\"progress\"}],\"columnResized\":\"function(column){     var newColumn = {         field: column._column.field,         visible: column._column.visible,         width: column._column.width,         widthFixed: column._column.widthFixed,         widthStyled: column._column.widthStyled     }; this.send({topic:this.config.topic,ui_control:{callback:'columnResized',columnWidths:newColumn}}); }\",\"columnMoved\":\"function(column, columns){     var newColumns=[];     columns.forEach(function (column) {         newColumns.push({'field': column._column.definition.field, 'title': column._column.definition.title});     });     this.send({topic:this.config.topic,ui_control:{callback:'columnMoved',columns:newColumns}}); }\",\"rowFormatter\":\"function(row){     var data = row.getData();     switch (data.$state) {         case \\\"lost\\\":             row.getElement().style.backgroundColor = \\\"#9e2e66\\\";             row.getElement().style.color = \\\"#a6a6a6\\\";             break;         case \\\"sleeping\\\":             row.getElement().style.backgroundColor = \\\"#336699\\\";             break;         case \\\"disconnected\\\":             row.getElement().style.backgroundColor = \\\"#cc3300\\\";             row.getElement().style.color = \\\"#a6a6a6\\\";             break;         case \\\"alert\\\":             row.getElement().style.backgroundColor = \\\"#A6A6DF\\\";             break;         case \\\"init\\\":             row.getElement().style.backgroundColor = \\\"#f2f20d\\\";             break;         case \\\"ready\\\":             row.getElement().style.backgroundColor = \\\"\\\";             row.getElement().style.color = \\\"\\\";             break;         } }\",\"cellEdited\":\"function (cell) { console.log('celledited callback called');    this.send(         {              ui_control: {callback:'cellEdited'},payload: cell.getValue(),oldValue: cell.getOldValue(),field: cell.getColumn().getField(),id: cell.getRow().getCell('Id').getValue()});console.log('table edit success');}\"},\"customHeight\":12}",
                 "tot": "json"
             }
         ],
@@ -669,26 +701,13 @@
         "from": "",
         "to": "",
         "reg": false,
-        "x": 300,
-        "y": 220,
+        "x": 440,
+        "y": 620,
         "wires": [
             [
-                "9765f3da2d535ee3",
-                "403b9d6d5a094913",
-                "b8d8617f0c4b9440",
-                "18d6b91713c6ccc2",
-                "262dece09ffccbe8",
-                "0933bb5b17de3a3e",
-                "385819fd3a27168d",
-                "8c341b4f021ac8bd",
-                "aa10825ae8f424d1",
-                "b4257dcdf0b8a91b",
-                "e5a00f183ba35867",
-                "76ec42689385a5c0",
-                "7ad91f0c4dfc7f70",
-                "d47b2a2ebd1b6959",
-                "d3947d221334bca4",
-                "497bd9d36c5f423e"
+                "f6caa57a45bb92af",
+                "cfc342bd2bc80aba",
+                "a3445a1b7a99a2aa"
             ]
         ]
     },
@@ -699,7 +718,7 @@
         "name": "Gunakan ni utk masukkan data permulaan",
         "info": "",
         "x": 180,
-        "y": 60,
+        "y": 100,
         "wires": []
     },
     {
@@ -709,7 +728,7 @@
         "name": "data diambil drpd flow.tableData",
         "info": "",
         "x": 150,
-        "y": 180,
+        "y": 580,
         "wires": []
     },
     {
@@ -724,8 +743,8 @@
         "initialize": "",
         "finalize": "",
         "libs": [],
-        "x": 80,
-        "y": 400,
+        "x": 1020,
+        "y": 100,
         "wires": [
             []
         ]
@@ -743,8 +762,8 @@
         "targetType": "full",
         "statusVal": "",
         "statusType": "auto",
-        "x": 700,
-        "y": 280,
+        "x": 520,
+        "y": 860,
         "wires": []
     },
     {
@@ -758,8 +777,8 @@
         "initialize": "",
         "finalize": "",
         "libs": [],
-        "x": 960,
-        "y": 220,
+        "x": 760,
+        "y": 820,
         "wires": [
             [
                 "eb08a14f33272cc0"
@@ -783,8 +802,8 @@
         "checkall": "true",
         "repair": false,
         "outputs": 1,
-        "x": 740,
-        "y": 220,
+        "x": 560,
+        "y": 820,
         "wires": [
             [
                 "ca748a580d870274"
@@ -835,11 +854,12 @@
         "from": "",
         "to": "",
         "reg": false,
-        "x": 1180,
-        "y": 220,
+        "x": 960,
+        "y": 820,
         "wires": [
             [
-                "657d21fce3ecd7ea"
+                "657d21fce3ecd7ea",
+                "1464ea4a3fcb1231"
             ]
         ]
     },
@@ -848,7 +868,7 @@
         "type": "ui_level",
         "z": "562197b4f4a67922",
         "group": "8e34121cef5b559c",
-        "order": 3,
+        "order": 4,
         "width": 3,
         "height": 2,
         "name": "A-1",
@@ -856,19 +876,19 @@
         "colorHi": "#00e60f",
         "colorWarn": "#ff9900",
         "colorNormal": "#f00000",
-        "colorOff": "#595959",
+        "colorOff": "#cccccc",
         "min": 0,
         "max": 100,
         "segWarn": "",
-        "segHigh": "",
-        "unit": "PCS",
+        "segHigh": "90",
+        "unit": "Pcs",
         "layout": "sv",
         "channelA": "",
         "channelB": "",
         "decimals": 0,
         "animations": "off",
-        "shape": "3",
-        "colorschema": "rainbow",
+        "shape": "2",
+        "colorschema": "fixed",
         "textoptions": "custom",
         "colorText": "#eeeeee",
         "fontLabel": "1.6",
@@ -881,8 +901,8 @@
         "peakmode": false,
         "property": "payload",
         "peaktime": 3000,
-        "x": 850,
-        "y": 400,
+        "x": 1890,
+        "y": 160,
         "wires": []
     },
     {
@@ -925,8 +945,8 @@
         "from": "",
         "to": "",
         "reg": false,
-        "x": 610,
-        "y": 400,
+        "x": 1650,
+        "y": 160,
         "wires": [
             [
                 "10029de9489aac10",
@@ -940,7 +960,7 @@
         "type": "ui_level",
         "z": "562197b4f4a67922",
         "group": "8e34121cef5b559c",
-        "order": 4,
+        "order": 5,
         "width": 3,
         "height": 2,
         "name": "A-2",
@@ -948,19 +968,19 @@
         "colorHi": "#00e60f",
         "colorWarn": "#ff9900",
         "colorNormal": "#f00000",
-        "colorOff": "#595959",
+        "colorOff": "#cccccc",
         "min": 0,
         "max": 100,
         "segWarn": "",
-        "segHigh": "",
+        "segHigh": "90",
         "unit": "Pcs",
         "layout": "sv",
         "channelA": "",
         "channelB": "",
         "decimals": 0,
         "animations": "off",
-        "shape": "3",
-        "colorschema": "rainbow",
+        "shape": "2",
+        "colorschema": "fixed",
         "textoptions": "custom",
         "colorText": "#eeeeee",
         "fontLabel": "1.6",
@@ -973,8 +993,8 @@
         "peakmode": false,
         "property": "payload",
         "peaktime": 3000,
-        "x": 850,
-        "y": 460,
+        "x": 1890,
+        "y": 220,
         "wires": []
     },
     {
@@ -1003,8 +1023,8 @@
         "from": "",
         "to": "",
         "reg": false,
-        "x": 610,
-        "y": 460,
+        "x": 1650,
+        "y": 220,
         "wires": [
             [
                 "83604711510e05c5"
@@ -1016,7 +1036,7 @@
         "type": "ui_level",
         "z": "562197b4f4a67922",
         "group": "72a409debd40a171",
-        "order": 3,
+        "order": 4,
         "width": 3,
         "height": 2,
         "name": "",
@@ -1024,11 +1044,11 @@
         "colorHi": "#00e60f",
         "colorWarn": "#ff9900",
         "colorNormal": "#f00000",
-        "colorOff": "#595959",
+        "colorOff": "#e6e6e6",
         "min": 0,
         "max": 100,
         "segWarn": "",
-        "segHigh": "",
+        "segHigh": "90",
         "unit": "Pcs",
         "layout": "sv",
         "channelA": "",
@@ -1036,7 +1056,7 @@
         "decimals": 0,
         "animations": "off",
         "shape": 2,
-        "colorschema": "rainbow",
+        "colorschema": "fixed",
         "textoptions": "custom",
         "colorText": "#eeeeee",
         "fontLabel": "1.6",
@@ -1049,8 +1069,8 @@
         "peakmode": false,
         "property": "payload",
         "peaktime": 3000,
-        "x": 850,
-        "y": 600,
+        "x": 1890,
+        "y": 360,
         "wires": []
     },
     {
@@ -1093,8 +1113,8 @@
         "from": "",
         "to": "",
         "reg": false,
-        "x": 610,
-        "y": 600,
+        "x": 1650,
+        "y": 360,
         "wires": [
             [
                 "918169a106107887",
@@ -1108,7 +1128,7 @@
         "type": "ui_level",
         "z": "562197b4f4a67922",
         "group": "72a409debd40a171",
-        "order": 4,
+        "order": 5,
         "width": 3,
         "height": 2,
         "name": "",
@@ -1116,11 +1136,11 @@
         "colorHi": "#00e60f",
         "colorWarn": "#ff9900",
         "colorNormal": "#f00000",
-        "colorOff": "#595959",
+        "colorOff": "#e6e6e6",
         "min": 0,
         "max": 100,
         "segWarn": "",
-        "segHigh": "",
+        "segHigh": "90",
         "unit": "Pcs",
         "layout": "sv",
         "channelA": "",
@@ -1128,7 +1148,7 @@
         "decimals": 0,
         "animations": "off",
         "shape": 2,
-        "colorschema": "rainbow",
+        "colorschema": "fixed",
         "textoptions": "custom",
         "colorText": "#eeeeee",
         "fontLabel": "1.6",
@@ -1141,8 +1161,8 @@
         "peakmode": false,
         "property": "payload",
         "peaktime": 3000,
-        "x": 850,
-        "y": 660,
+        "x": 1890,
+        "y": 420,
         "wires": []
     },
     {
@@ -1171,8 +1191,8 @@
         "from": "",
         "to": "",
         "reg": false,
-        "x": 610,
-        "y": 660,
+        "x": 1650,
+        "y": 420,
         "wires": [
             [
                 "aa5a89c726bb7710"
@@ -1184,7 +1204,7 @@
         "type": "ui_text",
         "z": "562197b4f4a67922",
         "group": "8e34121cef5b559c",
-        "order": 1,
+        "order": 2,
         "width": 0,
         "height": 0,
         "name": "",
@@ -1192,8 +1212,8 @@
         "format": "<h1>{{msg.team | uppercase}}</h1>",
         "layout": "row-center",
         "className": "",
-        "x": 880,
-        "y": 320,
+        "x": 1920,
+        "y": 80,
         "wires": []
     },
     {
@@ -1201,7 +1221,7 @@
         "type": "ui_text",
         "z": "562197b4f4a67922",
         "group": "8e34121cef5b559c",
-        "order": 2,
+        "order": 3,
         "width": 0,
         "height": 0,
         "name": "",
@@ -1209,8 +1229,8 @@
         "format": "<h1>{{msg.plan}}</h1>",
         "layout": "row-center",
         "className": "",
-        "x": 850,
-        "y": 360,
+        "x": 1890,
+        "y": 120,
         "wires": []
     },
     {
@@ -1218,7 +1238,7 @@
         "type": "ui_text",
         "z": "562197b4f4a67922",
         "group": "72a409debd40a171",
-        "order": 1,
+        "order": 2,
         "width": 0,
         "height": 0,
         "name": "",
@@ -1226,8 +1246,8 @@
         "format": "<h1>{{msg.team | uppercase}}</h1>",
         "layout": "row-center",
         "className": "",
-        "x": 880,
-        "y": 520,
+        "x": 1920,
+        "y": 280,
         "wires": []
     },
     {
@@ -1235,7 +1255,7 @@
         "type": "ui_text",
         "z": "562197b4f4a67922",
         "group": "72a409debd40a171",
-        "order": 2,
+        "order": 3,
         "width": 0,
         "height": 0,
         "name": "",
@@ -1243,8 +1263,8 @@
         "format": "<h1>{{msg.plan}}</h1>",
         "layout": "row-center",
         "className": "",
-        "x": 850,
-        "y": 560,
+        "x": 1890,
+        "y": 320,
         "wires": []
     },
     {
@@ -1252,7 +1272,7 @@
         "type": "ui_level",
         "z": "562197b4f4a67922",
         "group": "1ee6fae1e6dd0ff9",
-        "order": 3,
+        "order": 4,
         "width": 3,
         "height": 2,
         "name": "",
@@ -1260,11 +1280,11 @@
         "colorHi": "#00e60f",
         "colorWarn": "#ff9900",
         "colorNormal": "#f00000",
-        "colorOff": "#595959",
+        "colorOff": "#e6e6e6",
         "min": 0,
         "max": 100,
         "segWarn": "",
-        "segHigh": "",
+        "segHigh": "90",
         "unit": "Pcs",
         "layout": "sv",
         "channelA": "",
@@ -1272,7 +1292,7 @@
         "decimals": 0,
         "animations": "off",
         "shape": 2,
-        "colorschema": "rainbow",
+        "colorschema": "fixed",
         "textoptions": "custom",
         "colorText": "#eeeeee",
         "fontLabel": "1.6",
@@ -1285,8 +1305,8 @@
         "peakmode": false,
         "property": "payload",
         "peaktime": 3000,
-        "x": 850,
-        "y": 800,
+        "x": 1890,
+        "y": 560,
         "wires": []
     },
     {
@@ -1329,8 +1349,8 @@
         "from": "",
         "to": "",
         "reg": false,
-        "x": 610,
-        "y": 800,
+        "x": 1650,
+        "y": 560,
         "wires": [
             [
                 "fa0751e8d1ed93ee",
@@ -1344,7 +1364,7 @@
         "type": "ui_level",
         "z": "562197b4f4a67922",
         "group": "1ee6fae1e6dd0ff9",
-        "order": 4,
+        "order": 5,
         "width": 3,
         "height": 2,
         "name": "",
@@ -1352,11 +1372,11 @@
         "colorHi": "#00e60f",
         "colorWarn": "#ff9900",
         "colorNormal": "#f00000",
-        "colorOff": "#595959",
+        "colorOff": "#e6e6e6",
         "min": 0,
         "max": 100,
         "segWarn": "",
-        "segHigh": "",
+        "segHigh": "90",
         "unit": "Pcs",
         "layout": "sv",
         "channelA": "",
@@ -1364,7 +1384,7 @@
         "decimals": 0,
         "animations": "off",
         "shape": 2,
-        "colorschema": "rainbow",
+        "colorschema": "fixed",
         "textoptions": "custom",
         "colorText": "#eeeeee",
         "fontLabel": "1.6",
@@ -1377,8 +1397,8 @@
         "peakmode": false,
         "property": "payload",
         "peaktime": 3000,
-        "x": 850,
-        "y": 860,
+        "x": 1890,
+        "y": 620,
         "wires": []
     },
     {
@@ -1407,8 +1427,8 @@
         "from": "",
         "to": "",
         "reg": false,
-        "x": 610,
-        "y": 860,
+        "x": 1650,
+        "y": 620,
         "wires": [
             [
                 "e9a66bb185278b7e"
@@ -1420,7 +1440,7 @@
         "type": "ui_text",
         "z": "562197b4f4a67922",
         "group": "1ee6fae1e6dd0ff9",
-        "order": 1,
+        "order": 2,
         "width": 0,
         "height": 0,
         "name": "",
@@ -1428,8 +1448,8 @@
         "format": "<h1>{{msg.team | uppercase}}</h1>",
         "layout": "row-center",
         "className": "",
-        "x": 880,
-        "y": 720,
+        "x": 1920,
+        "y": 480,
         "wires": []
     },
     {
@@ -1437,7 +1457,7 @@
         "type": "ui_text",
         "z": "562197b4f4a67922",
         "group": "1ee6fae1e6dd0ff9",
-        "order": 2,
+        "order": 3,
         "width": 0,
         "height": 0,
         "name": "",
@@ -1445,8 +1465,8 @@
         "format": "<h1>{{msg.plan}}</h1>",
         "layout": "row-center",
         "className": "",
-        "x": 850,
-        "y": 760,
+        "x": 1890,
+        "y": 520,
         "wires": []
     },
     {
@@ -1454,7 +1474,7 @@
         "type": "ui_level",
         "z": "562197b4f4a67922",
         "group": "1ee6fae1e6dd0ff9",
-        "order": 5,
+        "order": 6,
         "width": 3,
         "height": 2,
         "name": "",
@@ -1462,11 +1482,11 @@
         "colorHi": "#00e60f",
         "colorWarn": "#ff9900",
         "colorNormal": "#f00000",
-        "colorOff": "#595959",
+        "colorOff": "#e6e6e6",
         "min": 0,
         "max": 100,
         "segWarn": "",
-        "segHigh": "",
+        "segHigh": "90",
         "unit": "Pcs",
         "layout": "sv",
         "channelA": "",
@@ -1474,7 +1494,7 @@
         "decimals": 0,
         "animations": "off",
         "shape": 2,
-        "colorschema": "rainbow",
+        "colorschema": "fixed",
         "textoptions": "custom",
         "colorText": "#eeeeee",
         "fontLabel": "1.6",
@@ -1487,8 +1507,8 @@
         "peakmode": false,
         "property": "payload",
         "peaktime": 3000,
-        "x": 850,
-        "y": 920,
+        "x": 1890,
+        "y": 680,
         "wires": []
     },
     {
@@ -1517,8 +1537,8 @@
         "from": "",
         "to": "",
         "reg": false,
-        "x": 610,
-        "y": 920,
+        "x": 1650,
+        "y": 680,
         "wires": [
             [
                 "ddf20301e822cc4d"
@@ -1530,7 +1550,7 @@
         "type": "ui_level",
         "z": "562197b4f4a67922",
         "group": "4ad3863a54fa3a9f",
-        "order": 3,
+        "order": 4,
         "width": 3,
         "height": 2,
         "name": "",
@@ -1538,11 +1558,11 @@
         "colorHi": "#00e60f",
         "colorWarn": "#ff9900",
         "colorNormal": "#f00000",
-        "colorOff": "#595959",
+        "colorOff": "#e6e6e6",
         "min": 0,
         "max": 100,
         "segWarn": "",
-        "segHigh": "",
+        "segHigh": "90",
         "unit": "Pcs",
         "layout": "sv",
         "channelA": "",
@@ -1550,7 +1570,7 @@
         "decimals": 0,
         "animations": "off",
         "shape": 2,
-        "colorschema": "rainbow",
+        "colorschema": "fixed",
         "textoptions": "custom",
         "colorText": "#eeeeee",
         "fontLabel": "1.6",
@@ -1563,8 +1583,8 @@
         "peakmode": false,
         "property": "payload",
         "peaktime": 3000,
-        "x": 850,
-        "y": 1060,
+        "x": 1890,
+        "y": 940,
         "wires": []
     },
     {
@@ -1607,8 +1627,8 @@
         "from": "",
         "to": "",
         "reg": false,
-        "x": 610,
-        "y": 1060,
+        "x": 1650,
+        "y": 940,
         "wires": [
             [
                 "2a6a26b8b8c93b5e",
@@ -1622,7 +1642,7 @@
         "type": "ui_level",
         "z": "562197b4f4a67922",
         "group": "4ad3863a54fa3a9f",
-        "order": 4,
+        "order": 5,
         "width": 3,
         "height": 2,
         "name": "",
@@ -1630,11 +1650,11 @@
         "colorHi": "#00e60f",
         "colorWarn": "#ff9900",
         "colorNormal": "#f00000",
-        "colorOff": "#595959",
+        "colorOff": "#e6e6e6",
         "min": 0,
         "max": 100,
         "segWarn": "",
-        "segHigh": "",
+        "segHigh": "90",
         "unit": "Pcs",
         "layout": "sv",
         "channelA": "",
@@ -1642,7 +1662,7 @@
         "decimals": 0,
         "animations": "off",
         "shape": 2,
-        "colorschema": "rainbow",
+        "colorschema": "fixed",
         "textoptions": "custom",
         "colorText": "#eeeeee",
         "fontLabel": "1.6",
@@ -1655,8 +1675,8 @@
         "peakmode": false,
         "property": "payload",
         "peaktime": 3000,
-        "x": 850,
-        "y": 1120,
+        "x": 1890,
+        "y": 1000,
         "wires": []
     },
     {
@@ -1685,8 +1705,8 @@
         "from": "",
         "to": "",
         "reg": false,
-        "x": 610,
-        "y": 1120,
+        "x": 1650,
+        "y": 1000,
         "wires": [
             [
                 "8eef3b829bcdd82b"
@@ -1698,7 +1718,7 @@
         "type": "ui_text",
         "z": "562197b4f4a67922",
         "group": "4ad3863a54fa3a9f",
-        "order": 1,
+        "order": 2,
         "width": 0,
         "height": 0,
         "name": "",
@@ -1706,8 +1726,8 @@
         "format": "<h1>{{msg.team | uppercase}}</h1>",
         "layout": "row-center",
         "className": "",
-        "x": 880,
-        "y": 980,
+        "x": 1920,
+        "y": 860,
         "wires": []
     },
     {
@@ -1715,7 +1735,7 @@
         "type": "ui_text",
         "z": "562197b4f4a67922",
         "group": "4ad3863a54fa3a9f",
-        "order": 2,
+        "order": 3,
         "width": 0,
         "height": 0,
         "name": "",
@@ -1723,8 +1743,8 @@
         "format": "<h1>{{msg.plan}}</h1>",
         "layout": "row-center",
         "className": "",
-        "x": 850,
-        "y": 1020,
+        "x": 1890,
+        "y": 900,
         "wires": []
     },
     {
@@ -1732,7 +1752,7 @@
         "type": "ui_level",
         "z": "562197b4f4a67922",
         "group": "be5530b09ed4e2d1",
-        "order": 3,
+        "order": 4,
         "width": 3,
         "height": 2,
         "name": "",
@@ -1740,11 +1760,11 @@
         "colorHi": "#00e60f",
         "colorWarn": "#ff9900",
         "colorNormal": "#f00000",
-        "colorOff": "#595959",
+        "colorOff": "#e6e6e6",
         "min": 0,
         "max": 100,
         "segWarn": "",
-        "segHigh": "",
+        "segHigh": "90",
         "unit": "Pcs",
         "layout": "sv",
         "channelA": "",
@@ -1752,7 +1772,7 @@
         "decimals": 0,
         "animations": "off",
         "shape": 2,
-        "colorschema": "rainbow",
+        "colorschema": "fixed",
         "textoptions": "custom",
         "colorText": "#eeeeee",
         "fontLabel": "1.6",
@@ -1765,8 +1785,8 @@
         "peakmode": false,
         "property": "payload",
         "peaktime": 3000,
-        "x": 850,
-        "y": 1260,
+        "x": 1890,
+        "y": 1140,
         "wires": []
     },
     {
@@ -1809,8 +1829,8 @@
         "from": "",
         "to": "",
         "reg": false,
-        "x": 610,
-        "y": 1260,
+        "x": 1650,
+        "y": 1140,
         "wires": [
             [
                 "8343dcc4412b5877",
@@ -1824,7 +1844,7 @@
         "type": "ui_level",
         "z": "562197b4f4a67922",
         "group": "be5530b09ed4e2d1",
-        "order": 4,
+        "order": 5,
         "width": 3,
         "height": 2,
         "name": "",
@@ -1832,11 +1852,11 @@
         "colorHi": "#00e60f",
         "colorWarn": "#ff9900",
         "colorNormal": "#f00000",
-        "colorOff": "#595959",
+        "colorOff": "#e6e6e6",
         "min": 0,
         "max": 100,
         "segWarn": "",
-        "segHigh": "",
+        "segHigh": "90",
         "unit": "Pcs",
         "layout": "sv",
         "channelA": "",
@@ -1844,7 +1864,7 @@
         "decimals": 0,
         "animations": "off",
         "shape": 2,
-        "colorschema": "rainbow",
+        "colorschema": "fixed",
         "textoptions": "custom",
         "colorText": "#eeeeee",
         "fontLabel": "1.6",
@@ -1857,8 +1877,8 @@
         "peakmode": false,
         "property": "payload",
         "peaktime": 3000,
-        "x": 850,
-        "y": 1320,
+        "x": 1890,
+        "y": 1200,
         "wires": []
     },
     {
@@ -1887,8 +1907,8 @@
         "from": "",
         "to": "",
         "reg": false,
-        "x": 610,
-        "y": 1320,
+        "x": 1650,
+        "y": 1200,
         "wires": [
             [
                 "c10e300dbfac4b73"
@@ -1900,7 +1920,7 @@
         "type": "ui_text",
         "z": "562197b4f4a67922",
         "group": "be5530b09ed4e2d1",
-        "order": 1,
+        "order": 2,
         "width": 0,
         "height": 0,
         "name": "",
@@ -1908,8 +1928,8 @@
         "format": "<h1>{{msg.team | uppercase}}</h1>",
         "layout": "row-center",
         "className": "",
-        "x": 880,
-        "y": 1180,
+        "x": 1920,
+        "y": 1060,
         "wires": []
     },
     {
@@ -1917,7 +1937,7 @@
         "type": "ui_text",
         "z": "562197b4f4a67922",
         "group": "be5530b09ed4e2d1",
-        "order": 2,
+        "order": 3,
         "width": 0,
         "height": 0,
         "name": "",
@@ -1925,8 +1945,8 @@
         "format": "<h1>{{msg.plan}}</h1>",
         "layout": "row-center",
         "className": "",
-        "x": 850,
-        "y": 1220,
+        "x": 1890,
+        "y": 1100,
         "wires": []
     },
     {
@@ -1934,7 +1954,7 @@
         "type": "ui_level",
         "z": "562197b4f4a67922",
         "group": "54c1916e62442956",
-        "order": 3,
+        "order": 4,
         "width": 3,
         "height": 2,
         "name": "",
@@ -1942,11 +1962,11 @@
         "colorHi": "#00e60f",
         "colorWarn": "#ff9900",
         "colorNormal": "#f00000",
-        "colorOff": "#595959",
+        "colorOff": "#e6e6e6",
         "min": 0,
         "max": 100,
         "segWarn": "",
-        "segHigh": "",
+        "segHigh": "90",
         "unit": "Pcs",
         "layout": "sv",
         "channelA": "",
@@ -1954,7 +1974,7 @@
         "decimals": 0,
         "animations": "off",
         "shape": 2,
-        "colorschema": "rainbow",
+        "colorschema": "fixed",
         "textoptions": "custom",
         "colorText": "#eeeeee",
         "fontLabel": "1.6",
@@ -1967,8 +1987,8 @@
         "peakmode": false,
         "property": "payload",
         "peaktime": 3000,
-        "x": 850,
-        "y": 1460,
+        "x": 1890,
+        "y": 1340,
         "wires": []
     },
     {
@@ -2011,8 +2031,8 @@
         "from": "",
         "to": "",
         "reg": false,
-        "x": 610,
-        "y": 1460,
+        "x": 1650,
+        "y": 1340,
         "wires": [
             [
                 "8bad3adc2db84a5a",
@@ -2026,7 +2046,7 @@
         "type": "ui_level",
         "z": "562197b4f4a67922",
         "group": "54c1916e62442956",
-        "order": 4,
+        "order": 5,
         "width": 3,
         "height": 2,
         "name": "",
@@ -2034,11 +2054,11 @@
         "colorHi": "#00e60f",
         "colorWarn": "#ff9900",
         "colorNormal": "#f00000",
-        "colorOff": "#595959",
+        "colorOff": "#e6e6e6",
         "min": 0,
         "max": 100,
         "segWarn": "",
-        "segHigh": "",
+        "segHigh": "90",
         "unit": "Pcs",
         "layout": "sv",
         "channelA": "",
@@ -2046,7 +2066,7 @@
         "decimals": 0,
         "animations": "off",
         "shape": 2,
-        "colorschema": "rainbow",
+        "colorschema": "fixed",
         "textoptions": "custom",
         "colorText": "#eeeeee",
         "fontLabel": "1.6",
@@ -2059,8 +2079,8 @@
         "peakmode": false,
         "property": "payload",
         "peaktime": 3000,
-        "x": 850,
-        "y": 1520,
+        "x": 1890,
+        "y": 1400,
         "wires": []
     },
     {
@@ -2089,8 +2109,8 @@
         "from": "",
         "to": "",
         "reg": false,
-        "x": 610,
-        "y": 1520,
+        "x": 1650,
+        "y": 1400,
         "wires": [
             [
                 "b7718196b64b6987"
@@ -2102,7 +2122,7 @@
         "type": "ui_text",
         "z": "562197b4f4a67922",
         "group": "54c1916e62442956",
-        "order": 1,
+        "order": 2,
         "width": 0,
         "height": 0,
         "name": "",
@@ -2110,8 +2130,8 @@
         "format": "<h1>{{msg.team | uppercase}}</h1>",
         "layout": "row-center",
         "className": "",
-        "x": 880,
-        "y": 1380,
+        "x": 1920,
+        "y": 1260,
         "wires": []
     },
     {
@@ -2119,7 +2139,7 @@
         "type": "ui_text",
         "z": "562197b4f4a67922",
         "group": "54c1916e62442956",
-        "order": 2,
+        "order": 3,
         "width": 0,
         "height": 0,
         "name": "",
@@ -2127,8 +2147,8 @@
         "format": "<h1>{{msg.plan}}</h1>",
         "layout": "row-center",
         "className": "",
-        "x": 850,
-        "y": 1420,
+        "x": 1890,
+        "y": 1300,
         "wires": []
     },
     {
@@ -2136,7 +2156,7 @@
         "type": "ui_level",
         "z": "562197b4f4a67922",
         "group": "ed4f37bf1c12fb43",
-        "order": 3,
+        "order": 4,
         "width": 3,
         "height": 2,
         "name": "",
@@ -2144,11 +2164,11 @@
         "colorHi": "#00e60f",
         "colorWarn": "#ff9900",
         "colorNormal": "#f00000",
-        "colorOff": "#595959",
+        "colorOff": "#e6e6e6",
         "min": 0,
         "max": 100,
         "segWarn": "",
-        "segHigh": "",
+        "segHigh": "90",
         "unit": "Pcs",
         "layout": "sv",
         "channelA": "",
@@ -2156,7 +2176,7 @@
         "decimals": 0,
         "animations": "off",
         "shape": 2,
-        "colorschema": "rainbow",
+        "colorschema": "fixed",
         "textoptions": "custom",
         "colorText": "#eeeeee",
         "fontLabel": "1.6",
@@ -2169,8 +2189,8 @@
         "peakmode": false,
         "property": "payload",
         "peaktime": 3000,
-        "x": 850,
-        "y": 1660,
+        "x": 1890,
+        "y": 1540,
         "wires": []
     },
     {
@@ -2213,8 +2233,8 @@
         "from": "",
         "to": "",
         "reg": false,
-        "x": 610,
-        "y": 1660,
+        "x": 1650,
+        "y": 1540,
         "wires": [
             [
                 "b95e0e10c742f257",
@@ -2228,7 +2248,7 @@
         "type": "ui_level",
         "z": "562197b4f4a67922",
         "group": "ed4f37bf1c12fb43",
-        "order": 4,
+        "order": 5,
         "width": 3,
         "height": 2,
         "name": "",
@@ -2236,11 +2256,11 @@
         "colorHi": "#00e60f",
         "colorWarn": "#ff9900",
         "colorNormal": "#f00000",
-        "colorOff": "#595959",
+        "colorOff": "#e6e6e6",
         "min": 0,
         "max": 100,
         "segWarn": "",
-        "segHigh": "",
+        "segHigh": "90",
         "unit": "Pcs",
         "layout": "sv",
         "channelA": "",
@@ -2248,7 +2268,7 @@
         "decimals": 0,
         "animations": "off",
         "shape": 2,
-        "colorschema": "rainbow",
+        "colorschema": "fixed",
         "textoptions": "custom",
         "colorText": "#eeeeee",
         "fontLabel": "1.6",
@@ -2261,8 +2281,8 @@
         "peakmode": false,
         "property": "payload",
         "peaktime": 3000,
-        "x": 850,
-        "y": 1720,
+        "x": 1890,
+        "y": 1600,
         "wires": []
     },
     {
@@ -2291,8 +2311,8 @@
         "from": "",
         "to": "",
         "reg": false,
-        "x": 610,
-        "y": 1720,
+        "x": 1650,
+        "y": 1600,
         "wires": [
             [
                 "b26dcb242b489723"
@@ -2304,7 +2324,7 @@
         "type": "ui_text",
         "z": "562197b4f4a67922",
         "group": "ed4f37bf1c12fb43",
-        "order": 1,
+        "order": 2,
         "width": 0,
         "height": 0,
         "name": "",
@@ -2312,8 +2332,8 @@
         "format": "<h1>{{msg.team | uppercase}}</h1>",
         "layout": "row-center",
         "className": "",
-        "x": 880,
-        "y": 1580,
+        "x": 1920,
+        "y": 1460,
         "wires": []
     },
     {
@@ -2321,7 +2341,7 @@
         "type": "ui_text",
         "z": "562197b4f4a67922",
         "group": "ed4f37bf1c12fb43",
-        "order": 2,
+        "order": 3,
         "width": 0,
         "height": 0,
         "name": "",
@@ -2329,9 +2349,426 @@
         "format": "<h1>{{msg.plan}}</h1>",
         "layout": "row-center",
         "className": "",
-        "x": 850,
-        "y": 1620,
+        "x": 1890,
+        "y": 1500,
         "wires": []
+    },
+    {
+        "id": "21da1cf5e4453d55",
+        "type": "inject",
+        "z": "562197b4f4a67922",
+        "name": "refresh lastUpdatedAt",
+        "props": [
+            {
+                "p": "payload"
+            }
+        ],
+        "repeat": "60",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "",
+        "payload": "lastUpdatedAt",
+        "payloadType": "flow",
+        "x": 150,
+        "y": 220,
+        "wires": [
+            [
+                "78ee49ee404e72a4"
+            ]
+        ]
+    },
+    {
+        "id": "60777285779bb9c6",
+        "type": "ui_text",
+        "z": "562197b4f4a67922",
+        "group": "6708d78d72cc1a6d",
+        "order": 1,
+        "width": 0,
+        "height": 0,
+        "name": "",
+        "label": "<h1>Last updated</h1>",
+        "format": "<h1>{{msg.payload}}</h1>",
+        "layout": "row-center",
+        "className": "",
+        "x": 650,
+        "y": 220,
+        "wires": []
+    },
+    {
+        "id": "78ee49ee404e72a4",
+        "type": "moment",
+        "z": "562197b4f4a67922",
+        "name": "",
+        "topic": "",
+        "input": "payload",
+        "inputType": "msg",
+        "inTz": "Asia/Kuala_Lumpur",
+        "adjAmount": 0,
+        "adjType": "days",
+        "adjDir": "add",
+        "format": "fromNow",
+        "locale": "en-US",
+        "output": "payload",
+        "outputType": "msg",
+        "outTz": "Asia/Kuala_Lumpur",
+        "x": 400,
+        "y": 220,
+        "wires": [
+            [
+                "60777285779bb9c6"
+            ]
+        ]
+    },
+    {
+        "id": "6f1e36e8e531547c",
+        "type": "comment",
+        "z": "562197b4f4a67922",
+        "name": "untuk update bila last update data kat dashboard",
+        "info": "",
+        "x": 200,
+        "y": 180,
+        "wires": []
+    },
+    {
+        "id": "4e179cf8454307dd",
+        "type": "ui_text",
+        "z": "562197b4f4a67922",
+        "group": "8e34121cef5b559c",
+        "order": 1,
+        "width": 0,
+        "height": 0,
+        "name": "Cell A Label",
+        "label": "",
+        "format": "<h1>CELL A</h1>",
+        "layout": "row-center",
+        "className": "",
+        "x": 110,
+        "y": 300,
+        "wires": []
+    },
+    {
+        "id": "b069ca5ff675aa29",
+        "type": "ui_text",
+        "z": "562197b4f4a67922",
+        "group": "72a409debd40a171",
+        "order": 1,
+        "width": 0,
+        "height": 0,
+        "name": "Cell B Label",
+        "label": "",
+        "format": "<h1>CELL B</h1>",
+        "layout": "row-center",
+        "className": "",
+        "x": 110,
+        "y": 340,
+        "wires": []
+    },
+    {
+        "id": "bdddb572a23fdc69",
+        "type": "ui_text",
+        "z": "562197b4f4a67922",
+        "group": "1ee6fae1e6dd0ff9",
+        "order": 1,
+        "width": 0,
+        "height": 0,
+        "name": "Cell C Label",
+        "label": "",
+        "format": "<h1>CELL C</h1>",
+        "layout": "row-center",
+        "className": "",
+        "x": 110,
+        "y": 380,
+        "wires": []
+    },
+    {
+        "id": "375a97c35164f038",
+        "type": "ui_text",
+        "z": "562197b4f4a67922",
+        "group": "4ad3863a54fa3a9f",
+        "order": 1,
+        "width": 0,
+        "height": 0,
+        "name": "Cell D1 Label",
+        "label": "",
+        "format": "<h1>CELL D1</h1>",
+        "layout": "row-center",
+        "className": "",
+        "x": 120,
+        "y": 420,
+        "wires": []
+    },
+    {
+        "id": "0b618c7c5bba453e",
+        "type": "ui_text",
+        "z": "562197b4f4a67922",
+        "group": "be5530b09ed4e2d1",
+        "order": 1,
+        "width": 0,
+        "height": 0,
+        "name": "Cell D2 Label",
+        "label": "",
+        "format": "<h1>CELL D2</h1>",
+        "layout": "row-center",
+        "className": "",
+        "x": 120,
+        "y": 460,
+        "wires": []
+    },
+    {
+        "id": "97615dd3a84a6d83",
+        "type": "ui_text",
+        "z": "562197b4f4a67922",
+        "group": "54c1916e62442956",
+        "order": 1,
+        "width": 0,
+        "height": 0,
+        "name": "Cell E1 Label",
+        "label": "",
+        "format": "<h1>CELL E1</h1>",
+        "layout": "row-center",
+        "className": "",
+        "x": 110,
+        "y": 500,
+        "wires": []
+    },
+    {
+        "id": "2b30982d92d95ba0",
+        "type": "ui_text",
+        "z": "562197b4f4a67922",
+        "group": "ed4f37bf1c12fb43",
+        "order": 1,
+        "width": 0,
+        "height": 0,
+        "name": "Cell E2 Label",
+        "label": "",
+        "format": "<h1>CELL E2</h1>",
+        "layout": "row-center",
+        "className": "",
+        "x": 110,
+        "y": 540,
+        "wires": []
+    },
+    {
+        "id": "cfc342bd2bc80aba",
+        "type": "debug",
+        "z": "562197b4f4a67922",
+        "name": "from setup",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "true",
+        "targetType": "full",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 550,
+        "y": 540,
+        "wires": []
+    },
+    {
+        "id": "602bf3b8a91cc581",
+        "type": "comment",
+        "z": "562197b4f4a67922",
+        "name": "Label2 statik utk setiap cell dlm dashboard",
+        "info": "",
+        "x": 180,
+        "y": 260,
+        "wires": []
+    },
+    {
+        "id": "1464ea4a3fcb1231",
+        "type": "debug",
+        "z": "562197b4f4a67922",
+        "name": "from cellEdited",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "true",
+        "targetType": "full",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 1100,
+        "y": 860,
+        "wires": []
+    },
+    {
+        "id": "a3445a1b7a99a2aa",
+        "type": "switch",
+        "z": "562197b4f4a67922",
+        "name": "tabName = Data only",
+        "property": "name",
+        "propertyType": "msg",
+        "rules": [
+            {
+                "t": "eq",
+                "v": "Data",
+                "vt": "str"
+            }
+        ],
+        "checkall": "false",
+        "repair": false,
+        "outputs": 1,
+        "x": 160,
+        "y": 820,
+        "wires": [
+            [
+                "9765f3da2d535ee3"
+            ]
+        ]
+    },
+    {
+        "id": "c69ed5cda6e5893b",
+        "type": "ui_level",
+        "z": "562197b4f4a67922",
+        "group": "1ee6fae1e6dd0ff9",
+        "order": 7,
+        "width": 3,
+        "height": 2,
+        "name": "",
+        "label": "",
+        "colorHi": "#00e60f",
+        "colorWarn": "#ff9900",
+        "colorNormal": "#f00000",
+        "colorOff": "#e6e6e6",
+        "min": 0,
+        "max": 100,
+        "segWarn": "",
+        "segHigh": "90",
+        "unit": "Pcs",
+        "layout": "sv",
+        "channelA": "",
+        "channelB": "",
+        "decimals": 0,
+        "animations": "off",
+        "shape": 2,
+        "colorschema": "fixed",
+        "textoptions": "custom",
+        "colorText": "#eeeeee",
+        "fontLabel": "1.6",
+        "fontValue": "",
+        "fontSmall": "",
+        "colorFromTheme": true,
+        "textAnimations": false,
+        "hideValue": false,
+        "tickmode": "off",
+        "peakmode": false,
+        "property": "payload",
+        "peaktime": 3000,
+        "x": 1890,
+        "y": 740,
+        "wires": []
+    },
+    {
+        "id": "30914a070604fcaa",
+        "type": "change",
+        "z": "562197b4f4a67922",
+        "name": "setup display for Line F Cell C Part 4",
+        "rules": [
+            {
+                "t": "set",
+                "p": "control",
+                "pt": "msg",
+                "to": "payload[Line = \"F\" and Cell = \"C-4\"].{\t    \"label\":`Back No`,\t    \"max\":`Plan`,\t    \"min\": 0\t}",
+                "tot": "jsonata"
+            },
+            {
+                "t": "set",
+                "p": "payload",
+                "pt": "msg",
+                "to": "payload[Line = \"F\" and Cell = \"C-4\"].Actual",
+                "tot": "jsonata"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 1650,
+        "y": 740,
+        "wires": [
+            [
+                "c69ed5cda6e5893b"
+            ]
+        ]
+    },
+    {
+        "id": "4667633f2b995232",
+        "type": "ui_level",
+        "z": "562197b4f4a67922",
+        "group": "1ee6fae1e6dd0ff9",
+        "order": 8,
+        "width": 3,
+        "height": 2,
+        "name": "",
+        "label": "",
+        "colorHi": "#00e60f",
+        "colorWarn": "#ff9900",
+        "colorNormal": "#f00000",
+        "colorOff": "#e6e6e6",
+        "min": 0,
+        "max": 100,
+        "segWarn": "",
+        "segHigh": "90",
+        "unit": "Pcs",
+        "layout": "sv",
+        "channelA": "",
+        "channelB": "",
+        "decimals": 0,
+        "animations": "off",
+        "shape": 2,
+        "colorschema": "fixed",
+        "textoptions": "custom",
+        "colorText": "#eeeeee",
+        "fontLabel": "1.6",
+        "fontValue": "",
+        "fontSmall": "",
+        "colorFromTheme": true,
+        "textAnimations": false,
+        "hideValue": false,
+        "tickmode": "off",
+        "peakmode": false,
+        "property": "payload",
+        "peaktime": 3000,
+        "x": 1890,
+        "y": 800,
+        "wires": []
+    },
+    {
+        "id": "75fc3f3c85b641b3",
+        "type": "change",
+        "z": "562197b4f4a67922",
+        "name": "setup display for Line F Cell C Part 5",
+        "rules": [
+            {
+                "t": "set",
+                "p": "control",
+                "pt": "msg",
+                "to": "payload[Line = \"F\" and Cell = \"C-5\"].{\t    \"label\":`Back No`,\t    \"max\":`Plan`,\t    \"min\": 0\t}",
+                "tot": "jsonata"
+            },
+            {
+                "t": "set",
+                "p": "payload",
+                "pt": "msg",
+                "to": "payload[Line = \"F\" and Cell = \"C-5\"].Actual",
+                "tot": "jsonata"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 1650,
+        "y": 800,
+        "wires": [
+            [
+                "4667633f2b995232"
+            ]
+        ]
     },
     {
         "id": "2e6a6379.742abc",
