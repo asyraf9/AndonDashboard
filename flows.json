@@ -226,8 +226,8 @@
         "id": "f6caa57a45bb92af",
         "type": "junction",
         "z": "562197b4f4a67922",
-        "x": 1320,
-        "y": 780,
+        "x": 1260,
+        "y": 620,
         "wires": [
             [
                 "403b9d6d5a094913",
@@ -254,7 +254,7 @@
         "id": "d2bd110790f6ae19",
         "type": "ui_base",
         "theme": {
-            "name": "theme-light",
+            "name": "theme-dark",
             "lightTheme": {
                 "default": "#0094CE",
                 "baseColor": "#0075a3",
@@ -264,9 +264,9 @@
             },
             "darkTheme": {
                 "default": "#097479",
-                "baseColor": "#e6e6e6",
-                "baseFont": "-apple-system,BlinkMacSystemFont,Segoe UI,Roboto,Oxygen-Sans,Ubuntu,Cantarell,Helvetica Neue,sans-serif",
-                "edited": true,
+                "baseColor": "#f31b31",
+                "baseFont": "Arial Black,Arial Black,Gadget,sans-serif",
+                "edited": false,
                 "reset": false
             },
             "customTheme": {
@@ -278,48 +278,48 @@
             },
             "themeState": {
                 "base-color": {
-                    "default": "#0094CE",
-                    "value": "#0075a3",
+                    "default": "#097479",
+                    "value": "#f31b31",
                     "edited": true
                 },
                 "page-titlebar-backgroundColor": {
-                    "value": "#0075a3",
+                    "value": "#f31b31",
                     "edited": false
                 },
                 "page-backgroundColor": {
-                    "value": "#fafafa",
-                    "edited": false
-                },
-                "page-sidebar-backgroundColor": {
-                    "value": "#333333",
-                    "edited": false
-                },
-                "group-textColor": {
-                    "value": "#00acef",
-                    "edited": false
-                },
-                "group-borderColor": {
-                    "value": "#ffffff",
-                    "edited": false
-                },
-                "group-backgroundColor": {
-                    "value": "#ffffff",
-                    "edited": false
-                },
-                "widget-textColor": {
                     "value": "#111111",
                     "edited": false
                 },
-                "widget-backgroundColor": {
-                    "value": "#0075a3",
-                    "edited": false
-                },
-                "widget-borderColor": {
+                "page-sidebar-backgroundColor": {
                     "value": "#ffffff",
                     "edited": false
                 },
+                "group-textColor": {
+                    "value": "#f76473",
+                    "edited": false
+                },
+                "group-borderColor": {
+                    "value": "#555555",
+                    "edited": false
+                },
+                "group-backgroundColor": {
+                    "value": "#333333",
+                    "edited": false
+                },
+                "widget-textColor": {
+                    "value": "#eeeeee",
+                    "edited": false
+                },
+                "widget-backgroundColor": {
+                    "value": "#f31b31",
+                    "edited": false
+                },
+                "widget-borderColor": {
+                    "value": "#333333",
+                    "edited": false
+                },
                 "base-font": {
-                    "value": "-apple-system,BlinkMacSystemFont,Segoe UI,Roboto,Oxygen-Sans,Ubuntu,Cantarell,Helvetica Neue,sans-serif"
+                    "value": "Arial Black,Arial Black,Gadget,sans-serif"
                 }
             },
             "angularTheme": {
@@ -574,6 +574,48 @@
         "className": ""
     },
     {
+        "id": "ea1829c43a6e8ad0",
+        "type": "telegram bot",
+        "botname": "Autokeen Official Bot",
+        "usernames": "",
+        "chatids": "",
+        "baseapiurl": "",
+        "updatemode": "none",
+        "pollinterval": "1000",
+        "usesocks": false,
+        "sockshost": "",
+        "socksprotocol": "socks5",
+        "socksport": "6667",
+        "socksusername": "anonymous",
+        "sockspassword": "",
+        "bothost": "",
+        "botpath": "",
+        "localbotport": "8443",
+        "publicbotport": "8443",
+        "privatekey": "",
+        "certificate": "",
+        "useselfsignedcertificate": false,
+        "sslterminated": false,
+        "verboselogging": true
+    },
+    {
+        "id": "63ea2d788e1e77d1",
+        "type": "chatbot-telegram-node",
+        "botname": "Autokeen Official Bot",
+        "usernames": "",
+        "polling": "360000",
+        "store": "",
+        "log": "",
+        "debug": true,
+        "skipMediaFiles": true,
+        "webHook": "",
+        "connectMode": "polling",
+        "storeMessages": true,
+        "enableMissionControl": false,
+        "inspectMessages": true,
+        "chatbotId": ""
+    },
+    {
         "id": "0538b16727054d9a",
         "type": "function",
         "z": "11f19efd79056b77",
@@ -658,7 +700,7 @@
         "outputs": 1,
         "cts": true,
         "x": 350,
-        "y": 820,
+        "y": 680,
         "wires": [
             [
                 "aea8981076227a62",
@@ -819,7 +861,7 @@
         "statusVal": "",
         "statusType": "auto",
         "x": 520,
-        "y": 860,
+        "y": 720,
         "wires": []
     },
     {
@@ -834,7 +876,7 @@
         "finalize": "",
         "libs": [],
         "x": 760,
-        "y": 820,
+        "y": 680,
         "wires": [
             [
                 "eb08a14f33272cc0"
@@ -859,7 +901,7 @@
         "repair": false,
         "outputs": 1,
         "x": 560,
-        "y": 820,
+        "y": 680,
         "wires": [
             [
                 "ca748a580d870274"
@@ -911,7 +953,7 @@
         "to": "",
         "reg": false,
         "x": 960,
-        "y": 820,
+        "y": 680,
         "wires": [
             [
                 "657d21fce3ecd7ea",
@@ -957,7 +999,7 @@
         "peakmode": false,
         "property": "payload",
         "peaktime": 3000,
-        "x": 1890,
+        "x": 1790,
         "y": 160,
         "wires": []
     },
@@ -1001,7 +1043,7 @@
         "from": "",
         "to": "",
         "reg": false,
-        "x": 1650,
+        "x": 1550,
         "y": 160,
         "wires": [
             [
@@ -1049,7 +1091,7 @@
         "peakmode": false,
         "property": "payload",
         "peaktime": 3000,
-        "x": 1890,
+        "x": 1790,
         "y": 220,
         "wires": []
     },
@@ -1079,7 +1121,7 @@
         "from": "",
         "to": "",
         "reg": false,
-        "x": 1650,
+        "x": 1550,
         "y": 220,
         "wires": [
             [
@@ -1125,7 +1167,7 @@
         "peakmode": false,
         "property": "payload",
         "peaktime": 3000,
-        "x": 1890,
+        "x": 1790,
         "y": 360,
         "wires": []
     },
@@ -1169,7 +1211,7 @@
         "from": "",
         "to": "",
         "reg": false,
-        "x": 1650,
+        "x": 1550,
         "y": 360,
         "wires": [
             [
@@ -1217,7 +1259,7 @@
         "peakmode": false,
         "property": "payload",
         "peaktime": 3000,
-        "x": 1890,
+        "x": 1790,
         "y": 420,
         "wires": []
     },
@@ -1247,7 +1289,7 @@
         "from": "",
         "to": "",
         "reg": false,
-        "x": 1650,
+        "x": 1550,
         "y": 420,
         "wires": [
             [
@@ -1268,7 +1310,7 @@
         "format": "<h1>{{msg.team | uppercase}}</h1>",
         "layout": "row-center",
         "className": "",
-        "x": 1920,
+        "x": 1820,
         "y": 80,
         "wires": []
     },
@@ -1285,7 +1327,7 @@
         "format": "<h1>{{msg.plan}}</h1>",
         "layout": "row-center",
         "className": "",
-        "x": 1890,
+        "x": 1790,
         "y": 120,
         "wires": []
     },
@@ -1302,7 +1344,7 @@
         "format": "<h1>{{msg.team | uppercase}}</h1>",
         "layout": "row-center",
         "className": "",
-        "x": 1920,
+        "x": 1820,
         "y": 280,
         "wires": []
     },
@@ -1319,7 +1361,7 @@
         "format": "<h1>{{msg.plan}}</h1>",
         "layout": "row-center",
         "className": "",
-        "x": 1890,
+        "x": 1790,
         "y": 320,
         "wires": []
     },
@@ -1361,7 +1403,7 @@
         "peakmode": false,
         "property": "payload",
         "peaktime": 3000,
-        "x": 1890,
+        "x": 1790,
         "y": 560,
         "wires": []
     },
@@ -1405,7 +1447,7 @@
         "from": "",
         "to": "",
         "reg": false,
-        "x": 1650,
+        "x": 1550,
         "y": 560,
         "wires": [
             [
@@ -1453,7 +1495,7 @@
         "peakmode": false,
         "property": "payload",
         "peaktime": 3000,
-        "x": 1890,
+        "x": 1790,
         "y": 620,
         "wires": []
     },
@@ -1483,7 +1525,7 @@
         "from": "",
         "to": "",
         "reg": false,
-        "x": 1650,
+        "x": 1550,
         "y": 620,
         "wires": [
             [
@@ -1504,7 +1546,7 @@
         "format": "<h1>{{msg.team | uppercase}}</h1>",
         "layout": "row-center",
         "className": "",
-        "x": 1920,
+        "x": 1820,
         "y": 480,
         "wires": []
     },
@@ -1521,7 +1563,7 @@
         "format": "<h1>{{msg.plan}}</h1>",
         "layout": "row-center",
         "className": "",
-        "x": 1890,
+        "x": 1790,
         "y": 520,
         "wires": []
     },
@@ -1563,7 +1605,7 @@
         "peakmode": false,
         "property": "payload",
         "peaktime": 3000,
-        "x": 1890,
+        "x": 1790,
         "y": 680,
         "wires": []
     },
@@ -1593,7 +1635,7 @@
         "from": "",
         "to": "",
         "reg": false,
-        "x": 1650,
+        "x": 1550,
         "y": 680,
         "wires": [
             [
@@ -1639,7 +1681,7 @@
         "peakmode": false,
         "property": "payload",
         "peaktime": 3000,
-        "x": 1890,
+        "x": 1790,
         "y": 940,
         "wires": []
     },
@@ -1683,7 +1725,7 @@
         "from": "",
         "to": "",
         "reg": false,
-        "x": 1650,
+        "x": 1550,
         "y": 940,
         "wires": [
             [
@@ -1731,7 +1773,7 @@
         "peakmode": false,
         "property": "payload",
         "peaktime": 3000,
-        "x": 1890,
+        "x": 1790,
         "y": 1000,
         "wires": []
     },
@@ -1761,7 +1803,7 @@
         "from": "",
         "to": "",
         "reg": false,
-        "x": 1650,
+        "x": 1550,
         "y": 1000,
         "wires": [
             [
@@ -1782,7 +1824,7 @@
         "format": "<h1>{{msg.team | uppercase}}</h1>",
         "layout": "row-center",
         "className": "",
-        "x": 1920,
+        "x": 1820,
         "y": 860,
         "wires": []
     },
@@ -1799,7 +1841,7 @@
         "format": "<h1>{{msg.plan}}</h1>",
         "layout": "row-center",
         "className": "",
-        "x": 1890,
+        "x": 1790,
         "y": 900,
         "wires": []
     },
@@ -1841,7 +1883,7 @@
         "peakmode": false,
         "property": "payload",
         "peaktime": 3000,
-        "x": 1890,
+        "x": 1790,
         "y": 1140,
         "wires": []
     },
@@ -1885,7 +1927,7 @@
         "from": "",
         "to": "",
         "reg": false,
-        "x": 1650,
+        "x": 1550,
         "y": 1140,
         "wires": [
             [
@@ -1933,7 +1975,7 @@
         "peakmode": false,
         "property": "payload",
         "peaktime": 3000,
-        "x": 1890,
+        "x": 1790,
         "y": 1200,
         "wires": []
     },
@@ -1963,7 +2005,7 @@
         "from": "",
         "to": "",
         "reg": false,
-        "x": 1650,
+        "x": 1550,
         "y": 1200,
         "wires": [
             [
@@ -1984,7 +2026,7 @@
         "format": "<h1>{{msg.team | uppercase}}</h1>",
         "layout": "row-center",
         "className": "",
-        "x": 1920,
+        "x": 1820,
         "y": 1060,
         "wires": []
     },
@@ -2001,7 +2043,7 @@
         "format": "<h1>{{msg.plan}}</h1>",
         "layout": "row-center",
         "className": "",
-        "x": 1890,
+        "x": 1790,
         "y": 1100,
         "wires": []
     },
@@ -2043,7 +2085,7 @@
         "peakmode": false,
         "property": "payload",
         "peaktime": 3000,
-        "x": 1890,
+        "x": 1790,
         "y": 1340,
         "wires": []
     },
@@ -2087,7 +2129,7 @@
         "from": "",
         "to": "",
         "reg": false,
-        "x": 1650,
+        "x": 1550,
         "y": 1340,
         "wires": [
             [
@@ -2135,7 +2177,7 @@
         "peakmode": false,
         "property": "payload",
         "peaktime": 3000,
-        "x": 1890,
+        "x": 1790,
         "y": 1400,
         "wires": []
     },
@@ -2165,7 +2207,7 @@
         "from": "",
         "to": "",
         "reg": false,
-        "x": 1650,
+        "x": 1550,
         "y": 1400,
         "wires": [
             [
@@ -2186,7 +2228,7 @@
         "format": "<h1>{{msg.team | uppercase}}</h1>",
         "layout": "row-center",
         "className": "",
-        "x": 1920,
+        "x": 1820,
         "y": 1260,
         "wires": []
     },
@@ -2203,7 +2245,7 @@
         "format": "<h1>{{msg.plan}}</h1>",
         "layout": "row-center",
         "className": "",
-        "x": 1890,
+        "x": 1790,
         "y": 1300,
         "wires": []
     },
@@ -2245,7 +2287,7 @@
         "peakmode": false,
         "property": "payload",
         "peaktime": 3000,
-        "x": 1890,
+        "x": 1790,
         "y": 1540,
         "wires": []
     },
@@ -2289,7 +2331,7 @@
         "from": "",
         "to": "",
         "reg": false,
-        "x": 1650,
+        "x": 1550,
         "y": 1540,
         "wires": [
             [
@@ -2337,7 +2379,7 @@
         "peakmode": false,
         "property": "payload",
         "peaktime": 3000,
-        "x": 1890,
+        "x": 1790,
         "y": 1600,
         "wires": []
     },
@@ -2367,7 +2409,7 @@
         "from": "",
         "to": "",
         "reg": false,
-        "x": 1650,
+        "x": 1550,
         "y": 1600,
         "wires": [
             [
@@ -2388,7 +2430,7 @@
         "format": "<h1>{{msg.team | uppercase}}</h1>",
         "layout": "row-center",
         "className": "",
-        "x": 1920,
+        "x": 1820,
         "y": 1460,
         "wires": []
     },
@@ -2405,7 +2447,7 @@
         "format": "<h1>{{msg.plan}}</h1>",
         "layout": "row-center",
         "className": "",
-        "x": 1890,
+        "x": 1790,
         "y": 1500,
         "wires": []
     },
@@ -2419,7 +2461,7 @@
                 "p": "payload"
             }
         ],
-        "repeat": "60",
+        "repeat": "300",
         "crontab": "",
         "once": false,
         "onceDelay": 0.1,
@@ -2430,7 +2472,8 @@
         "y": 220,
         "wires": [
             [
-                "78ee49ee404e72a4"
+                "78ee49ee404e72a4",
+                "ba12c49728ef2158"
             ]
         ]
     },
@@ -2480,9 +2523,9 @@
         "id": "6f1e36e8e531547c",
         "type": "comment",
         "z": "562197b4f4a67922",
-        "name": "untuk update bila last update data kat dashboard",
+        "name": "untuk update bila last update data kat dashboard dan htr telegram kalau belum update",
         "info": "",
-        "x": 200,
+        "x": 320,
         "y": 180,
         "wires": []
     },
@@ -2610,7 +2653,7 @@
         "type": "debug",
         "z": "562197b4f4a67922",
         "name": "from setup",
-        "active": true,
+        "active": false,
         "tosidebar": true,
         "console": false,
         "tostatus": false,
@@ -2646,7 +2689,7 @@
         "statusVal": "",
         "statusType": "auto",
         "x": 1100,
-        "y": 860,
+        "y": 720,
         "wires": []
     },
     {
@@ -2667,7 +2710,7 @@
         "repair": false,
         "outputs": 1,
         "x": 160,
-        "y": 820,
+        "y": 680,
         "wires": [
             [
                 "9765f3da2d535ee3"
@@ -2712,7 +2755,7 @@
         "peakmode": false,
         "property": "payload",
         "peaktime": 3000,
-        "x": 1890,
+        "x": 1790,
         "y": 740,
         "wires": []
     },
@@ -2742,7 +2785,7 @@
         "from": "",
         "to": "",
         "reg": false,
-        "x": 1650,
+        "x": 1550,
         "y": 740,
         "wires": [
             [
@@ -2788,7 +2831,7 @@
         "peakmode": false,
         "property": "payload",
         "peaktime": 3000,
-        "x": 1890,
+        "x": 1790,
         "y": 800,
         "wires": []
     },
@@ -2818,7 +2861,7 @@
         "from": "",
         "to": "",
         "reg": false,
-        "x": 1650,
+        "x": 1550,
         "y": 800,
         "wires": [
             [
@@ -2827,11 +2870,115 @@
         ]
     },
     {
+        "id": "ba12c49728ef2158",
+        "type": "switch",
+        "z": "562197b4f4a67922",
+        "name": "> 1 hour?",
+        "property": "payload",
+        "propertyType": "msg",
+        "rules": [
+            {
+                "t": "jsonata_exp",
+                "v": "$toMillis($now()) - payload > 3600000\t",
+                "vt": "jsonata"
+            }
+        ],
+        "checkall": "true",
+        "repair": false,
+        "outputs": 1,
+        "x": 440,
+        "y": 260,
+        "wires": [
+            [
+                "6f0919e127cfcf6b"
+            ]
+        ]
+    },
+    {
+        "id": "0252f7d617d1055f",
+        "type": "telegram sender",
+        "z": "562197b4f4a67922",
+        "name": "send message ",
+        "bot": "ea1829c43a6e8ad0",
+        "haserroroutput": true,
+        "outputs": 2,
+        "x": 820,
+        "y": 260,
+        "wires": [
+            [
+                "f5fea427cec629d3"
+            ],
+            [
+                "e8053a68cd9930ac"
+            ]
+        ]
+    },
+    {
+        "id": "6f0919e127cfcf6b",
+        "type": "change",
+        "z": "562197b4f4a67922",
+        "name": "",
+        "rules": [
+            {
+                "t": "set",
+                "p": "payload",
+                "pt": "msg",
+                "to": "{\"chatId\":21709557,\"type\":\"message\",\"content\":\"Reminder: pls update hourly production data\"}",
+                "tot": "json"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 620,
+        "y": 260,
+        "wires": [
+            [
+                "0252f7d617d1055f"
+            ]
+        ]
+    },
+    {
+        "id": "f5fea427cec629d3",
+        "type": "debug",
+        "z": "562197b4f4a67922",
+        "name": "debug 2",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "false",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 1020,
+        "y": 240,
+        "wires": []
+    },
+    {
+        "id": "e8053a68cd9930ac",
+        "type": "debug",
+        "z": "562197b4f4a67922",
+        "name": "debug 3",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "true",
+        "targetType": "full",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 1020,
+        "y": 280,
+        "wires": []
+    },
+    {
         "id": "d7197fbf265fda54",
         "type": "mqtt in",
         "z": "327571d15da5aceb",
         "name": "from trial WISE ",
-        "topic": "AKSB/SA/Call",
+        "topic": "AKSB/SA/call",
         "qos": "1",
         "datatype": "json",
         "broker": "56edfd93d9c67181",
@@ -2839,12 +2986,12 @@
         "rap": true,
         "rh": 0,
         "inputs": 0,
-        "x": 220,
-        "y": 140,
+        "x": 100,
+        "y": 200,
         "wires": [
             [
                 "79d2dbe7240fa5dc",
-                "b68dc461b688c83c"
+                "db3d86086a08ee76"
             ]
         ]
     },
@@ -2861,40 +3008,9 @@
         "targetType": "full",
         "statusVal": "",
         "statusType": "auto",
-        "x": 460,
-        "y": 100,
+        "x": 280,
+        "y": 140,
         "wires": []
-    },
-    {
-        "id": "b68dc461b688c83c",
-        "type": "switch",
-        "z": "327571d15da5aceb",
-        "name": "",
-        "property": "payload.SV",
-        "propertyType": "msg",
-        "rules": [
-            {
-                "t": "false"
-            },
-            {
-                "t": "true"
-            }
-        ],
-        "checkall": "true",
-        "repair": false,
-        "outputs": 2,
-        "x": 410,
-        "y": 160,
-        "wires": [
-            [
-                "2022fca4a20f48d0",
-                "71fb53ac05b27fe8"
-            ],
-            [
-                "60ec8fc7c03081d6",
-                "75defea908c5d128"
-            ]
-        ]
     },
     {
         "id": "80b1fb2dd47643d8",
@@ -2902,8 +3018,8 @@
         "z": "327571d15da5aceb",
         "name": "",
         "events": "all",
-        "x": 780,
-        "y": 140,
+        "x": 920,
+        "y": 100,
         "wires": [
             []
         ]
@@ -2912,7 +3028,7 @@
         "id": "2022fca4a20f48d0",
         "type": "change",
         "z": "327571d15da5aceb",
-        "name": "",
+        "name": "false: Dashboard",
         "rules": [
             {
                 "t": "set",
@@ -2927,8 +3043,8 @@
         "from": "",
         "to": "",
         "reg": false,
-        "x": 600,
-        "y": 140,
+        "x": 750,
+        "y": 100,
         "wires": [
             [
                 "80b1fb2dd47643d8"
@@ -2941,8 +3057,8 @@
         "z": "327571d15da5aceb",
         "name": "",
         "events": "all",
-        "x": 780,
-        "y": 200,
+        "x": 920,
+        "y": 60,
         "wires": [
             []
         ]
@@ -2951,7 +3067,7 @@
         "id": "60ec8fc7c03081d6",
         "type": "change",
         "z": "327571d15da5aceb",
-        "name": "",
+        "name": "true: Alert",
         "rules": [
             {
                 "t": "set",
@@ -2966,8 +3082,8 @@
         "from": "",
         "to": "",
         "reg": false,
-        "x": 600,
-        "y": 200,
+        "x": 720,
+        "y": 60,
         "wires": [
             [
                 "39f563b3717d924b"
@@ -2987,41 +3103,218 @@
         "format": "ALARMMMM!!!",
         "layout": "row-center",
         "className": "",
-        "x": 310,
-        "y": 280,
-        "wires": []
-    },
-    {
-        "id": "75defea908c5d128",
-        "type": "debug",
-        "z": "327571d15da5aceb",
-        "name": "debug 2",
-        "active": true,
-        "tosidebar": true,
-        "console": false,
-        "tostatus": false,
-        "complete": "false",
-        "statusVal": "",
-        "statusType": "auto",
-        "x": 600,
-        "y": 280,
-        "wires": []
-    },
-    {
-        "id": "71fb53ac05b27fe8",
-        "type": "debug",
-        "z": "327571d15da5aceb",
-        "name": "debug 3",
-        "active": true,
-        "tosidebar": true,
-        "console": false,
-        "tostatus": false,
-        "complete": "false",
-        "statusVal": "",
-        "statusType": "auto",
-        "x": 680,
+        "x": 70,
         "y": 80,
         "wires": []
+    },
+    {
+        "id": "db3d86086a08ee76",
+        "type": "function",
+        "z": "327571d15da5aceb",
+        "name": "process MQTT msg",
+        "func": "let callList = flow.get(\"callList\");\nlet updateCall = false;\nlet FGQueue = flow.get(\"fgqueue\");\nlet updateFGQ = false;\nlet KWQueue = flow.get(\"kwqueue\");\nlet updateKWQ = false;\nlet changeTab = callList.length > 0;\n\nlet topic = msg.topic.split(\"/call/\");\nlet caller = {\n    \"id\" : topic[1],\n    \"plant\" : topic[0],\n    \"dept\" : \"\",\n    \"line\" : \"\",\n    \"cell\" : \"\",\n    \"type\" : \"\",\n    \"timestamp\": Date.now()\n}\ntopic = caller.id.split(\"/\");\n\nfor (let word of topic) {\n    word = word.split(\"-\");\n    switch(word[0]) {\n        case \"dept\":\n            caller.dept = word[1].toUpperCase();\n            break;\n        case \"line\":\n            caller.line = word[1].toUpperCase();\n            break;\n        case \"cell\":\n            caller.cell = word[1].toUpperCase();\n            break;\n        default:\n    }\n}\n\nif (!msg.payload.MT && !msg.payload.QC && !msg.payload.SV){\n    callList = callList.filter((call) => {return call.id != caller.id});\n    flow.set(\"callList\", callList);\n    updateCall = true;\n} else {\n    if (msg.payload.MT){\n        caller.type = \"MTCE\";\n        updateCall = true;\n    }\n    if (msg.payload.QC){\n        caller.type = \"QC\";\n        updateCall = true;\n    }\n    if (msg.payload.SV){\n        caller.type = \"SV\";\n        updateCall = true;\n    }\n    flow.set(\"callList\", callList);\n}\n\nif(msg.payload.FG){\n    FGQueue.push(caller);\n    flow.set(\"fgqueue\", FGQueue);\n    updateFGQ = true;\n}\nif(msg.payload.KW){\n    KWQueue.push(caller);\n    flow.set(\"kwqueue\", KWQueue);\n    updateKWQ = true;\n}\n\nchangeTab = callList.length > 0;\nreturn [changeTab, updateCall, updateFGQ, updateKWQ];",
+        "outputs": 4,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 310,
+        "y": 200,
+        "wires": [
+            [
+                "eb8b7ad763ba6eb8"
+            ],
+            [
+                "174d10222275a595"
+            ],
+            [
+                "d1f47fe3e00fb131"
+            ],
+            [
+                "443a9f25028c9c89"
+            ]
+        ]
+    },
+    {
+        "id": "eb8b7ad763ba6eb8",
+        "type": "switch",
+        "z": "327571d15da5aceb",
+        "name": "Change Tab?",
+        "property": "payload",
+        "propertyType": "msg",
+        "rules": [
+            {
+                "t": "true"
+            },
+            {
+                "t": "false"
+            }
+        ],
+        "checkall": "true",
+        "repair": false,
+        "outputs": 2,
+        "x": 530,
+        "y": 80,
+        "wires": [
+            [
+                "60ec8fc7c03081d6"
+            ],
+            [
+                "2022fca4a20f48d0"
+            ]
+        ]
+    },
+    {
+        "id": "174d10222275a595",
+        "type": "switch",
+        "z": "327571d15da5aceb",
+        "name": "Update Call List?",
+        "property": "payload",
+        "propertyType": "msg",
+        "rules": [
+            {
+                "t": "true"
+            }
+        ],
+        "checkall": "true",
+        "repair": false,
+        "outputs": 1,
+        "x": 550,
+        "y": 180,
+        "wires": [
+            [
+                "0c1c8a6450ad2cdc"
+            ]
+        ]
+    },
+    {
+        "id": "d1f47fe3e00fb131",
+        "type": "switch",
+        "z": "327571d15da5aceb",
+        "name": "Update FG Queue?",
+        "property": "payload",
+        "propertyType": "msg",
+        "rules": [
+            {
+                "t": "true"
+            }
+        ],
+        "checkall": "true",
+        "repair": false,
+        "outputs": 1,
+        "x": 550,
+        "y": 240,
+        "wires": [
+            [
+                "e095abbdc378dd80"
+            ]
+        ]
+    },
+    {
+        "id": "443a9f25028c9c89",
+        "type": "switch",
+        "z": "327571d15da5aceb",
+        "name": "Update KW Queue?",
+        "property": "payload",
+        "propertyType": "msg",
+        "rules": [
+            {
+                "t": "true"
+            }
+        ],
+        "checkall": "true",
+        "repair": false,
+        "outputs": 1,
+        "x": 560,
+        "y": 300,
+        "wires": [
+            [
+                "16f03951565dc142"
+            ]
+        ]
+    },
+    {
+        "id": "0c1c8a6450ad2cdc",
+        "type": "change",
+        "z": "327571d15da5aceb",
+        "name": "true: Update List",
+        "rules": [
+            {
+                "t": "set",
+                "p": "payload",
+                "pt": "msg",
+                "to": "callList",
+                "tot": "flow",
+                "dc": true
+            },
+            {
+                "t": "set",
+                "p": "ui_control",
+                "pt": "msg",
+                "to": "{}",
+                "tot": "json"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 760,
+        "y": 180,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "e095abbdc378dd80",
+        "type": "change",
+        "z": "327571d15da5aceb",
+        "name": "true: Update Queue",
+        "rules": [
+            {
+                "t": "set",
+                "p": "payload",
+                "pt": "msg",
+                "to": "{\"tab\":\"Alert\"}",
+                "tot": "json"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 770,
+        "y": 240,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "16f03951565dc142",
+        "type": "change",
+        "z": "327571d15da5aceb",
+        "name": "true: Update Queue",
+        "rules": [
+            {
+                "t": "set",
+                "p": "payload",
+                "pt": "msg",
+                "to": "{\"tab\":\"Alert\"}",
+                "tot": "json"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 770,
+        "y": 300,
+        "wires": [
+            []
+        ]
     },
     {
         "id": "2e6a6379.742abc",
