@@ -226,8 +226,8 @@
         "id": "f6caa57a45bb92af",
         "type": "junction",
         "z": "562197b4f4a67922",
-        "x": 1260,
-        "y": 620,
+        "x": 1240,
+        "y": 380,
         "wires": [
             [
                 "403b9d6d5a094913",
@@ -264,9 +264,9 @@
             },
             "darkTheme": {
                 "default": "#097479",
-                "baseColor": "#f31b31",
+                "baseColor": "#b01c1c",
                 "baseFont": "Arial Black,Arial Black,Gadget,sans-serif",
-                "edited": false,
+                "edited": true,
                 "reset": false
             },
             "customTheme": {
@@ -279,11 +279,11 @@
             "themeState": {
                 "base-color": {
                     "default": "#097479",
-                    "value": "#f31b31",
+                    "value": "#b01c1c",
                     "edited": true
                 },
                 "page-titlebar-backgroundColor": {
-                    "value": "#f31b31",
+                    "value": "#b01c1c",
                     "edited": false
                 },
                 "page-backgroundColor": {
@@ -291,11 +291,11 @@
                     "edited": false
                 },
                 "page-sidebar-backgroundColor": {
-                    "value": "#ffffff",
+                    "value": "#333333",
                     "edited": false
                 },
                 "group-textColor": {
-                    "value": "#f76473",
+                    "value": "#df3939",
                     "edited": false
                 },
                 "group-borderColor": {
@@ -311,7 +311,7 @@
                     "edited": false
                 },
                 "widget-backgroundColor": {
-                    "value": "#f31b31",
+                    "value": "#b01c1c",
                     "edited": false
                 },
                 "widget-borderColor": {
@@ -385,7 +385,7 @@
         "type": "ui_tab",
         "name": "TEST",
         "icon": "dashboard",
-        "order": 3,
+        "order": 6,
         "disabled": false,
         "hidden": false
     },
@@ -424,7 +424,7 @@
         "type": "ui_tab",
         "name": "ui-table command",
         "icon": "fa-table",
-        "order": 4,
+        "order": 7,
         "disabled": false,
         "hidden": false
     },
@@ -563,17 +563,6 @@
         "hidden": true
     },
     {
-        "id": "108d9ada7efb9c58",
-        "type": "ui_group",
-        "name": "Alert",
-        "tab": "7f97a1b59fccc5ce",
-        "order": 1,
-        "disp": false,
-        "width": "6",
-        "collapse": false,
-        "className": ""
-    },
-    {
         "id": "ea1829c43a6e8ad0",
         "type": "telegram bot",
         "botname": "Autokeen Official Bot",
@@ -599,21 +588,55 @@
         "verboselogging": true
     },
     {
-        "id": "63ea2d788e1e77d1",
-        "type": "chatbot-telegram-node",
-        "botname": "Autokeen Official Bot",
-        "usernames": "",
-        "polling": "360000",
-        "store": "",
-        "log": "",
-        "debug": true,
-        "skipMediaFiles": true,
-        "webHook": "",
-        "connectMode": "polling",
-        "storeMessages": true,
-        "enableMissionControl": false,
-        "inspectMessages": true,
-        "chatbotId": ""
+        "id": "02f09ba258bf6625",
+        "type": "ui_group",
+        "name": "Call Queue",
+        "tab": "7f97a1b59fccc5ce",
+        "order": 2,
+        "disp": true,
+        "width": 20,
+        "collapse": false,
+        "className": ""
+    },
+    {
+        "id": "db830ddbd85f76c5",
+        "type": "ui_tab",
+        "name": "FG Queue",
+        "icon": "dashboard",
+        "order": 3,
+        "disabled": false,
+        "hidden": false
+    },
+    {
+        "id": "569dc256923818f6",
+        "type": "ui_group",
+        "name": "FG Queue",
+        "tab": "db830ddbd85f76c5",
+        "order": 1,
+        "disp": true,
+        "width": "6",
+        "collapse": false,
+        "className": ""
+    },
+    {
+        "id": "145f52da01ded04e",
+        "type": "ui_tab",
+        "name": "Kowake",
+        "icon": "dashboard",
+        "order": 4,
+        "disabled": false,
+        "hidden": false
+    },
+    {
+        "id": "e5276d6b5a48a00a",
+        "type": "ui_group",
+        "name": "Kowake Queue",
+        "tab": "145f52da01ded04e",
+        "order": 1,
+        "disp": true,
+        "width": "6",
+        "collapse": false,
+        "className": ""
     },
     {
         "id": "0538b16727054d9a",
@@ -700,7 +723,7 @@
         "outputs": 1,
         "cts": true,
         "x": 350,
-        "y": 680,
+        "y": 440,
         "wires": [
             [
                 "aea8981076227a62",
@@ -765,7 +788,7 @@
         "name": "",
         "events": "all",
         "x": 100,
-        "y": 620,
+        "y": 380,
         "wires": [
             [
                 "657d21fce3ecd7ea"
@@ -800,7 +823,7 @@
         "to": "",
         "reg": false,
         "x": 440,
-        "y": 620,
+        "y": 380,
         "wires": [
             [
                 "f6caa57a45bb92af",
@@ -826,7 +849,7 @@
         "name": "data diambil drpd flow.tableData",
         "info": "",
         "x": 150,
-        "y": 580,
+        "y": 340,
         "wires": []
     },
     {
@@ -861,7 +884,7 @@
         "statusVal": "",
         "statusType": "auto",
         "x": 520,
-        "y": 720,
+        "y": 480,
         "wires": []
     },
     {
@@ -876,7 +899,7 @@
         "finalize": "",
         "libs": [],
         "x": 760,
-        "y": 680,
+        "y": 440,
         "wires": [
             [
                 "eb08a14f33272cc0"
@@ -901,7 +924,7 @@
         "repair": false,
         "outputs": 1,
         "x": 560,
-        "y": 680,
+        "y": 440,
         "wires": [
             [
                 "ca748a580d870274"
@@ -953,7 +976,7 @@
         "to": "",
         "reg": false,
         "x": 960,
-        "y": 680,
+        "y": 440,
         "wires": [
             [
                 "657d21fce3ecd7ea",
@@ -2542,8 +2565,8 @@
         "format": "<h1>CELL A</h1>",
         "layout": "row-center",
         "className": "",
-        "x": 110,
-        "y": 300,
+        "x": 2050,
+        "y": 120,
         "wires": []
     },
     {
@@ -2559,8 +2582,8 @@
         "format": "<h1>CELL B</h1>",
         "layout": "row-center",
         "className": "",
-        "x": 110,
-        "y": 340,
+        "x": 2050,
+        "y": 160,
         "wires": []
     },
     {
@@ -2576,8 +2599,8 @@
         "format": "<h1>CELL C</h1>",
         "layout": "row-center",
         "className": "",
-        "x": 110,
-        "y": 380,
+        "x": 2050,
+        "y": 200,
         "wires": []
     },
     {
@@ -2593,8 +2616,8 @@
         "format": "<h1>CELL D1</h1>",
         "layout": "row-center",
         "className": "",
-        "x": 120,
-        "y": 420,
+        "x": 2060,
+        "y": 240,
         "wires": []
     },
     {
@@ -2610,8 +2633,8 @@
         "format": "<h1>CELL D2</h1>",
         "layout": "row-center",
         "className": "",
-        "x": 120,
-        "y": 460,
+        "x": 2060,
+        "y": 280,
         "wires": []
     },
     {
@@ -2627,8 +2650,8 @@
         "format": "<h1>CELL E1</h1>",
         "layout": "row-center",
         "className": "",
-        "x": 110,
-        "y": 500,
+        "x": 2050,
+        "y": 320,
         "wires": []
     },
     {
@@ -2644,8 +2667,8 @@
         "format": "<h1>CELL E2</h1>",
         "layout": "row-center",
         "className": "",
-        "x": 110,
-        "y": 540,
+        "x": 2050,
+        "y": 360,
         "wires": []
     },
     {
@@ -2662,7 +2685,7 @@
         "statusVal": "",
         "statusType": "auto",
         "x": 670,
-        "y": 600,
+        "y": 360,
         "wires": []
     },
     {
@@ -2671,8 +2694,8 @@
         "z": "562197b4f4a67922",
         "name": "Label2 statik utk setiap cell dlm dashboard",
         "info": "",
-        "x": 180,
-        "y": 260,
+        "x": 2120,
+        "y": 80,
         "wires": []
     },
     {
@@ -2689,7 +2712,7 @@
         "statusVal": "",
         "statusType": "auto",
         "x": 1100,
-        "y": 720,
+        "y": 480,
         "wires": []
     },
     {
@@ -2710,7 +2733,7 @@
         "repair": false,
         "outputs": 1,
         "x": 160,
-        "y": 680,
+        "y": 440,
         "wires": [
             [
                 "9765f3da2d535ee3"
@@ -2935,9 +2958,7 @@
         "x": 620,
         "y": 260,
         "wires": [
-            [
-                "0252f7d617d1055f"
-            ]
+            []
         ]
     },
     {
@@ -2978,7 +2999,7 @@
         "type": "mqtt in",
         "z": "327571d15da5aceb",
         "name": "from trial WISE ",
-        "topic": "AKSB/SA/call",
+        "topic": "AKSB/SA/call/#",
         "qos": "1",
         "datatype": "json",
         "broker": "56edfd93d9c67181",
@@ -3091,28 +3112,11 @@
         ]
     },
     {
-        "id": "2b88cec2f9534aac",
-        "type": "ui_text",
-        "z": "327571d15da5aceb",
-        "group": "108d9ada7efb9c58",
-        "order": 0,
-        "width": 0,
-        "height": 0,
-        "name": "",
-        "label": "CALL:",
-        "format": "ALARMMMM!!!",
-        "layout": "row-center",
-        "className": "",
-        "x": 70,
-        "y": 80,
-        "wires": []
-    },
-    {
         "id": "db3d86086a08ee76",
         "type": "function",
         "z": "327571d15da5aceb",
         "name": "process MQTT msg",
-        "func": "let callList = flow.get(\"callList\");\nlet updateCall = false;\nlet FGQueue = flow.get(\"fgqueue\");\nlet updateFGQ = false;\nlet KWQueue = flow.get(\"kwqueue\");\nlet updateKWQ = false;\nlet changeTab = callList.length > 0;\n\nlet topic = msg.topic.split(\"/call/\");\nlet caller = {\n    \"id\" : topic[1],\n    \"plant\" : topic[0],\n    \"dept\" : \"\",\n    \"line\" : \"\",\n    \"cell\" : \"\",\n    \"type\" : \"\",\n    \"timestamp\": Date.now()\n}\ntopic = caller.id.split(\"/\");\n\nfor (let word of topic) {\n    word = word.split(\"-\");\n    switch(word[0]) {\n        case \"dept\":\n            caller.dept = word[1].toUpperCase();\n            break;\n        case \"line\":\n            caller.line = word[1].toUpperCase();\n            break;\n        case \"cell\":\n            caller.cell = word[1].toUpperCase();\n            break;\n        default:\n    }\n}\n\nif (!msg.payload.MT && !msg.payload.QC && !msg.payload.SV){\n    callList = callList.filter((call) => {return call.id != caller.id});\n    flow.set(\"callList\", callList);\n    updateCall = true;\n} else {\n    if (msg.payload.MT){\n        caller.type = \"MTCE\";\n        updateCall = true;\n    }\n    if (msg.payload.QC){\n        caller.type = \"QC\";\n        updateCall = true;\n    }\n    if (msg.payload.SV){\n        caller.type = \"SV\";\n        updateCall = true;\n    }\n    flow.set(\"callList\", callList);\n}\n\nif(msg.payload.FG){\n    FGQueue.push(caller);\n    flow.set(\"fgqueue\", FGQueue);\n    updateFGQ = true;\n}\nif(msg.payload.KW){\n    KWQueue.push(caller);\n    flow.set(\"kwqueue\", KWQueue);\n    updateKWQ = true;\n}\n\nchangeTab = callList.length > 0;\nreturn [changeTab, updateCall, updateFGQ, updateKWQ];",
+        "func": "let callList = flow.get(\"callList\") || [];\nlet updateCall = { payload: false } ;\nlet FGQueue = flow.get(\"fgqueue\") || [];\nlet updateFGQ = { payload: false };\nlet KWQueue = flow.get(\"kwqueue\") || [];\nlet updateKWQ = { payload: false };\nlet changeTab = { payload: false };\n\nlet topic = msg.topic.split(\"/call/\");\n\nlet caller = {\n    \"id\" : topic[1],\n    \"plant\" : topic[0],\n    \"dept\" : \"\",\n    \"line\" : \"\",\n    \"cell\" : \"\",\n    \"type\" : \"\",\n    \"timestamp\": Date.now()\n}\ntopic = caller.id.split(\"/\");\n//node.warn(topic);\n\nfor (let word of topic) {\n    word = word.split(\"-\");\n    //node.warn(word);\n    switch(word[0]) {\n        case \"dept\":\n            caller.dept = word[1].toUpperCase();\n            break;\n        case \"line\":\n            caller.line = word[1].toUpperCase();\n            break;\n        case \"cell\":\n            caller.cell = word[1].toUpperCase();\n            break;\n        default:\n    }\n}\n//node.warn(caller);\n\nif (!msg.payload.MT && !msg.payload.QC && !msg.payload.SV){\n    callList = callList.filter((call) => { return call.id != caller.id });\n    flow.set(\"callList\", callList);\n    updateCall.payload = true;\n} else {\n    let callIndex = callList.findIndex((call) => { return call.id == caller.id });\n    //node.warn(callIndex);\n    if (msg.payload.MT && msg.payload.QC && msg.payload.SV){\n        caller.type = \"SV,QC,MTCE\";\n        updateCall.payload = true;\n    } else if (msg.payload.SV && msg.payload.QC && !msg.payload.MT) {\n        caller.type = \"SV,QC\";\n        updateCall.payload = true;\n    } else if (msg.payload.SV && msg.payload.MT && !msg.payload.QC) {\n        caller.type = \"SV, MTCE\";\n        updateCall.payload = true;\n    } else if (msg.payload.MT && msg.payload.QC && !msg.payload.SV) {\n        caller.type = \"QC, MTCE\";\n        updateCall.payload = true;\n    } else {\n        if (msg.payload.MT){\n            caller.type = \"MT\";\n        }\n        if (msg.payload.QC){\n            caller.type = \"QC\";\n        }\n        if (msg.payload.SV){\n            caller.type = \"SV\";\n        }\n        updateCall.payload = true;\n    }\n    if (callIndex != -1) {\n        callList[callIndex] = caller;\n    } else {    \n        callList.push(caller);\n    }\n    flow.set(\"callList\", callList);\n}\n\nif(msg.payload.FG){\n    FGQueue.push(caller);\n    flow.set(\"fgqueue\", FGQueue);\n    updateFGQ.payload = true;\n}\nif(msg.payload.KW){\n    KWQueue.push(caller);\n    flow.set(\"kwqueue\", KWQueue);\n    updateKWQ.payload = true;\n}\n\nchangeTab.payload = callList.length > 0;\nreturn [changeTab, updateCall, updateFGQ, updateKWQ];",
         "outputs": 4,
         "noerr": 0,
         "initialize": "",
@@ -3180,7 +3184,7 @@
         "repair": false,
         "outputs": 1,
         "x": 550,
-        "y": 180,
+        "y": 160,
         "wires": [
             [
                 "0c1c8a6450ad2cdc"
@@ -3203,7 +3207,7 @@
         "repair": false,
         "outputs": 1,
         "x": 550,
-        "y": 240,
+        "y": 220,
         "wires": [
             [
                 "e095abbdc378dd80"
@@ -3226,7 +3230,7 @@
         "repair": false,
         "outputs": 1,
         "x": 560,
-        "y": 300,
+        "y": 280,
         "wires": [
             [
                 "16f03951565dc142"
@@ -3260,10 +3264,12 @@
         "from": "",
         "to": "",
         "reg": false,
-        "x": 760,
-        "y": 180,
+        "x": 780,
+        "y": 160,
         "wires": [
-            []
+            [
+                "0b668fefdd7e1138"
+            ]
         ]
     },
     {
@@ -3285,10 +3291,12 @@
         "from": "",
         "to": "",
         "reg": false,
-        "x": 770,
-        "y": 240,
+        "x": 790,
+        "y": 220,
         "wires": [
-            []
+            [
+                "93a21d5dcdc32268"
+            ]
         ]
     },
     {
@@ -3310,11 +3318,105 @@
         "from": "",
         "to": "",
         "reg": false,
-        "x": 770,
-        "y": 300,
+        "x": 790,
+        "y": 280,
         "wires": [
-            []
+            [
+                "927f828ace007c7e"
+            ]
         ]
+    },
+    {
+        "id": "a48c49277460197f",
+        "type": "ui_table",
+        "z": "327571d15da5aceb",
+        "group": "02f09ba258bf6625",
+        "name": "Call Queue",
+        "order": 1,
+        "width": 0,
+        "height": 0,
+        "columns": [],
+        "outputs": 0,
+        "cts": false,
+        "x": 1230,
+        "y": 160,
+        "wires": []
+    },
+    {
+        "id": "93a21d5dcdc32268",
+        "type": "ui_table",
+        "z": "327571d15da5aceb",
+        "group": "569dc256923818f6",
+        "name": "FG Queue",
+        "order": 0,
+        "width": 0,
+        "height": 0,
+        "columns": [],
+        "outputs": 0,
+        "cts": false,
+        "x": 1190,
+        "y": 220,
+        "wires": []
+    },
+    {
+        "id": "927f828ace007c7e",
+        "type": "ui_table",
+        "z": "327571d15da5aceb",
+        "group": "e5276d6b5a48a00a",
+        "name": "KW Queue",
+        "order": 0,
+        "width": 0,
+        "height": 0,
+        "columns": [],
+        "outputs": 0,
+        "cts": false,
+        "x": 1190,
+        "y": 280,
+        "wires": []
+    },
+    {
+        "id": "0b668fefdd7e1138",
+        "type": "change",
+        "z": "327571d15da5aceb",
+        "name": "transform timestamps",
+        "rules": [
+            {
+                "t": "set",
+                "p": "payload",
+                "pt": "msg",
+                "to": "payload[].{ \t    \"Plant\":plant,\t    \"Department\":dept,\t    \"Line\":line,\t    \"Cell\":cell,\t    \"Calling\":type,\t    \"Time\":$moment(timestamp).fromNow()\t}",
+                "tot": "jsonata"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 1020,
+        "y": 160,
+        "wires": [
+            [
+                "a48c49277460197f",
+                "7429e2bad420c896"
+            ]
+        ]
+    },
+    {
+        "id": "7429e2bad420c896",
+        "type": "debug",
+        "z": "327571d15da5aceb",
+        "name": "debug 4",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "false",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 1200,
+        "y": 100,
+        "wires": []
     },
     {
         "id": "2e6a6379.742abc",
