@@ -332,9 +332,9 @@
         },
         "site": {
             "name": "Node-RED Dashboard",
-            "hideToolbar": "false",
+            "hideToolbar": "true",
             "allowSwipe": "false",
-            "lockMenu": "false",
+            "lockMenu": "icon",
             "allowTempTheme": "true",
             "dateFormat": "DD/MM/YYYY",
             "sizes": {
@@ -354,7 +354,7 @@
         "type": "ui_tab",
         "name": "Line F",
         "icon": "dashboard",
-        "order": 1,
+        "order": 2,
         "disabled": false,
         "hidden": false
     },
@@ -364,8 +364,8 @@
         "name": "Production Output",
         "tab": "d5e27fdb153bf0a3",
         "order": 2,
-        "disp": true,
-        "width": "16",
+        "disp": false,
+        "width": "26",
         "collapse": false,
         "className": ""
     },
@@ -444,7 +444,7 @@
         "type": "ui_tab",
         "name": "Data",
         "icon": "dashboard",
-        "order": 2,
+        "order": 1,
         "disabled": false,
         "hidden": false
     },
@@ -693,7 +693,7 @@
                 "t": "set",
                 "p": "tableData",
                 "pt": "flow",
-                "to": "payload.{\t    \"Id\":`Id`,\t    \"Line\":`Line`,\t    \"Cell\":`Cell`,\t    \"TM\":\"\",\t    \"Back No\":`Back No`,\t    \"Plan\":`Plan`,\t    \"Actual\":`Actual`\t}",
+                "to": "payload[].{\t    \"Id\":`Id`,\t    \"Line\":`Line`,\t    \"Cell\":`Cell`,\t    \"TM\":\"\",\t    \"Back No\":`Back No`,\t    \"Plan\":`Plan`,\t    \"Actual\":`Actual`\t}",
                 "tot": "jsonata"
             }
         ],
@@ -717,8 +717,8 @@
         "group": "85b12cf0fa38d858",
         "name": "Line Table",
         "order": 1,
-        "width": 16,
-        "height": 9,
+        "width": 26,
+        "height": 13,
         "columns": [],
         "outputs": 1,
         "cts": true,
@@ -811,9 +811,16 @@
             },
             {
                 "t": "set",
+                "p": "payload",
+                "pt": "msg",
+                "to": "payload ~> |$|{ \"Progress\" : $round(Actual *100 / Plan) }|",
+                "tot": "jsonata"
+            },
+            {
+                "t": "set",
                 "p": "ui_control",
                 "pt": "msg",
-                "to": "{\"tabulator\":{\"responsiveLayout\":\"collapse\",\"layout\":\"fitColumns\",\"movableColumns\":true,\"index\":\"Id\",\"groupBy\":\"Line\",\"columns\":[{\"align\":\"center\",\"headerSort\":false,\"frozen\":true,\"title\":\"Id\",\"field\":\"Id\"},{\"frozen\":true,\"title\":\"Line\",\"field\":\"Line\"},{\"title\":\"Cell\",\"field\":\"Cell\",\"frozen\":true},{\"title\":\"Back No\",\"field\":\"Back No\",\"frozen\":true,\"editor\":\"input\",\"selectContents\":true,\"verticalNavigation\":\"table\"},{\"title\":\"Team Member\",\"field\":\"TM\",\"editor\":\"input\",\"selectContents\":true,\"verticalNavigation\":\"table\"},{\"title\":\"Plan\",\"field\":\"Plan\",\"align\":\"left\",\"editor\":\"number\",\"selectContents\":true,\"verticalNavigation\":\"table\"},{\"title\":\"Actual\",\"field\":\"Actual\",\"align\":\"left\",\"editor\":\"number\",\"selectContents\":true,\"verticalNavigation\":\"table\"},{\"title\":\"Progress\",\"field\":\"Progress\",\"align\":\"left\",\"formatter\":\"progress\"}],\"columnResized\":\"function(column){     var newColumn = {         field: column._column.field,         visible: column._column.visible,         width: column._column.width,         widthFixed: column._column.widthFixed,         widthStyled: column._column.widthStyled     }; this.send({topic:this.config.topic,ui_control:{callback:'columnResized',columnWidths:newColumn}}); }\",\"columnMoved\":\"function(column, columns){     var newColumns=[];     columns.forEach(function (column) {         newColumns.push({'field': column._column.definition.field, 'title': column._column.definition.title});     });     this.send({topic:this.config.topic,ui_control:{callback:'columnMoved',columns:newColumns}}); }\",\"rowFormatter\":\"function(row){     var data = row.getData();     switch (data.$state) {         case \\\"lost\\\":             row.getElement().style.backgroundColor = \\\"#9e2e66\\\";             row.getElement().style.color = \\\"#a6a6a6\\\";             break;         case \\\"sleeping\\\":             row.getElement().style.backgroundColor = \\\"#336699\\\";             break;         case \\\"disconnected\\\":             row.getElement().style.backgroundColor = \\\"#cc3300\\\";             row.getElement().style.color = \\\"#a6a6a6\\\";             break;         case \\\"alert\\\":             row.getElement().style.backgroundColor = \\\"#A6A6DF\\\";             break;         case \\\"init\\\":             row.getElement().style.backgroundColor = \\\"#f2f20d\\\";             break;         case \\\"ready\\\":             row.getElement().style.backgroundColor = \\\"\\\";             row.getElement().style.color = \\\"\\\";             break;         } }\",\"cellEdited\":\"function (cell) { console.log('celledited callback called');    this.send(         {              ui_control: {callback:'cellEdited'},payload: cell.getValue(),oldValue: cell.getOldValue(),field: cell.getColumn().getField(),id: cell.getRow().getCell('Id').getValue()});console.log('table edit success');}\"},\"customHeight\":12}",
+                "to": "{\"tabulator\":{\"responsiveLayout\":\"collapse\",\"layout\":\"fitColumns\",\"movableColumns\":true,\"index\":\"Id\",\"groupBy\":\"Line\",\"columns\":[{\"frozen\":true,\"title\":\"ID\",\"field\":\"Id\"},{\"frozen\":true,\"title\":\"Line\",\"field\":\"Line\"},{\"title\":\"Cell\",\"field\":\"Cell\",\"frozen\":true},{\"title\":\"Back No\",\"field\":\"Back No\",\"frozen\":true,\"editor\":\"input\",\"editorParams\":{\"selectContents\":true,\"verticalNavigation\":\"table\"}},{\"title\":\"Team Member\",\"field\":\"TM\",\"editor\":\"input\",\"editorParams\":{\"selectContents\":true,\"verticalNavigation\":\"table\"}},{\"title\":\"Plan\",\"field\":\"Plan\",\"align\":\"left\",\"editor\":\"number\",\"editorParams\":{\"selectContents\":true,\"verticalNavigation\":\"table\"}},{\"title\":\"Actual\",\"field\":\"Actual\",\"align\":\"left\",\"editor\":\"number\",\"editorParams\":{\"selectContents\":true,\"verticalNavigation\":\"table\"}},{\"title\":\"Progress\",\"field\":\"Progress\",\"align\":\"left\",\"formatter\":\"progress\"}],\"columnResized\":\"function(column){     var newColumn = {         field: column._column.field,         visible: column._column.visible,         width: column._column.width,         widthFixed: column._column.widthFixed,         widthStyled: column._column.widthStyled     }; this.send({topic:this.config.topic,ui_control:{callback:'columnResized',columnWidths:newColumn}}); }\",\"columnMoved\":\"function(column, columns){     var newColumns=[];     columns.forEach(function (column) {         newColumns.push({'field': column._column.definition.field, 'title': column._column.definition.title});     });     this.send({topic:this.config.topic,ui_control:{callback:'columnMoved',columns:newColumns}}); }\",\"rowFormatter\":\"function(row){     var data = row.getData();     switch (data.$state) {         case \\\"lost\\\":             row.getElement().style.backgroundColor = \\\"#9e2e66\\\";             row.getElement().style.color = \\\"#a6a6a6\\\";             break;         case \\\"sleeping\\\":             row.getElement().style.backgroundColor = \\\"#336699\\\";             break;         case \\\"disconnected\\\":             row.getElement().style.backgroundColor = \\\"#cc3300\\\";             row.getElement().style.color = \\\"#a6a6a6\\\";             break;         case \\\"alert\\\":             row.getElement().style.backgroundColor = \\\"#A6A6DF\\\";             break;         case \\\"init\\\":             row.getElement().style.backgroundColor = \\\"#f2f20d\\\";             break;         case \\\"ready\\\":             row.getElement().style.backgroundColor = \\\"\\\";             row.getElement().style.color = \\\"\\\";             break;         } }\",\"cellEdited\":\"celledited = function (cell) {         console.log('celledited callback called');    this.send(                 {                          ui_control: {callback:'cellEdited'},            payload: cell.getValue(),            oldValue: cell.getOldValue(),            field: cell.getColumn().getField(),            id: cell.getRow().getCell('Id').getValue()         });    console.log('table edit success');}\"}}",
                 "tot": "json"
             }
         ],
@@ -858,7 +865,7 @@
         "z": "562197b4f4a67922",
         "d": true,
         "name": "function 2",
-        "func": "celledited = function (cell) {     \n    console.log('celledited callback called'); \n    this.send(         \n        {              \n            ui_control: {callback:'cellEdited'},\n            payload: cell.getValue(),\n            oldValue: cell.getOldValue(),\n            field: cell.getColumn().getField(),\n            id: cell.getRow().getCell('Id').getValue()\n        });\n    console.log('table edit success');\n}",
+        "func": "celledited = function (cell) {     \n    console.log('celledited callback called');\n    this.send(         \n        {              \n            ui_control: {callback:'cellEdited'},\n            payload: cell.getValue(),\n            oldValue: cell.getOldValue(),\n            field: cell.getColumn().getField(),\n            id: call.getRow().getCell('Id').getValue() \n        });\n    console.log('table edit success');\n}",
         "outputs": 1,
         "noerr": 0,
         "initialize": "",
@@ -875,7 +882,7 @@
         "type": "debug",
         "z": "562197b4f4a67922",
         "name": "from table",
-        "active": false,
+        "active": true,
         "tosidebar": true,
         "console": false,
         "tostatus": false,
@@ -927,7 +934,8 @@
         "y": 440,
         "wires": [
             [
-                "ca748a580d870274"
+                "ca748a580d870274",
+                "bd7d5aadbbade7a9"
             ]
         ]
     },
@@ -2495,8 +2503,8 @@
         "y": 220,
         "wires": [
             [
-                "78ee49ee404e72a4",
-                "ba12c49728ef2158"
+                "ba12c49728ef2158",
+                "419b7cf998ee85b6"
             ]
         ]
     },
@@ -2516,31 +2524,6 @@
         "x": 650,
         "y": 220,
         "wires": []
-    },
-    {
-        "id": "78ee49ee404e72a4",
-        "type": "moment",
-        "z": "562197b4f4a67922",
-        "name": "",
-        "topic": "",
-        "input": "payload",
-        "inputType": "msg",
-        "inTz": "Asia/Kuala_Lumpur",
-        "adjAmount": 0,
-        "adjType": "days",
-        "adjDir": "add",
-        "format": "fromNow",
-        "locale": "en-US",
-        "output": "payload",
-        "outputType": "msg",
-        "outTz": "Asia/Kuala_Lumpur",
-        "x": 400,
-        "y": 220,
-        "wires": [
-            [
-                "60777285779bb9c6"
-            ]
-        ]
     },
     {
         "id": "6f1e36e8e531547c",
@@ -2995,6 +2978,71 @@
         "wires": []
     },
     {
+        "id": "419b7cf998ee85b6",
+        "type": "change",
+        "z": "562197b4f4a67922",
+        "name": "",
+        "rules": [
+            {
+                "t": "set",
+                "p": "payload",
+                "pt": "msg",
+                "to": "$moment(payload).fromNow()",
+                "tot": "jsonata"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 400,
+        "y": 220,
+        "wires": [
+            [
+                "60777285779bb9c6"
+            ]
+        ]
+    },
+    {
+        "id": "063c23b4d89ae926",
+        "type": "ui_template",
+        "z": "562197b4f4a67922",
+        "group": "8e34121cef5b559c",
+        "name": "Tabulator CSS",
+        "order": 5,
+        "width": 0,
+        "height": 0,
+        "format": "<style>\n    .tabulator-table {\n        font-size: 1.7em !important;\n    }\n</style>",
+        "storeOutMessages": true,
+        "fwdInMessages": true,
+        "resendOnRefresh": true,
+        "templateScope": "global",
+        "className": "",
+        "x": 160,
+        "y": 520,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "bd7d5aadbbade7a9",
+        "type": "debug",
+        "z": "562197b4f4a67922",
+        "name": "select only celledited",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "true",
+        "targetType": "full",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 780,
+        "y": 480,
+        "wires": []
+    },
+    {
         "id": "d7197fbf265fda54",
         "type": "mqtt in",
         "z": "327571d15da5aceb",
@@ -3055,7 +3103,7 @@
                 "t": "set",
                 "p": "payload",
                 "pt": "msg",
-                "to": "{\"tab\":\"Line F\"}",
+                "to": "{\"tab\":\"Data\"}",
                 "tot": "json"
             }
         ],
@@ -3116,7 +3164,7 @@
         "type": "function",
         "z": "327571d15da5aceb",
         "name": "process MQTT msg",
-        "func": "let callList = flow.get(\"callList\") || [];\nlet updateCall = { payload: false } ;\nlet FGQueue = flow.get(\"fgqueue\") || [];\nlet updateFGQ = { payload: false };\nlet KWQueue = flow.get(\"kwqueue\") || [];\nlet updateKWQ = { payload: false };\nlet changeTab = { payload: false };\n\nlet topic = msg.topic.split(\"/call/\");\n\nlet caller = {\n    \"id\" : topic[1],\n    \"plant\" : topic[0],\n    \"dept\" : \"\",\n    \"line\" : \"\",\n    \"cell\" : \"\",\n    \"type\" : \"\",\n    \"timestamp\": Date.now()\n}\ntopic = caller.id.split(\"/\");\n//node.warn(topic);\n\nfor (let word of topic) {\n    word = word.split(\"-\");\n    //node.warn(word);\n    switch(word[0]) {\n        case \"dept\":\n            caller.dept = word[1].toUpperCase();\n            break;\n        case \"line\":\n            caller.line = word[1].toUpperCase();\n            break;\n        case \"cell\":\n            caller.cell = word[1].toUpperCase();\n            break;\n        default:\n    }\n}\n//node.warn(caller);\n\nif (!msg.payload.MT && !msg.payload.QC && !msg.payload.SV){\n    callList = callList.filter((call) => { return call.id != caller.id });\n    flow.set(\"callList\", callList);\n    updateCall.payload = true;\n} else {\n    let callIndex = callList.findIndex((call) => { return call.id == caller.id });\n    //node.warn(callIndex);\n    if (msg.payload.MT && msg.payload.QC && msg.payload.SV){\n        caller.type = \"SV,QC,MTCE\";\n        updateCall.payload = true;\n    } else if (msg.payload.SV && msg.payload.QC && !msg.payload.MT) {\n        caller.type = \"SV,QC\";\n        updateCall.payload = true;\n    } else if (msg.payload.SV && msg.payload.MT && !msg.payload.QC) {\n        caller.type = \"SV, MTCE\";\n        updateCall.payload = true;\n    } else if (msg.payload.MT && msg.payload.QC && !msg.payload.SV) {\n        caller.type = \"QC, MTCE\";\n        updateCall.payload = true;\n    } else {\n        if (msg.payload.MT){\n            caller.type = \"MT\";\n        }\n        if (msg.payload.QC){\n            caller.type = \"QC\";\n        }\n        if (msg.payload.SV){\n            caller.type = \"SV\";\n        }\n        updateCall.payload = true;\n    }\n    if (callIndex != -1) {\n        callList[callIndex] = caller;\n    } else {    \n        callList.push(caller);\n    }\n    flow.set(\"callList\", callList);\n}\n\nif(msg.payload.FG){\n    FGQueue.push(caller);\n    flow.set(\"fgqueue\", FGQueue);\n    updateFGQ.payload = true;\n}\nif(msg.payload.KW){\n    KWQueue.push(caller);\n    flow.set(\"kwqueue\", KWQueue);\n    updateKWQ.payload = true;\n}\n\nchangeTab.payload = callList.length > 0;\nreturn [changeTab, updateCall, updateFGQ, updateKWQ];",
+        "func": "let callList = flow.get(\"callList\") || [];\nlet updateCall = { payload: false } ;\nlet FGQueue = flow.get(\"fgqueue\") || [];\nlet updateFGQ = { payload: false };\nlet KWQueue = flow.get(\"kwqueue\") || [];\nlet updateKWQ = { payload: false };\nlet changeTab = { payload: false };\n\nlet topic = msg.topic.split(\"/call/\");\n\nlet caller = {\n    \"id\" : topic[1],\n    \"plant\" : topic[0],\n    \"dept\" : \"\",\n    \"line\" : \"\",\n    \"cell\" : \"\",\n    \"type\" : \"\",\n    \"timestamp\": Date.now()\n}\ntopic = caller.id.split(\"/\");\n//node.warn(topic);\n\nfor (let word of topic) {\n    word = word.split(\"-\");\n    //node.warn(word);\n    switch(word[0]) {\n        case \"dept\":\n            caller.dept = word[1].toUpperCase();\n            break;\n        case \"line\":\n            caller.line = word[1].toUpperCase();\n            break;\n        case \"cell\":\n            caller.cell = word[1].toUpperCase();\n            break;\n        default:\n    }\n}\n//node.warn(caller);\n\nif (!msg.payload.MT && !msg.payload.QC && !msg.payload.SV){\n    callList = callList.filter((call) => { return call.id != caller.id });\n    flow.set(\"callList\", callList);\n    updateCall.payload = true;\n} else {\n    let callIndex = callList.findIndex((call) => { return call.id == caller.id });\n    //node.warn(callIndex);\n    if (msg.payload.MT && msg.payload.QC && msg.payload.SV){\n        caller.type = \"SV,QC,MTCE\";\n        updateCall.payload = true;\n    } else if (msg.payload.SV && msg.payload.QC && !msg.payload.MT) {\n        caller.type = \"SV,QC\";\n        updateCall.payload = true;\n    } else if (msg.payload.SV && msg.payload.MT && !msg.payload.QC) {\n        caller.type = \"SV, MTCE\";\n        updateCall.payload = true;\n    } else if (msg.payload.MT && msg.payload.QC && !msg.payload.SV) {\n        caller.type = \"QC, MTCE\";\n        updateCall.payload = true;\n    } else {\n        if (msg.payload.MT){\n            caller.type = \"MTCE\";\n        }\n        if (msg.payload.QC){\n            caller.type = \"QC\";\n        }\n        if (msg.payload.SV){\n            caller.type = \"SV\";\n        }\n        updateCall.payload = true;\n    }\n    if (callIndex != -1) {\n        callList[callIndex] = caller;\n    } else {    \n        callList.push(caller);\n    }\n    flow.set(\"callList\", callList);\n}\n\nif(msg.payload.FG){\n    FGQueue.push(caller);\n    flow.set(\"fgqueue\", FGQueue);\n    updateFGQ.payload = true;\n}\nif(msg.payload.KW){\n    KWQueue.push(caller);\n    flow.set(\"kwqueue\", KWQueue);\n    updateKWQ.payload = true;\n}\n\nchangeTab.payload = callList.length > 0;\nreturn [changeTab, updateCall, updateFGQ, updateKWQ];",
         "outputs": 4,
         "noerr": 0,
         "initialize": "",
@@ -3161,7 +3209,8 @@
         "y": 80,
         "wires": [
             [
-                "60ec8fc7c03081d6"
+                "60ec8fc7c03081d6",
+                "388823226a3f39ea"
             ],
             [
                 "2022fca4a20f48d0"
@@ -3333,8 +3382,8 @@
         "group": "02f09ba258bf6625",
         "name": "Call Queue",
         "order": 1,
-        "width": 0,
-        "height": 0,
+        "width": 20,
+        "height": 7,
         "columns": [],
         "outputs": 0,
         "cts": false,
@@ -3407,7 +3456,7 @@
         "type": "debug",
         "z": "327571d15da5aceb",
         "name": "debug 4",
-        "active": true,
+        "active": false,
         "tosidebar": true,
         "console": false,
         "tostatus": false,
@@ -3417,6 +3466,86 @@
         "x": 1200,
         "y": 100,
         "wires": []
+    },
+    {
+        "id": "4e83d9db6a3b8bb5",
+        "type": "debug",
+        "z": "327571d15da5aceb",
+        "name": "debug 5",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "false",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 1280,
+        "y": 20,
+        "wires": []
+    },
+    {
+        "id": "d1437eb961e4e577",
+        "type": "telegram sender",
+        "z": "327571d15da5aceb",
+        "name": "send message ",
+        "bot": "ea1829c43a6e8ad0",
+        "haserroroutput": true,
+        "outputs": 2,
+        "x": 1100,
+        "y": 20,
+        "wires": [
+            [
+                "4e83d9db6a3b8bb5"
+            ],
+            []
+        ]
+    },
+    {
+        "id": "0408a92bd9d1a49c",
+        "type": "template",
+        "z": "327571d15da5aceb",
+        "name": "",
+        "field": "payload",
+        "fieldType": "msg",
+        "format": "handlebars",
+        "syntax": "mustache",
+        "template": "{\n    \"chatId\": 21709557,\n    \"type\": \"message\",\n    \"content\": \"Call Queue: \\n {{#payload}} For: {{type}}, Dept: {{dept}}, Line: {{line}}, Cell: {{cell}} \\n {{/payload}}\"\n}",
+        "output": "json",
+        "x": 920,
+        "y": 20,
+        "wires": [
+            [
+                "d1437eb961e4e577"
+            ]
+        ]
+    },
+    {
+        "id": "388823226a3f39ea",
+        "type": "change",
+        "z": "327571d15da5aceb",
+        "name": "",
+        "rules": [
+            {
+                "t": "set",
+                "p": "payload",
+                "pt": "msg",
+                "to": "callList",
+                "tot": "flow",
+                "dc": true
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 740,
+        "y": 20,
+        "wires": [
+            [
+                "0408a92bd9d1a49c"
+            ]
+        ]
     },
     {
         "id": "2e6a6379.742abc",
