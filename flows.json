@@ -16,22 +16,6 @@
         "env": []
     },
     {
-        "id": "78809bb47c7f02cd",
-        "type": "tab",
-        "label": "Flow 2",
-        "disabled": false,
-        "info": "",
-        "env": []
-    },
-    {
-        "id": "3426577f90538292",
-        "type": "tab",
-        "label": "Flow 4",
-        "disabled": false,
-        "info": "",
-        "env": []
-    },
-    {
         "id": "11f19efd79056b77",
         "type": "subflow",
         "name": "ui-table handler",
@@ -211,44 +195,173 @@
         }
     },
     {
-        "id": "391e0fd118491fa4",
-        "type": "junction",
-        "z": "78809bb47c7f02cd",
-        "x": 560,
-        "y": 400,
-        "wires": [
-            [
-                "16664cef.5b26b3"
+        "id": "2924702c.b33a7",
+        "type": "subflow",
+        "name": "ui-table handler",
+        "info": "# ui-table handler\nUniversal handler for ui-table.\n## features\n- buffer table data\n- add or update individual rows or cells of the table\n- delete rows\n- clear tableData\n- handle column width\n- handle column order\n- hide und unhide columns\n- hide and unhide rows\n- records row order\n- support for nested columns [(column groups)](http://tabulator.info/examples/4.7#column-groups)\n- support for child rows (_children) [(nested data trees)](http://tabulator.info/examples/4.7#tree)\n\nFor real life example see:\n\n**syslog server** for logfile like table with filters\n\n**remote device table** for dynamically updated table with context menues\n\n**irrigation system** for sortable rows\n\n## sending data to ui-tabel\n\n- sending an `array` as discribed in ui-table will replace the complete table and delete all table edits\n  \n  if `msg.keepEdits=true` is added the existing edits will be kept.\n- send an `object` containing the updated properties of a table row by sending msg.<tableDataProp>.\n\n  The table is updated using the `updateOrAddData` command. You can alter the command used by adding the `msg.tabulatorCommand` and `msg.tabulatorParameter`\n\n```\nmsg.tabulatorCommand=\"addData\";\nmsg.tabulatorParameter=[true];\n```\n## configuration\n- `tabulator` json formatted object containing configuration of the table. See ui-table for more details.\n- `property` property of the msg object that contains the data to be passed to ui-table. I.e. *state* `msg.state`\n- `index` index column to identify individual rows. Each message containing data must have a unique `msg.topic` to identify the row. Messages without this `msg.topic` will be droped. It is not nessesary but possible to display the index column in the table. Do not enable editing on this column otherwise you will loose the connection and another row will be added to the table as soon as a new message arrives!\n\n   Defaults to *$topic* `msg.state.$topic`\n- `maxRows`maximum number of rows held by table widget. If grater than **0** the amount of rows in ui-table is limited. For this to work the index row must be a Number. ´rows < currentID-maxRows´ will be deleted.\n- `maxStore`maximum number of rows stored by this node for replay if a client connects. If grater than **0** the amount of rows in flow context is limited. for this to work the index row must be a Number. ´rows < currentID-maxStore´ will be deleted.\n- `dashboard` name of the dashboard tab to only update the table if the dashboard is visible. If empty the table will be updated on every tab change and connect.\n- `context` configuration of context data. The subflow will save or cache data in the flows context using `$parent.`. \n   **tableData** caches the incoming data to restore it on `ui-control´ *change* messages.\n   **tableConfig** saves column width and order to save the interactive table layot\n   **tableEdit** saves edits on the table data otherwise it would be overwritten when new data arrives\n```json\n{\n    \"tableData\": {\n        \"name\": \"tableData\"\n    },\n    \"tableConfig\": {\n        \"name\": \"tableConfig\",\n        \"storage\": \"file\"\n    },\n    \"tableEdit\": {\n        \"name\": \"tableEdit\",\n        \"storage\": \"file\"\n    }\n}\n```\n\n## commands\ncommands can be passed by sending a object as `msg.payload`\n\n```json\n{\n    \"command\": \"delete\",\n    \"object\": \"columnOrder\"\n}\n```\n\n- `deleteTable` tableCache\n- `deleteRow` delete single row. `object` matching index property\n- `ignoreRow` delete single row and put it on an ignore list. `object` matching index property\n- `unIgnoreRow`remove row from the ignore list.  `object` matching index property\n- `unIgnoreRows`delte the ignore list. \n- `deleteRowOrder` delete custom row order\n- `deleteColumnOrder` delete custom column order\n  This is important if you add or delete columns in the tabulator config otherwise the columns most likely don`t show up\n- `deleteColumnWidth` delete custom column width\n- `columnHide` hide a column. `object` matching column field\n- `columnUnHide` unhide a column. `object` matching column field\n- `columnsUnHide` unhide all hidden columns.\n- `setMaxStore` set maximum amount of rows in cache\n- `setMaxDisplay` set maximum amout of rows in ui-table\n- `getTable` get table data (as displayed) as an array (on 2nd output)\n \n## background\nui-table warps the powerfull tabluator library.  This subflow makes it easier to unleash the powerfull features of ui-table",
+        "category": "dashboard",
+        "in": [
+            {
+                "x": 54,
+                "y": 85,
+                "wires": [
+                    {
+                        "id": "5eb0bd6b.74b794"
+                    }
+                ]
+            }
+        ],
+        "out": [
+            {
+                "x": 360,
+                "y": 85,
+                "wires": [
+                    {
+                        "id": "5eb0bd6b.74b794",
+                        "port": 1
+                    }
+                ]
+            },
+            {
+                "x": 360,
+                "y": 136,
+                "wires": [
+                    {
+                        "id": "5eb0bd6b.74b794",
+                        "port": 2
+                    }
+                ]
+            }
+        ],
+        "env": [
+            {
+                "name": "tabulator",
+                "type": "json",
+                "value": "{\"tabulator\":{\"responsiveLayout\":\"collapse\",\"responsiveLayoutCollapseStartOpen\":false,\"index\":\"$name\",\"layout\":\"fitColumns\",\"movableColumns\":true,\"groupBy\":\"\",\"columnResized\":\"function(column){     var newColumn = {         field: column._column.field,         visible: column._column.visible,         width: column._column.width,         widthFixed: column._column.widthFixed,         widthStyled: column._column.widthStyled     }; this.send({topic:this.config.topic,ui_control:{callback:'columnResized',columnWidths:newColumn}}); }\",\"columnMoved\":\"function(column, columns){     var newColumns=[];     columns.forEach(function (column) {         newColumns.push({'field': column._column.definition.field, 'title': column._column.definition.title});     });     this.send({topic:this.config.topic,ui_control:{callback:'columnMoved',columns:newColumns}}); }\",\"rowFormatter\":\"function(row){     var data = row.getData();     switch (data.$state) {         case \\\"lost\\\":             row.getElement().style.backgroundColor = \\\"#9e2e66\\\";             row.getElement().style.color = \\\"#a6a6a6\\\";             break;         case \\\"sleeping\\\":             row.getElement().style.backgroundColor = \\\"#336699\\\";             break;         case \\\"disconnected\\\":             row.getElement().style.backgroundColor = \\\"#cc3300\\\";             row.getElement().style.color = \\\"#a6a6a6\\\";             break;         case \\\"alert\\\":             row.getElement().style.backgroundColor = \\\"#A6A6DF\\\";             break;         case \\\"init\\\":             row.getElement().style.backgroundColor = \\\"#f2f20d\\\";             break;         case \\\"ready\\\":             row.getElement().style.backgroundColor = \\\"\\\";             row.getElement().style.color = \\\"\\\";             break;         } }\",\"columns\":[{\"formatter\":\"responsiveCollapse\",\"width\":30,\"minWidth\":30,\"align\":\"center\",\"resizable\":false,\"headerSort\":false,\"frozen\":true,\"title\":\"expand\",\"field\":\"expand\",\"headerVertical\":\"flip\"},{\"formatter\":\"function(cell, formatterParams, onRendered) {      var html = cell.getValue(); return html;  }\",\"title\":\"State\",\"field\":\"$stateIcon\",\"width\":100,\"frozen\":true,\"headerVertical\":\"flip\"},{\"formatter\":\"function(cell, formatterParams, onRendered) {     var html = cell.getValue(); return html;  }\",\"title\":\"Signal\",\"field\":\"signalIcon\",\"width\":100,\"frozen\":true,\"headerVertical\":\"flip\"},{\"title\":\"Name\",\"field\":\"$name\",\"width\":100,\"frozen\":true,\"headerVertical\":\"flip\"},{\"title\":\"State\",\"field\":\"$state\",\"width\":100,\"align\":\"center\",\"headerVertical\":\"flip\"},{\"title\":\"last-ready\",\"field\":\"lastSeenreadyFormatted\",\"width\":100,\"align\":\"left\",\"headerVertical\":\"flip\"},{\"title\":\"Homie\",\"field\":\"$homie\",\"width\":100,\"align\":\"left\",\"headerVertical\":\"flip\"},{\"title\":\"Platform\",\"field\":\"$implementation\",\"width\":100,\"align\":\"left\",\"headerVertical\":\"flip\"},{\"title\":\"Statistics\",\"columns\":[{\"title\":\"Interval\",\"field\":\"interval\",\"width\":100,\"headerVertical\":\"flip\"},{\"formatterParams\":{\"outputFormat\":\"d hh:mm:ss\",\"inputFormat\":\"seconds\",\"invalidPlaceholder\":\"(unknown)\"},\"title\":\"Uptime\",\"field\":\"uptime\",\"formatter\":\"function(cell, formatterParams, onRendered){     var pad = function (num) {         return (\\\"0\\\"+num).slice(-2);     };     var secs = Number(cell.getValue());     if (Number.isNaN(secs)) return;     var minutes = Math.floor(secs / 60);     secs = secs%60;     var hours = Math.floor(minutes/60);     minutes = minutes%60;     var days = Math.floor(hours/24);     hours = hours%24;     if (days>0)         return days+\\\"d \\\"+pad(hours)+\\\":\\\"+pad(minutes);     else         return pad(hours)+\\\":\\\"+pad(minutes)+\\\":\\\"+pad(secs); }\",\"width\":100,\"headerVertical\":\"flip\"},{\"formatterParams\":{\"min\":0,\"max\":100,\"color\":[\"red\",\"orange\",\"green\"],\"legend\":\"function (value) {if (value>0) return \\\"<span style='color:#FFFFFF;'>\\\"+value+\\\" %</span>\\\"; else return; }\",\"legendColor\":\"#FFFFFF\",\"legendAlign\":\"center\"},\"title\":\"Signal\",\"field\":\"signal\",\"formatter\":\"progress\",\"width\":100,\"headerVertical\":\"flip\"},{\"formatterParams\":{\"min\":2.5,\"max\":3.5,\"color\":[\"red\",\"green\",\"red\"],\"legend\":\"function (value) { if (value>0) return \\\"<span style='color:#FFFFFF;'>\\\"+value+\\\" V</span>\\\"; else return; }\",\"legendColor\":\"#101010\",\"legendAlign\":\"center\"},\"title\":\"Supply\",\"field\":\"supply\",\"formatter\":\"progress\",\"width\":100,\"headerVertical\":\"flip\"},{\"formatterParams\":{\"min\":0,\"max\":100,\"color\":[\"red\",\"orange\",\"green\"],\"legend\":\"function (value) {     if (value>0)         return \\\"<span style='color:#FFFFFF;'>\\\"+value+\\\" %</span>\\\";     else         return; }\",\"legendColor\":\"#101010\",\"legendAlign\":\"center\"},\"title\":\"Battery\",\"field\":\"battery\",\"formatter\":\"progress\",\"width\":100,\"headerVertical\":\"flip\"},{\"formatterParams\":{\"min\":0,\"max\":100000,\"color\":[\"red\",\"orange\",\"green\"],\"legend\":\"function (value) { if (value>0) return \\\"<span style='color:#FFFFFF;'>\\\"+(value/1024).toFixed(2)+\\\" kB</span>\\\"; else return; }\",\"legendColor\":\"#101010\",\"legendAlign\":\"center\"},\"title\":\"Memory\",\"field\":\"freeheap\",\"formatter\":\"progress\",\"width\":100,\"headerVertical\":\"flip\"},{\"formatterParams\":{\"target\":\"_blank\",\"min\":0,\"max\":100,\"color\":[\"red\",\"orange\",\"green\"],\"legend\":\"function (value) {     if (value>0)         return \\\"<span style='color:#FFFFFF;'>\\\"+value+\\\" %</span>\\\";     else         return; }\",\"legendColor\":\"#101010\",\"legendAlign\":\"center\"},\"title\":\"CPU load\",\"field\":\"cpuload\",\"formatter\":\"progress\",\"width\":100,\"headerVertical\":\"flip\"},{\"formatterParams\":{\"min\":20,\"max\":60,\"color\":[\"green\",\"orange\",\"red\"],\"legend\":\"function (value) { if (value>0) return \\\"<span style='color:#FFFFFF;'>\\\"+value+\\\" °C</span>\\\"; else return; }\",\"legendColor\":\"#101010\",\"legendAlign\":\"center\"},\"title\":\"CPU temp\",\"field\":\"cputemp\",\"formatter\":\"progress\",\"width\":100,\"headerVertical\":\"flip\"}]},{\"title\":\"Firmware\",\"columns\":[{\"formatter\":\"link\",\"formatterParams\":{\"labelField\":\"$localip\",\"urlPrefix\":\"http://\",\"target\":\"_blank\"},\"title\":\"IP\",\"field\":\"$localip\",\"width\":100},{\"title\":\"mac\",\"field\":\"$mac\",\"width\":100},{\"title\":\"Accsess Point\",\"field\":\"SSID\",\"width\":100},{\"title\":\"Firmware\",\"field\":\"name\",\"width\":100},{\"title\":\"Version\",\"field\":\"version\",\"width\":100},{\"title\":\"Last Boot Cause\",\"field\":\"lastBootCause\",\"width\":100},{\"title\":\"Reset Reason\",\"field\":\"resetReason\",\"width\":100}]}]},\"customHeight\":12}",
+                "ui": {
+                    "icon": "font-awesome/fa-table",
+                    "label": {
+                        "en-US": "Tabulator"
+                    },
+                    "type": "input",
+                    "opts": {
+                        "types": [
+                            "json",
+                            "env"
+                        ]
+                    }
+                }
+            },
+            {
+                "name": "tableDataProp",
+                "type": "str",
+                "value": "row",
+                "ui": {
+                    "icon": "font-awesome/fa-tag",
+                    "label": {
+                        "en-US": "rowProperty"
+                    }
+                }
+            },
+            {
+                "name": "tableIndex",
+                "type": "str",
+                "value": "$topic",
+                "ui": {
+                    "icon": "font-awesome/fa-indent",
+                    "label": {
+                        "en-US": "Index"
+                    },
+                    "type": "input",
+                    "opts": {
+                        "types": [
+                            "str",
+                            "json",
+                            "env"
+                        ]
+                    }
+                }
+            },
+            {
+                "name": "maxRows",
+                "type": "num",
+                "value": "0",
+                "ui": {
+                    "icon": "font-awesome/fa-list-ol",
+                    "type": "input",
+                    "opts": {
+                        "types": [
+                            "num",
+                            "bool",
+                            "env"
+                        ]
+                    }
+                }
+            },
+            {
+                "name": "maxStore",
+                "type": "num",
+                "value": "0",
+                "ui": {
+                    "icon": "font-awesome/fa-database",
+                    "type": "input",
+                    "opts": {
+                        "types": [
+                            "num",
+                            "env"
+                        ]
+                    }
+                }
+            },
+            {
+                "name": "dashboard",
+                "type": "str",
+                "value": "Remote Device Table",
+                "ui": {
+                    "icon": "font-awesome/fa-dashboard",
+                    "label": {
+                        "en-US": "Dashboard"
+                    },
+                    "type": "input",
+                    "opts": {
+                        "types": [
+                            "str",
+                            "env"
+                        ]
+                    }
+                }
+            },
+            {
+                "name": "tableContext",
+                "type": "json",
+                "value": "{\"tableData\":{\"name\":\"tableData\"},\"tableConfig\":{\"name\":\"tableConfig\",\"storage\":\"file\"},\"tableEdit\":{\"name\":\"tableEdit\",\"storage\":\"file\"}}",
+                "ui": {
+                    "icon": "font-awesome/fa-database",
+                    "label": {
+                        "en-US": "Context"
+                    },
+                    "type": "input",
+                    "opts": {
+                        "types": [
+                            "json",
+                            "env"
+                        ]
+                    }
+                }
+            }
+        ],
+        "color": "#3FADB5",
+        "icon": "node-red-dashboard/ui_slider.png",
+        "status": {
+            "x": 360,
+            "y": 34,
+            "wires": [
+                {
+                    "id": "5eb0bd6b.74b794",
+                    "port": 0
+                }
             ]
-        ]
-    },
-    {
-        "id": "f6caa57a45bb92af",
-        "type": "junction",
-        "z": "562197b4f4a67922",
-        "x": 1240,
-        "y": 380,
-        "wires": [
-            [
-                "403b9d6d5a094913",
-                "b8d8617f0c4b9440",
-                "18d6b91713c6ccc2",
-                "262dece09ffccbe8",
-                "0933bb5b17de3a3e",
-                "385819fd3a27168d",
-                "aa10825ae8f424d1",
-                "b4257dcdf0b8a91b",
-                "e5a00f183ba35867",
-                "76ec42689385a5c0",
-                "7ad91f0c4dfc7f70",
-                "d3947d221334bca4",
-                "497bd9d36c5f423e",
-                "d47b2a2ebd1b6959",
-                "8c341b4f021ac8bd",
-                "30914a070604fcaa",
-                "75fc3f3c85b641b3"
-            ]
-        ]
+        }
     },
     {
         "id": "d2bd110790f6ae19",
@@ -350,15 +463,6 @@
         }
     },
     {
-        "id": "f395572c963bf4ed",
-        "type": "ui_tab",
-        "name": "Line F",
-        "icon": "dashboard",
-        "order": 2,
-        "disabled": false,
-        "hidden": false
-    },
-    {
         "id": "85b12cf0fa38d858",
         "type": "ui_group",
         "name": "Production Output",
@@ -370,76 +474,6 @@
         "className": ""
     },
     {
-        "id": "ff9fdb9a.7da098",
-        "type": "ui_group",
-        "name": "TEST",
-        "tab": "7dcc246f.ee661c",
-        "order": 1,
-        "disp": false,
-        "width": "29",
-        "collapse": false,
-        "className": ""
-    },
-    {
-        "id": "7dcc246f.ee661c",
-        "type": "ui_tab",
-        "name": "TEST",
-        "icon": "dashboard",
-        "order": 6,
-        "disabled": false,
-        "hidden": false
-    },
-    {
-        "id": "dc30853a3872d1b4",
-        "type": "ui_spacer",
-        "z": "78809bb47c7f02cd",
-        "name": "spacer",
-        "group": "ff9fdb9a.7da098",
-        "order": 13,
-        "width": 4,
-        "height": 1
-    },
-    {
-        "id": "237da972.5d69a6",
-        "type": "ui_group",
-        "name": "ui-table with commands",
-        "tab": "379a501f.53b59",
-        "order": 1,
-        "disp": true,
-        "width": "17",
-        "collapse": false
-    },
-    {
-        "id": "c91332c0.50c11",
-        "type": "ui_group",
-        "name": "commands",
-        "tab": "379a501f.53b59",
-        "order": 2,
-        "disp": true,
-        "width": "6",
-        "collapse": false
-    },
-    {
-        "id": "379a501f.53b59",
-        "type": "ui_tab",
-        "name": "ui-table command",
-        "icon": "fa-table",
-        "order": 7,
-        "disabled": false,
-        "hidden": false
-    },
-    {
-        "id": "8e34121cef5b559c",
-        "type": "ui_group",
-        "name": "Cell A",
-        "tab": "f395572c963bf4ed",
-        "order": 1,
-        "disp": false,
-        "width": 6,
-        "collapse": false,
-        "className": ""
-    },
-    {
         "id": "d5e27fdb153bf0a3",
         "type": "ui_tab",
         "name": "Data",
@@ -447,83 +481,6 @@
         "order": 1,
         "disabled": false,
         "hidden": false
-    },
-    {
-        "id": "72a409debd40a171",
-        "type": "ui_group",
-        "name": "Cell B",
-        "tab": "f395572c963bf4ed",
-        "order": 2,
-        "disp": false,
-        "width": 6,
-        "collapse": false,
-        "className": ""
-    },
-    {
-        "id": "1ee6fae1e6dd0ff9",
-        "type": "ui_group",
-        "name": "Cell C",
-        "tab": "f395572c963bf4ed",
-        "order": 3,
-        "disp": false,
-        "width": 15,
-        "collapse": false,
-        "className": ""
-    },
-    {
-        "id": "4ad3863a54fa3a9f",
-        "type": "ui_group",
-        "name": "Cell D1",
-        "tab": "f395572c963bf4ed",
-        "order": 4,
-        "disp": false,
-        "width": "6",
-        "collapse": false,
-        "className": ""
-    },
-    {
-        "id": "be5530b09ed4e2d1",
-        "type": "ui_group",
-        "name": "Cell D2",
-        "tab": "f395572c963bf4ed",
-        "order": 5,
-        "disp": false,
-        "width": "6",
-        "collapse": false,
-        "className": ""
-    },
-    {
-        "id": "54c1916e62442956",
-        "type": "ui_group",
-        "name": "Cell E1",
-        "tab": "f395572c963bf4ed",
-        "order": 6,
-        "disp": false,
-        "width": "6",
-        "collapse": false,
-        "className": ""
-    },
-    {
-        "id": "ed4f37bf1c12fb43",
-        "type": "ui_group",
-        "name": "Cell E2",
-        "tab": "f395572c963bf4ed",
-        "order": 7,
-        "disp": false,
-        "width": "6",
-        "collapse": false,
-        "className": ""
-    },
-    {
-        "id": "6708d78d72cc1a6d",
-        "type": "ui_group",
-        "name": "Last Update",
-        "tab": "f395572c963bf4ed",
-        "order": 8,
-        "disp": false,
-        "width": 27,
-        "collapse": false,
-        "className": ""
     },
     {
         "id": "56edfd93d9c67181",
@@ -614,7 +571,7 @@
         "tab": "db830ddbd85f76c5",
         "order": 1,
         "disp": true,
-        "width": "6",
+        "width": 25,
         "collapse": false,
         "className": ""
     },
@@ -634,7 +591,7 @@
         "tab": "145f52da01ded04e",
         "order": 1,
         "disp": true,
-        "width": "6",
+        "width": 25,
         "collapse": false,
         "className": ""
     },
@@ -651,6 +608,25 @@
         "libs": [],
         "x": 192,
         "y": 85,
+        "wires": [
+            [],
+            [],
+            []
+        ],
+        "icon": "font-awesome/fa-table"
+    },
+    {
+        "id": "5eb0bd6b.74b794",
+        "type": "function",
+        "z": "2924702c.b33a7",
+        "name": "handle tableData",
+        "func": "var status = {fill:\"red\",shape:\"dot\",text: \"payload \"};\nvar tableIndex = env.get(\"tableIndex\") || \"$topic\";\nvar tableDataProp = env.get(\"tableDataProp\") || \"row\";\nvar tableContext = env.get(\"tableContext\");\nvar dashboard = env.get(\"dashboard\");\nvar maxRows = env.get(\"maxRows\") || 0;\nvar maxStore = env.get(\"maxStore\") || 0;\n\nif (!tableContext.hasOwnProperty(\"tableData\") || !tableContext.hasOwnProperty(\"tableConfig\")) {\n    status.text=\"tableContext not defined\";\n    node.error(status.text);\n    return [{payload:status},null];\n}\n\n// context store to cache table data (memoryOnly prefered)\nvar tableData = flow.get(\"$parent.\"+tableContext.tableData.name,tableContext.tableData.storage);\nif (tableData===undefined) {\n    node.warn(\"[ui-table handler] tableData initialized!\");\n    tableData={};\n    flow.set(\"$parent.\"+tableContext.tableData.name,tableData,tableContext.tableData.storage);\n}\n\n// context Store to save table configuration (file)\nvar tableConfig = flow.get(\"$parent.\"+tableContext.tableConfig.name,tableContext.tableConfig.storage);\nif (tableConfig===undefined) {\n    node.warn(\"[ui-table handler] tableConfig initialized!\");\n    tableConfig={ResponsiveLayout:true};\n    flow.set(\"$parent.\"+tableContext.tableConfig.name,tableConfig,tableContext.tableConfig.storage);\n}\n\nif (tableConfig.hasOwnProperty(\"maxStore\")) maxStore=tableConfig.maxStore;\nif (tableConfig.hasOwnProperty(\"maxRows\")) maxRows=tableConfig.maxRows;\n\n// context Store to save table configuration (file)\nvar tableEdit;\nif (tableContext.hasOwnProperty(\"tableEdit\")) {\n    tableEdit = flow.get(\"$parent.\"+tableContext.tableEdit.name,tableContext.tableEdit.storage);\n    if (tableEdit===undefined) {\n        node.warn(\"[ui-table handler] tableEdit initialized!\");\n        tableEdit={};\n        flow.set(\"$parent.\"+tableContext.tableEdit.name,tableEdit,tableContext.tableEdit.storage);\n    }\n}\n\n// function to merge partial data into existing table row\nvar mergeObject = function (destination, source, filter) {\n    for (let currentSource in source) {\n        if (source.hasOwnProperty(currentSource)) {\n            if (filter!==undefined && tableEdit && tableEdit.hasOwnProperty(filter) && tableEdit[filter].hasOwnProperty(currentSource)) {\n                destination[currentSource]= tableEdit[filter][currentSource];\n                source[currentSource]=tableEdit[filter][currentSource];\n            } else {\n                destination[currentSource]= source[currentSource];\n            }\n        }    \n    }\n    return source;\n};\n\n// merge edits into a destination object respecting _children\nvar mergeEdits = function(destination) {\n    \n    var mergeChildEdits = function(children) {\n        children.forEach(child => {\n            if (child.hasOwnProperty(tableIndex) && tableEdit.hasOwnProperty(child[tableIndex])) {\n//                node.warn([\"mergeChild\",child])\n                Object.keys(tableEdit[child[tableIndex]]).forEach(edit => {\n                    if (child.hasOwnProperty(edit)) {\n                        child[edit]=tableEdit[child[tableIndex]][edit];\n//                        node.warn([\"mergeChild edit \",edit,child[edit]])\n                    }\n                });\n            }\n            if (child.hasOwnProperty(\"_children\")) {\n                mergeChildEdits(child._children);\n            }\n        })\n    }\n    \n\n    Object.keys(destination).forEach(row => {\n        if (destination[row].hasOwnProperty(tableIndex)) {\n            if (tableEdit.hasOwnProperty(row)) {\n                Object.keys(tableEdit[row]).forEach(edit => {\n                    destination[row][edit]=tableEdit[row][edit];\n                });\n            }\n            if (destination[row].hasOwnProperty(\"_children\")) {\n                mergeChildEdits(destination[row]._children);\n            }\n       }\n    });\n}\n\n// deep search for a column including nested columns\nvar searchTabulatorColumn = function (columns,key,match) {\n    var result;\n    for (let column of columns) {\n        if (column.hasOwnProperty(\"columns\")) {\n            result = searchTabulatorColumn(column.columns,key,match);\n            if (result!==undefined) return result;\n        } else if (column.hasOwnProperty(key) && column[key]===match) {\n            return column;\n        }\n    }\n};\n\n// command message to update add or update data on ui-table\nvar msgToTable={};\nmsgToTable.payload={\n    \"command\":msg.tabulatorCommand || \"updateOrAddData\",\n    \"arguments\": [],\n    \"returnPromise\": false\n};\n\n// store data in tableData\nif (msg.hasOwnProperty(tableDataProp)) {\n    // store data for later recover\n    if (!msg.hasOwnProperty(\"topic\")) { // check if index existst\n        status.text=\"msg.topic not defined!\";\n        return [{payload:status},null];\n    }\n    if (!tableData.hasOwnProperty(msg.topic)){ // first seen\n        if (maxRows>0 && Object.keys(tableData).lenght===0) {\n            tableConfig.currentFirstRow=msg.topic;\n        }\n        tableData[msg.topic]={};\n        if (tableEdit && tableEdit.hasOwnProperty(msg.topic)) { // table edits available!\n            Object.keys(tableEdit[msg.topic]).forEach((key) => {\n                msg[tableDataProp][key]=tableEdit[msg.topic][key];\n                tableData[msg.topic][key]=tableEdit[msg.topic][key];\n            })\n        }\n        if (maxStore>0 && typeof msg.topic === \"number\") { // limit rows in tableData\n            let rowKeys = Object.keys(tableData);\n            if (rowKeys.length>maxStore) {\n                for (let i=0; i<(rowKeys.length-maxStore); i++) {\n                    delete tableData[rowKeys[i]];\n                }\n            }\n        }\n    }\n    if (!tableData[msg.topic].hasOwnProperty(tableIndex)) tableData[msg.topic][tableIndex]=msg.topic;\n    msg[tableDataProp]=mergeObject(tableData[msg.topic],msg[tableDataProp],msg.topic);\n    msg[tableDataProp][tableIndex]=msg.topic;\n    msgToTable.payload.arguments=[[msg[tableDataProp]]];\n    // add aditional parameters\n    if (msg.hasOwnProperty(\"tabulatorParameter\") && Array.isArray(msg.tabulatorParameter)) {\n        for (let arg in msg.tabulatorParameter) msgToTable.payload.arguments.push(arg);\n    }\n    // delete rows if rows exceed maxRows\n    /*\n    if (maxRows>0 && tableConfig.hasOwnProperty(\"currentFirstRow\") && typeof tableData[msg.topic][tableIndex]===\"number\") {\n        //node.warn([maxRows,tableConfig.hasOwnProperty(\"currentFirstRow\"),typeof tableData[msg.topic][tableIndex],tableConfig.currentFirstRow,tableData[msg.topic][tableIndex]-maxRows])\n        if (tableConfig.currentFirstRow<tableData[msg.topic][tableIndex]-maxRows) {\n            node.warn([\"maxRowExeeded\",tableConfig.currentFirstRow]);\n            node.send([null,{payload:{\"command\":\"deleteRow\",\"arguments\": [tableConfig.currentFirstRow],\"returnPromise\": false}},null]);\n            tableConfig.currentFirstRow++;\n        }\n    }*/\n    if (maxRows>0 && typeof tableData[msg.topic][tableIndex]===\"number\" && msg.topic-maxRows>0) {\n        node.send([null,{payload:{\"command\":\"deleteRow\",\"arguments\": [msg.topic-maxRows],\"returnPromise\": false}},null]);\n    }\n    status.fill=\"green\";\n    status.text=msg.topic+\" updated\";\n    return [{payload:status},msgToTable,null];\n} if (msg.payload===\"connect\" || (msg.payload===\"change\" && msg.name===dashboard) || (msg.hasOwnProperty(\"payload\") && msg.payload.hasOwnProperty(\"command\"))) { \n    if (!msg.hasOwnProperty(\"ui_control\")) {\n        msg.ui_control = env.get('tabulator');\n        status.text+=\" ui_control added\";\n    }\n    //process commands\n    //node.warn({\"command\":msg.payload.command,\"msg\":msg,\"object\":msg.payload.object})\n    if (msg.payload.hasOwnProperty(\"command\") && msg.payload.command!=='getTable') {\n        status.fill=\"blue\";\n        switch(msg.payload.command) {\n            case 'deleteTable':\n                flow.set(\"$parent.\"+tableContext.tableData.name,undefined,tableContext.tableData.storage);\n                tableData={};\n                status.text=\"tabledata deleted\";\n                node.warn(\"[ui-table handler] \"+\"tabledata deleted\");\n                break;\n            case 'deleteRow':\n            case 'deleteDevice':\n                var deleteRow = function(id) {\n                    // check if row is in root\n                    if (tableData.hasOwnProperty(id)) {\n                        delete tableData[id]\n                        return true;\n                    }\n                    // check if row is a child\n                    let deleteChildRow = function(children, id) {\n                        for(let i = 0; i < children.length; i++){\n                            if (children[i].hasOwnProperty(tableIndex) && children[i][tableIndex]===id) {\n                                children.splice(i, 1); \n                                return true; \n                            }\n                            if (children[i].hasOwnProperty(\"_children\")) {\n                                if (deleteChildRow(children[i]._children,id)) {\n                                    if (children[i]._children.length === 0) {\n                                        delete children[i]._children;\n                                    }\n                                    return true;\n                                }\n                            }\n                        }\n                        return false;\n                    };\n                    \n                    for (let row in tableData) {\n                        if (tableData[row].hasOwnProperty(\"_children\")) {\n                            if (deleteChildRow(tableData[row]._children,id)) return true;\n                        }\n                    }\n                    return false;\n                }\n                \n                if (deleteRow(msg.payload.object)) {\n                    status.text=msg.payload.object+\" deleted\";\n                } else {\n                    status.fill=\"yellow\";\n                    status.text=msg.payload.object+\" undefined\";\n                }\n                break;\n            case 'ignoreRow':\n            case 'ignoreDevice':\n                if (tableData.hasOwnProperty(msg.payload.object)) {\n                    delete tableData[msg.payload.object];\n                    status.text=msg.payload.object+\" will be ignored\";\n                    if (!tableConfig.hasOwnProperty('ignoreDevice')) tableConfig.ignoreDevice={};\n                    tableConfig.ignoreDevice[msg.payload.object]=true;\n                }\n                break;\n            case 'unIgnoreRow':\n            case 'unIgnoreDevice':\n                if (tableConfig.hasOwnProperty('ignoreDevice')) {\n                    delete tableConfig.ignoreDevice[msg.payload.object];\n                }\n                break;\n            case 'unIgnoreRows':\n            case 'unIgnoreDevices':\n                delete tableConfig.ignoreDevice;\n                break;\n            case 'updateData':\n                status.text=\"column \"+msg.payload.column+\" updated\";\n                delete msg.ui_control;\n                return [{payload:status},msg];\n            case 'updateTable':\n                status.text=msg.payload.command+\": \";\n                break;\n            case 'columnHide':\n                if (!tableConfig.hasOwnProperty('columnVisible')) tableConfig.columnVisible={};\n                tableConfig.columnVisible[msg.payload.object]=false;\n                break;\n            case 'columnUnHide':\n                if (!tableConfig.hasOwnProperty('columnVisible')) tableConfig.columnVisible={};\n                tableConfig.columnVisible[msg.payload.object]=true;\n                break;\n            case 'columnsUnHide':\n                for (let column in tableConfig.columnVisible) {\n                    if (tableConfig.columnVisible.hasOwnProperty(column)) tableConfig.columnVisible[column]=true;\n                }\n                break;\n            case 'refreshTable':\n                break;\n            case 'deleteColumnOrder':\n            case 'restoreColumnOrder':\n                delete tableConfig.columns;\n                break;\n            case 'deleteColumnWidth':\n            case 'resetColumnWidth':\n                delete tableConfig.columnWidths;\n                break;\n            case 'setResponsiveLayout':\n                tableConfig.ResponsiveLayout=!tableConfig.ResponsiveLayout;\n                break;\n            case 'deleteRowOrder':\n                delete tableConfig.rowOrder;\n                break;\n            case 'setMaxStore':\n                tableConfig.maxStore=msg.payload.object;\n                maxStore=msg.payload.object;\n                break;\n            case 'setMaxRows':\n                tableConfig.maxRows=msg.payload.object;\n                maxRows=msg.payload.object;\n                break;\n            default:\n                status.fill=\"red\";\n                status.text=\"unknown command \"+msg.payload.command;\n                node.warn(\"[ui-table handler] \"+status.text);\n                break;\n        }\n        flow.set(\"$parent.\"+tableContext.tableConfig.name,tableConfig,tableContext.tableConfig.storage);\n        node.send([{payload:status},null,null]);\n    }\n\n    // crawl through tabulator arrays and updated user defined values\n    var crawlTabulator = function (columns,match,config,property) {\n        for (let column of columns) {\n            if (column.hasOwnProperty(\"columns\")) {\n                crawlTabulator(column.columns,match,config,property);\n            } else if (config.hasOwnProperty(column[match])) column[property]=config[column.field];\n        }\n    };\n    \n    // restore custom column width\n    if (tableConfig.hasOwnProperty(\"columnWidths\") && msg.hasOwnProperty(\"ui_control\")) {\n        crawlTabulator(msg.ui_control.tabulator.columns,\"field\",tableConfig.columnWidths,\"width\");\n    }\n    \n    // restore custom column hide/show\n    if (tableConfig.hasOwnProperty(\"columnVisible\") && msg.hasOwnProperty(\"ui_control\")) {\n        crawlTabulator(msg.ui_control.tabulator.columns,\"field\",tableConfig.columnVisible,\"visible\");\n    }\n    \n    // restore custom responsive / standard view\n    if (tableConfig.hasOwnProperty(\"ResponsiveLayout\")) {\n        if (!tableConfig.ResponsiveLayout) {\n            msg.ui_control.tabulator.responsiveLayout=false;\n        }\n        msg.ui_control.tabulator.columns.forEach((column,index) => {\n            if (column.formatter===\"responsiveCollapse\") { // hide expand column on any position\n                column.visible=tableConfig.ResponsiveLayout;\n                return;\n            }\n        });\n    }\n\n    // sort columns\n    if (tableConfig.hasOwnProperty(\"columns\") && msg.hasOwnProperty(\"ui_control\") && msg.ui_control.hasOwnProperty(\"tabulator\")) {\n        var addedColumns = 0;\n        var sortColumnsByLayout = function (sortColumns, columnsLayout, targetColumns) {\n            for (var layoutColumn=0;  layoutColumn<columnsLayout.length; layoutColumn++) {\n                for (var sortColumn in sortColumns) {\n                    if (sortColumns[sortColumn].hasOwnProperty(\"columns\")) {\n                        targetColumns.push({\"title\":sortColumns[sortColumn].title, \"columns\":[]});\n                        sortColumnsByLayout(sortColumns[sortColumn].columns,columnsLayout,targetColumns[targetColumns.length-1].columns);\n                        layoutColumn=addedColumns; // jump forward after childes added\n                    } else {\n                        if (columnsLayout[layoutColumn].field===sortColumns[sortColumn].field){\n                            targetColumns.push(sortColumns[sortColumn]);\n                            addedColumns++;\n                            break;\n                        }\n                    }\n                }\n            }\n        };                 \n        var newColumns=[];\n        sortColumnsByLayout(msg.ui_control.tabulator.columns,tableConfig.columns,newColumns);\n        msg.ui_control.tabulator.columns=newColumns;\n    }\n\n    // restore stored lines after connect\n\n    let command = msg.payload.command;\n    var tableArray;\n    if (command===\"getTable\") {\n        msg.payload.tableArray=[];\n        tableArray=msg.payload.tableArray\n    } else {\n        msg.payload=[];\n        tableArray=msg.payload;\n    }\n    \n    var pushRowData = function(rowData) {\n        // ignore rows in ignoreRows array\n        if (tableConfig && tableConfig.hasOwnProperty(\"ignoreDevice\") && tableConfig.ignoreDevice[rowData]) {\n            // do nothing\n        } else {\n            // merge edits into table\n            if (tableEdit && tableEdit.hasOwnProperty(rowData)) {\n                let tableRow = RED.util.cloneMessage(tableData[rowData]);\n                Object.keys(tableEdit[rowData]).forEach((field) => {\n                    tableRow[field]=tableEdit[rowData][field];\n                });\n                tableArray.push(tableRow);\n            } else {\n                tableArray.push(tableData[rowData]);\n            }\n        }\n    }\n    \n    if (tableConfig.hasOwnProperty(\"rowOrder\")) {\n        // first check if new rows exits which are not in rowOrder\n        Object.keys(tableData).forEach((key) => {\n            if (tableConfig.rowOrder.indexOf(tableData[key][tableIndex])<0) {\n                tableConfig.rowOrder.push(tableData[key][tableIndex]); // add row to the end of rowOrder\n            }\n        });\n        tableConfig.rowOrder.forEach((value,index) => {\n            node.warn([\"pushRowOrder\",value,tableData.hasOwnProperty(value),tableData[value]]);\n            if (tableData.hasOwnProperty(value)) { // push rows in rowOrder sequence\n                pushRowData(value);\n            } else { // delete not existing rows from rowOrder\n                tableConfig.rowOrder.splice(index,1)\n            }\n       });\n    } else {\n        for (let rowData in tableData) {\n            pushRowData(rowData);\n        }\n    }\n    // store the first index if maxRows limits amount of displayed lines\n    if (maxRows>0 && tableData) {\n        let tableKeys=Object.keys(tableData);\n        if (tableKeys.length>0 && typeof tableData[tableKeys[0]][tableIndex] === \"number\") {\n            tableConfig.currentFirstRow=tableData[tableKeys[0]][tableIndex];\n        }\n    }\n    \n    if (command=='getTable'){\n        status.fill=\"blue\";\n        status.text+=\" \"+tableArray.length+\" rows emitted\";\n        return [{payload:status},null,msg];\n    } else {\n        status.fill=\"blue\";\n        status.text+=\" \"+tableArray.length+\" rows restored\";\n        return [{payload:status},msg,[{topic:\"maxRows\",payload:maxRows},{topic:\"maxStore\",payload:maxStore}]];\n    }\n} if (msg.hasOwnProperty(\"ui_control\")) {\n    // callback from tabulator\n    status.fill=\"blue\";\n    status.text=\"callback \"+msg.ui_control.callback;\n    switch(msg.ui_control.callback) {\n        case \"columnResized\": // save new column width\n            if (tableConfig.columnWidths===undefined) tableConfig.columnWidths={};\n            tableConfig.columnWidths[msg.ui_control.columnWidths.field]=msg.ui_control.columnWidths.width;\n            flow.set(\"$parent.\"+tableContext.tableConfig.name,tableConfig,tableContext.tableConfig.storage);\n            status.text=msg.ui_control.columnWidths.field+\"=\"+msg.ui_control.columnWidths.width+\"px\";\n            break;\n        case \"columnMoved\": // save new column order\n            if (tableConfig.columns===undefined) tableConfig.columns=[];\n            tableConfig.columns=msg.ui_control.columns;\n            flow.set(\"$parent.\"+tableContext.tableConfig.name,tableConfig,tableContext.tableConfig.storage);\n            status.text=\"new column order\";\n            break;\n        case \"cellEdited\":\n            if (tableEdit) {\n                if (!tableEdit.hasOwnProperty(msg[tableIndex])) tableEdit[msg[tableIndex]]={};\n                tableEdit[msg[tableIndex]][msg.field] = msg.payload; // save data and mark as edited field\n                flow.set(\"$parent.\"+tableContext.tableEdit.name,tableEdit,tableContext.tableEdit.storage);\n                mergeEdits(tableData);\n                flow.set(\"$parent.\"+tableContext.tableData.name,tableData,tableContext.tableData.storage);\n                status.text=msg[tableIndex]+\" \"+msg.field+\" edited to \"+msg.payload;\n                msg[tableDataProp]={};\n                msg[tableDataProp][tableIndex]=msg[tableIndex];\n                msg[tableDataProp][msg.field]=msg.payload;\n                msgToTable.payload.arguments=[[msg[tableDataProp]]];\n                node.send([{payload:status},null,msg]); // was node.send([{payload:status},msgToTable,msg]);\n            } else {\n                node.error(\"[ui-table handler] no tableEdit store defined!\")\n            }\n            break;\n        case \"rowContext\":\n            msg.ignoredDevices=[];\n            for (let rowData in tableConfig.ignoreDevice) {\n                if (tableConfig.ignoreDevice.hasOwnProperty(rowData)) {\n                    msg.ignoredDevices.push({\"text\":rowData,\"icon\":\"fa fa-plug\",\"topic\":\"unIgnoreDevice\",\"payload\":rowData})  \n                }\n            }\n            break;\n        case \"headerContext\":\n            msg.hiddenColumns=[];\n            let tabulatorConfig = env.get('tabulator');\n            for (let column in tableConfig.columnVisible) {\n                if (tableConfig.columnVisible.hasOwnProperty(column) &&\n                    !tableConfig.columnVisible[column]) {\n                    let configColumn=searchTabulatorColumn(tabulatorConfig.tabulator.columns,\"field\",column);\n                    let icon;\n                    if (configColumn.hasOwnProperty('title') && configColumn.title.toLowerCase().includes('</i>')) {\n                        // <i class='fa fa-star-half-o'></i> State\n                        let start=configColumn.title.indexOf(\"'fa \");\n                        let end=configColumn.title.indexOf(\"'\",start+1);\n                        icon=configColumn.title.substring(start+4,end);\n                    }\n                    msg.hiddenColumns.push({\"text\":column,\"icon\":icon,\"topic\":\"columnUnHide\",\"payload\":configColumn.field})  \n                }\n            }\n            break;\n        case \"rowMoved\":\n            if (tableConfig.rowOrder===undefined) tableConfig.rowOrder={};\n            tableConfig.rowOrder=msg.ui_control.rowOrder;\n            flow.set(\"$parent.\"+tableContext.tableConfig.name,tableConfig,tableContext.tableConfig.storage);\n            status.text=\"new row order\";\n            break;\n        default:\n            // if rowIndex exists pass complete object\n            if (msg.hasOwnProperty(tableIndex)) {\n                msg.rowData=tableData[msg[tableIndex]];\n            }\n            status.text=\"pass message\";\n    }\n    return [{payload:status},null,msg];\n} \nif (Array.isArray(msg.payload)) {\n    tableData={};\n    \n    msg.payload.forEach((row) => {\n        if (row.hasOwnProperty(tableIndex)) {\n            tableData[row[tableIndex]]=row;\n        }\n    });\n    if (msg.keepEdits) {\n        mergeEdits(tableData);\n    }\n\n    \n    flow.set(\"$parent.\"+tableContext.tableData.name,tableData,tableContext.tableData.storage);\n    if (tableContext.hasOwnProperty(\"tableEdit\") && !msg.keepEdits) {\n        tableEdit={};\n        flow.set(\"$parent.\"+tableContext.tableEdit.name,tableEdit,tableContext.tableEdit.storage);\n    }\n    status.fill=\"blue\"\n    status.text=\"table replaced \"+msg.payload.length+\" rows\";\n    return [{payload:status},msg,null];\n}    \n    \n// nothing to do bejond this point\nstatus.text+=\" [\"+msg.payload+\"]\";\nreturn [{payload:status},null];\n",
+        "outputs": 3,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "x": 190,
+        "y": 80,
         "wires": [
             [],
             [],
@@ -774,8 +750,8 @@
                 "type": "json"
             }
         ],
-        "x": 1040,
-        "y": 140,
+        "x": 1020,
+        "y": 180,
         "wires": [
             [],
             []
@@ -833,8 +809,6 @@
         "y": 380,
         "wires": [
             [
-                "f6caa57a45bb92af",
-                "cfc342bd2bc80aba",
                 "a3445a1b7a99a2aa"
             ]
         ]
@@ -993,1496 +967,6 @@
         ]
     },
     {
-        "id": "10029de9489aac10",
-        "type": "ui_level",
-        "z": "562197b4f4a67922",
-        "group": "8e34121cef5b559c",
-        "order": 4,
-        "width": 3,
-        "height": 2,
-        "name": "A-1",
-        "label": "",
-        "colorHi": "#00e60f",
-        "colorWarn": "#ff9900",
-        "colorNormal": "#f00000",
-        "colorOff": "#cccccc",
-        "min": 0,
-        "max": 100,
-        "segWarn": "",
-        "segHigh": "90",
-        "unit": "Pcs",
-        "layout": "sv",
-        "channelA": "",
-        "channelB": "",
-        "decimals": 0,
-        "animations": "off",
-        "shape": "2",
-        "colorschema": "fixed",
-        "textoptions": "custom",
-        "colorText": "#eeeeee",
-        "fontLabel": "1.6",
-        "fontValue": "2.5",
-        "fontSmall": "",
-        "colorFromTheme": true,
-        "textAnimations": false,
-        "hideValue": false,
-        "tickmode": "off",
-        "peakmode": false,
-        "property": "payload",
-        "peaktime": 3000,
-        "x": 1790,
-        "y": 160,
-        "wires": []
-    },
-    {
-        "id": "403b9d6d5a094913",
-        "type": "change",
-        "z": "562197b4f4a67922",
-        "name": "setup display for Line F Cell A Part 1",
-        "rules": [
-            {
-                "t": "set",
-                "p": "control",
-                "pt": "msg",
-                "to": "payload[Line = \"F\" and Cell = \"A-1\"].{\t    \"label\":`Back No`,\t    \"max\":`Plan`,\t    \"min\": 0\t}",
-                "tot": "jsonata"
-            },
-            {
-                "t": "set",
-                "p": "team",
-                "pt": "msg",
-                "to": "payload[Line = \"F\" and Cell = \"A-1\"].TM",
-                "tot": "jsonata"
-            },
-            {
-                "t": "set",
-                "p": "plan",
-                "pt": "msg",
-                "to": "payload[Line = \"F\" and Cell = \"A-1\"].Plan",
-                "tot": "jsonata"
-            },
-            {
-                "t": "set",
-                "p": "payload",
-                "pt": "msg",
-                "to": "payload[Line = \"F\" and Cell = \"A-1\"].Actual",
-                "tot": "jsonata"
-            }
-        ],
-        "action": "",
-        "property": "",
-        "from": "",
-        "to": "",
-        "reg": false,
-        "x": 1550,
-        "y": 160,
-        "wires": [
-            [
-                "10029de9489aac10",
-                "b3ee9cd221053421",
-                "b3ac89e913b6f9b8"
-            ]
-        ]
-    },
-    {
-        "id": "83604711510e05c5",
-        "type": "ui_level",
-        "z": "562197b4f4a67922",
-        "group": "8e34121cef5b559c",
-        "order": 5,
-        "width": 3,
-        "height": 2,
-        "name": "A-2",
-        "label": "",
-        "colorHi": "#00e60f",
-        "colorWarn": "#ff9900",
-        "colorNormal": "#f00000",
-        "colorOff": "#cccccc",
-        "min": 0,
-        "max": 100,
-        "segWarn": "",
-        "segHigh": "90",
-        "unit": "Pcs",
-        "layout": "sv",
-        "channelA": "",
-        "channelB": "",
-        "decimals": 0,
-        "animations": "off",
-        "shape": "2",
-        "colorschema": "fixed",
-        "textoptions": "custom",
-        "colorText": "#eeeeee",
-        "fontLabel": "1.6",
-        "fontValue": "",
-        "fontSmall": "",
-        "colorFromTheme": true,
-        "textAnimations": false,
-        "hideValue": false,
-        "tickmode": "off",
-        "peakmode": false,
-        "property": "payload",
-        "peaktime": 3000,
-        "x": 1790,
-        "y": 220,
-        "wires": []
-    },
-    {
-        "id": "b8d8617f0c4b9440",
-        "type": "change",
-        "z": "562197b4f4a67922",
-        "name": "setup display for Line F Cell A Part 2",
-        "rules": [
-            {
-                "t": "set",
-                "p": "control",
-                "pt": "msg",
-                "to": "payload[Line = \"F\" and Cell = \"A-2\"].{\t    \"label\":`Back No`,\t    \"max\":`Plan`,\t    \"min\": 0\t}",
-                "tot": "jsonata"
-            },
-            {
-                "t": "set",
-                "p": "payload",
-                "pt": "msg",
-                "to": "payload[Line = \"F\" and Cell = \"A-2\"].Actual",
-                "tot": "jsonata"
-            }
-        ],
-        "action": "",
-        "property": "",
-        "from": "",
-        "to": "",
-        "reg": false,
-        "x": 1550,
-        "y": 220,
-        "wires": [
-            [
-                "83604711510e05c5"
-            ]
-        ]
-    },
-    {
-        "id": "918169a106107887",
-        "type": "ui_level",
-        "z": "562197b4f4a67922",
-        "group": "72a409debd40a171",
-        "order": 4,
-        "width": 3,
-        "height": 2,
-        "name": "",
-        "label": "",
-        "colorHi": "#00e60f",
-        "colorWarn": "#ff9900",
-        "colorNormal": "#f00000",
-        "colorOff": "#e6e6e6",
-        "min": 0,
-        "max": 100,
-        "segWarn": "",
-        "segHigh": "90",
-        "unit": "Pcs",
-        "layout": "sv",
-        "channelA": "",
-        "channelB": "",
-        "decimals": 0,
-        "animations": "off",
-        "shape": 2,
-        "colorschema": "fixed",
-        "textoptions": "custom",
-        "colorText": "#eeeeee",
-        "fontLabel": "1.6",
-        "fontValue": "",
-        "fontSmall": "",
-        "colorFromTheme": true,
-        "textAnimations": false,
-        "hideValue": false,
-        "tickmode": "off",
-        "peakmode": false,
-        "property": "payload",
-        "peaktime": 3000,
-        "x": 1790,
-        "y": 360,
-        "wires": []
-    },
-    {
-        "id": "18d6b91713c6ccc2",
-        "type": "change",
-        "z": "562197b4f4a67922",
-        "name": "setup display for Line F Cell B Part 1",
-        "rules": [
-            {
-                "t": "set",
-                "p": "control",
-                "pt": "msg",
-                "to": "payload[Line = \"F\" and Cell = \"B-1\"].{\t    \"label\":`Back No`,\t    \"max\":`Plan`,\t    \"min\": 0\t}",
-                "tot": "jsonata"
-            },
-            {
-                "t": "set",
-                "p": "team",
-                "pt": "msg",
-                "to": "payload[Line = \"F\" and Cell = \"B-1\"].TM",
-                "tot": "jsonata"
-            },
-            {
-                "t": "set",
-                "p": "plan",
-                "pt": "msg",
-                "to": "payload[Line = \"F\" and Cell = \"B-1\"].Plan",
-                "tot": "jsonata"
-            },
-            {
-                "t": "set",
-                "p": "payload",
-                "pt": "msg",
-                "to": "payload[Line = \"F\" and Cell = \"B-1\"].Actual",
-                "tot": "jsonata"
-            }
-        ],
-        "action": "",
-        "property": "",
-        "from": "",
-        "to": "",
-        "reg": false,
-        "x": 1550,
-        "y": 360,
-        "wires": [
-            [
-                "918169a106107887",
-                "60b1418a1c39bd3c",
-                "f46114d79b2dd959"
-            ]
-        ]
-    },
-    {
-        "id": "aa5a89c726bb7710",
-        "type": "ui_level",
-        "z": "562197b4f4a67922",
-        "group": "72a409debd40a171",
-        "order": 5,
-        "width": 3,
-        "height": 2,
-        "name": "",
-        "label": "",
-        "colorHi": "#00e60f",
-        "colorWarn": "#ff9900",
-        "colorNormal": "#f00000",
-        "colorOff": "#e6e6e6",
-        "min": 0,
-        "max": 100,
-        "segWarn": "",
-        "segHigh": "90",
-        "unit": "Pcs",
-        "layout": "sv",
-        "channelA": "",
-        "channelB": "",
-        "decimals": 0,
-        "animations": "off",
-        "shape": 2,
-        "colorschema": "fixed",
-        "textoptions": "custom",
-        "colorText": "#eeeeee",
-        "fontLabel": "1.6",
-        "fontValue": "",
-        "fontSmall": "",
-        "colorFromTheme": true,
-        "textAnimations": false,
-        "hideValue": false,
-        "tickmode": "off",
-        "peakmode": false,
-        "property": "payload",
-        "peaktime": 3000,
-        "x": 1790,
-        "y": 420,
-        "wires": []
-    },
-    {
-        "id": "262dece09ffccbe8",
-        "type": "change",
-        "z": "562197b4f4a67922",
-        "name": "setup display for Line F Cell B Part 2",
-        "rules": [
-            {
-                "t": "set",
-                "p": "control",
-                "pt": "msg",
-                "to": "payload[Line = \"F\" and Cell = \"B-2\"].{\t    \"label\":`Back No`,\t    \"max\":`Plan`,\t    \"min\": 0\t}",
-                "tot": "jsonata"
-            },
-            {
-                "t": "set",
-                "p": "payload",
-                "pt": "msg",
-                "to": "payload[Line = \"F\" and Cell = \"B-2\"].Actual",
-                "tot": "jsonata"
-            }
-        ],
-        "action": "",
-        "property": "",
-        "from": "",
-        "to": "",
-        "reg": false,
-        "x": 1550,
-        "y": 420,
-        "wires": [
-            [
-                "aa5a89c726bb7710"
-            ]
-        ]
-    },
-    {
-        "id": "b3ee9cd221053421",
-        "type": "ui_text",
-        "z": "562197b4f4a67922",
-        "group": "8e34121cef5b559c",
-        "order": 2,
-        "width": 0,
-        "height": 0,
-        "name": "",
-        "label": "Team Member:",
-        "format": "<h1>{{msg.team | uppercase}}</h1>",
-        "layout": "row-center",
-        "className": "",
-        "x": 1820,
-        "y": 80,
-        "wires": []
-    },
-    {
-        "id": "b3ac89e913b6f9b8",
-        "type": "ui_text",
-        "z": "562197b4f4a67922",
-        "group": "8e34121cef5b559c",
-        "order": 3,
-        "width": 0,
-        "height": 0,
-        "name": "",
-        "label": "Target:",
-        "format": "<h1>{{msg.plan}}</h1>",
-        "layout": "row-center",
-        "className": "",
-        "x": 1790,
-        "y": 120,
-        "wires": []
-    },
-    {
-        "id": "60b1418a1c39bd3c",
-        "type": "ui_text",
-        "z": "562197b4f4a67922",
-        "group": "72a409debd40a171",
-        "order": 2,
-        "width": 0,
-        "height": 0,
-        "name": "",
-        "label": "Team Member:",
-        "format": "<h1>{{msg.team | uppercase}}</h1>",
-        "layout": "row-center",
-        "className": "",
-        "x": 1820,
-        "y": 280,
-        "wires": []
-    },
-    {
-        "id": "f46114d79b2dd959",
-        "type": "ui_text",
-        "z": "562197b4f4a67922",
-        "group": "72a409debd40a171",
-        "order": 3,
-        "width": 0,
-        "height": 0,
-        "name": "",
-        "label": "Target:",
-        "format": "<h1>{{msg.plan}}</h1>",
-        "layout": "row-center",
-        "className": "",
-        "x": 1790,
-        "y": 320,
-        "wires": []
-    },
-    {
-        "id": "fa0751e8d1ed93ee",
-        "type": "ui_level",
-        "z": "562197b4f4a67922",
-        "group": "1ee6fae1e6dd0ff9",
-        "order": 4,
-        "width": 3,
-        "height": 2,
-        "name": "",
-        "label": "",
-        "colorHi": "#00e60f",
-        "colorWarn": "#ff9900",
-        "colorNormal": "#f00000",
-        "colorOff": "#e6e6e6",
-        "min": 0,
-        "max": 100,
-        "segWarn": "",
-        "segHigh": "90",
-        "unit": "Pcs",
-        "layout": "sv",
-        "channelA": "",
-        "channelB": "",
-        "decimals": 0,
-        "animations": "off",
-        "shape": 2,
-        "colorschema": "fixed",
-        "textoptions": "custom",
-        "colorText": "#eeeeee",
-        "fontLabel": "1.6",
-        "fontValue": "",
-        "fontSmall": "",
-        "colorFromTheme": true,
-        "textAnimations": false,
-        "hideValue": false,
-        "tickmode": "off",
-        "peakmode": false,
-        "property": "payload",
-        "peaktime": 3000,
-        "x": 1790,
-        "y": 560,
-        "wires": []
-    },
-    {
-        "id": "0933bb5b17de3a3e",
-        "type": "change",
-        "z": "562197b4f4a67922",
-        "name": "setup display for Line F Cell C Part 1",
-        "rules": [
-            {
-                "t": "set",
-                "p": "control",
-                "pt": "msg",
-                "to": "payload[Line = \"F\" and Cell = \"C-1\"].{\t    \"label\":`Back No`,\t    \"max\":`Plan`,\t    \"min\": 0\t}",
-                "tot": "jsonata"
-            },
-            {
-                "t": "set",
-                "p": "team",
-                "pt": "msg",
-                "to": "payload[Line = \"F\" and Cell = \"C-1\"].TM",
-                "tot": "jsonata"
-            },
-            {
-                "t": "set",
-                "p": "plan",
-                "pt": "msg",
-                "to": "payload[Line = \"F\" and Cell = \"C-1\"].Plan",
-                "tot": "jsonata"
-            },
-            {
-                "t": "set",
-                "p": "payload",
-                "pt": "msg",
-                "to": "payload[Line = \"F\" and Cell = \"C-1\"].Actual",
-                "tot": "jsonata"
-            }
-        ],
-        "action": "",
-        "property": "",
-        "from": "",
-        "to": "",
-        "reg": false,
-        "x": 1550,
-        "y": 560,
-        "wires": [
-            [
-                "fa0751e8d1ed93ee",
-                "a9a72adbdc7694b5",
-                "ddf0d970d5e950d7"
-            ]
-        ]
-    },
-    {
-        "id": "e9a66bb185278b7e",
-        "type": "ui_level",
-        "z": "562197b4f4a67922",
-        "group": "1ee6fae1e6dd0ff9",
-        "order": 5,
-        "width": 3,
-        "height": 2,
-        "name": "",
-        "label": "",
-        "colorHi": "#00e60f",
-        "colorWarn": "#ff9900",
-        "colorNormal": "#f00000",
-        "colorOff": "#e6e6e6",
-        "min": 0,
-        "max": 100,
-        "segWarn": "",
-        "segHigh": "90",
-        "unit": "Pcs",
-        "layout": "sv",
-        "channelA": "",
-        "channelB": "",
-        "decimals": 0,
-        "animations": "off",
-        "shape": 2,
-        "colorschema": "fixed",
-        "textoptions": "custom",
-        "colorText": "#eeeeee",
-        "fontLabel": "1.6",
-        "fontValue": "",
-        "fontSmall": "",
-        "colorFromTheme": true,
-        "textAnimations": false,
-        "hideValue": false,
-        "tickmode": "off",
-        "peakmode": false,
-        "property": "payload",
-        "peaktime": 3000,
-        "x": 1790,
-        "y": 620,
-        "wires": []
-    },
-    {
-        "id": "385819fd3a27168d",
-        "type": "change",
-        "z": "562197b4f4a67922",
-        "name": "setup display for Line F Cell C Part 2",
-        "rules": [
-            {
-                "t": "set",
-                "p": "control",
-                "pt": "msg",
-                "to": "payload[Line = \"F\" and Cell = \"C-2\"].{\t    \"label\":`Back No`,\t    \"max\":`Plan`,\t    \"min\": 0\t}",
-                "tot": "jsonata"
-            },
-            {
-                "t": "set",
-                "p": "payload",
-                "pt": "msg",
-                "to": "payload[Line = \"F\" and Cell = \"C-2\"].Actual",
-                "tot": "jsonata"
-            }
-        ],
-        "action": "",
-        "property": "",
-        "from": "",
-        "to": "",
-        "reg": false,
-        "x": 1550,
-        "y": 620,
-        "wires": [
-            [
-                "e9a66bb185278b7e"
-            ]
-        ]
-    },
-    {
-        "id": "a9a72adbdc7694b5",
-        "type": "ui_text",
-        "z": "562197b4f4a67922",
-        "group": "1ee6fae1e6dd0ff9",
-        "order": 2,
-        "width": 0,
-        "height": 0,
-        "name": "",
-        "label": "Team Member:",
-        "format": "<h1>{{msg.team | uppercase}}</h1>",
-        "layout": "row-center",
-        "className": "",
-        "x": 1820,
-        "y": 480,
-        "wires": []
-    },
-    {
-        "id": "ddf0d970d5e950d7",
-        "type": "ui_text",
-        "z": "562197b4f4a67922",
-        "group": "1ee6fae1e6dd0ff9",
-        "order": 3,
-        "width": 0,
-        "height": 0,
-        "name": "",
-        "label": "Target:",
-        "format": "<h1>{{msg.plan}}</h1>",
-        "layout": "row-center",
-        "className": "",
-        "x": 1790,
-        "y": 520,
-        "wires": []
-    },
-    {
-        "id": "ddf20301e822cc4d",
-        "type": "ui_level",
-        "z": "562197b4f4a67922",
-        "group": "1ee6fae1e6dd0ff9",
-        "order": 6,
-        "width": 3,
-        "height": 2,
-        "name": "",
-        "label": "",
-        "colorHi": "#00e60f",
-        "colorWarn": "#ff9900",
-        "colorNormal": "#f00000",
-        "colorOff": "#e6e6e6",
-        "min": 0,
-        "max": 100,
-        "segWarn": "",
-        "segHigh": "90",
-        "unit": "Pcs",
-        "layout": "sv",
-        "channelA": "",
-        "channelB": "",
-        "decimals": 0,
-        "animations": "off",
-        "shape": 2,
-        "colorschema": "fixed",
-        "textoptions": "custom",
-        "colorText": "#eeeeee",
-        "fontLabel": "1.6",
-        "fontValue": "",
-        "fontSmall": "",
-        "colorFromTheme": true,
-        "textAnimations": false,
-        "hideValue": false,
-        "tickmode": "off",
-        "peakmode": false,
-        "property": "payload",
-        "peaktime": 3000,
-        "x": 1790,
-        "y": 680,
-        "wires": []
-    },
-    {
-        "id": "8c341b4f021ac8bd",
-        "type": "change",
-        "z": "562197b4f4a67922",
-        "name": "setup display for Line F Cell C Part 3",
-        "rules": [
-            {
-                "t": "set",
-                "p": "control",
-                "pt": "msg",
-                "to": "payload[Line = \"F\" and Cell = \"C-3\"].{\t    \"label\":`Back No`,\t    \"max\":`Plan`,\t    \"min\": 0\t}",
-                "tot": "jsonata"
-            },
-            {
-                "t": "set",
-                "p": "payload",
-                "pt": "msg",
-                "to": "payload[Line = \"F\" and Cell = \"C-3\"].Actual",
-                "tot": "jsonata"
-            }
-        ],
-        "action": "",
-        "property": "",
-        "from": "",
-        "to": "",
-        "reg": false,
-        "x": 1550,
-        "y": 680,
-        "wires": [
-            [
-                "ddf20301e822cc4d"
-            ]
-        ]
-    },
-    {
-        "id": "2a6a26b8b8c93b5e",
-        "type": "ui_level",
-        "z": "562197b4f4a67922",
-        "group": "4ad3863a54fa3a9f",
-        "order": 4,
-        "width": 3,
-        "height": 2,
-        "name": "",
-        "label": "",
-        "colorHi": "#00e60f",
-        "colorWarn": "#ff9900",
-        "colorNormal": "#f00000",
-        "colorOff": "#e6e6e6",
-        "min": 0,
-        "max": 100,
-        "segWarn": "",
-        "segHigh": "90",
-        "unit": "Pcs",
-        "layout": "sv",
-        "channelA": "",
-        "channelB": "",
-        "decimals": 0,
-        "animations": "off",
-        "shape": 2,
-        "colorschema": "fixed",
-        "textoptions": "custom",
-        "colorText": "#eeeeee",
-        "fontLabel": "1.6",
-        "fontValue": "",
-        "fontSmall": "",
-        "colorFromTheme": true,
-        "textAnimations": false,
-        "hideValue": false,
-        "tickmode": "off",
-        "peakmode": false,
-        "property": "payload",
-        "peaktime": 3000,
-        "x": 1790,
-        "y": 940,
-        "wires": []
-    },
-    {
-        "id": "aa10825ae8f424d1",
-        "type": "change",
-        "z": "562197b4f4a67922",
-        "name": "setup display for Line F Cell D1 Part 1",
-        "rules": [
-            {
-                "t": "set",
-                "p": "control",
-                "pt": "msg",
-                "to": "payload[Line = \"F\" and Cell = \"D1-1\"].{\t    \"label\":`Back No`,\t    \"max\":`Plan`,\t    \"min\": 0\t}",
-                "tot": "jsonata"
-            },
-            {
-                "t": "set",
-                "p": "team",
-                "pt": "msg",
-                "to": "payload[Line = \"F\" and Cell = \"D1-1\"].TM",
-                "tot": "jsonata"
-            },
-            {
-                "t": "set",
-                "p": "plan",
-                "pt": "msg",
-                "to": "payload[Line = \"F\" and Cell = \"D1-1\"].Plan",
-                "tot": "jsonata"
-            },
-            {
-                "t": "set",
-                "p": "payload",
-                "pt": "msg",
-                "to": "payload[Line = \"F\" and Cell = \"D1-1\"].Actual",
-                "tot": "jsonata"
-            }
-        ],
-        "action": "",
-        "property": "",
-        "from": "",
-        "to": "",
-        "reg": false,
-        "x": 1550,
-        "y": 940,
-        "wires": [
-            [
-                "2a6a26b8b8c93b5e",
-                "9b228d5390edd44d",
-                "923aeda19c7d1746"
-            ]
-        ]
-    },
-    {
-        "id": "8eef3b829bcdd82b",
-        "type": "ui_level",
-        "z": "562197b4f4a67922",
-        "group": "4ad3863a54fa3a9f",
-        "order": 5,
-        "width": 3,
-        "height": 2,
-        "name": "",
-        "label": "",
-        "colorHi": "#00e60f",
-        "colorWarn": "#ff9900",
-        "colorNormal": "#f00000",
-        "colorOff": "#e6e6e6",
-        "min": 0,
-        "max": 100,
-        "segWarn": "",
-        "segHigh": "90",
-        "unit": "Pcs",
-        "layout": "sv",
-        "channelA": "",
-        "channelB": "",
-        "decimals": 0,
-        "animations": "off",
-        "shape": 2,
-        "colorschema": "fixed",
-        "textoptions": "custom",
-        "colorText": "#eeeeee",
-        "fontLabel": "1.6",
-        "fontValue": "",
-        "fontSmall": "",
-        "colorFromTheme": true,
-        "textAnimations": false,
-        "hideValue": false,
-        "tickmode": "off",
-        "peakmode": false,
-        "property": "payload",
-        "peaktime": 3000,
-        "x": 1790,
-        "y": 1000,
-        "wires": []
-    },
-    {
-        "id": "b4257dcdf0b8a91b",
-        "type": "change",
-        "z": "562197b4f4a67922",
-        "name": "setup display for Line F Cell D1 Part 2",
-        "rules": [
-            {
-                "t": "set",
-                "p": "control",
-                "pt": "msg",
-                "to": "payload[Line = \"F\" and Cell = \"D1-2\"].{\t    \"label\":`Back No`,\t    \"max\":`Plan`,\t    \"min\": 0\t}",
-                "tot": "jsonata"
-            },
-            {
-                "t": "set",
-                "p": "payload",
-                "pt": "msg",
-                "to": "payload[Line = \"F\" and Cell = \"D1-2\"].Actual",
-                "tot": "jsonata"
-            }
-        ],
-        "action": "",
-        "property": "",
-        "from": "",
-        "to": "",
-        "reg": false,
-        "x": 1550,
-        "y": 1000,
-        "wires": [
-            [
-                "8eef3b829bcdd82b"
-            ]
-        ]
-    },
-    {
-        "id": "9b228d5390edd44d",
-        "type": "ui_text",
-        "z": "562197b4f4a67922",
-        "group": "4ad3863a54fa3a9f",
-        "order": 2,
-        "width": 0,
-        "height": 0,
-        "name": "",
-        "label": "Team Member:",
-        "format": "<h1>{{msg.team | uppercase}}</h1>",
-        "layout": "row-center",
-        "className": "",
-        "x": 1820,
-        "y": 860,
-        "wires": []
-    },
-    {
-        "id": "923aeda19c7d1746",
-        "type": "ui_text",
-        "z": "562197b4f4a67922",
-        "group": "4ad3863a54fa3a9f",
-        "order": 3,
-        "width": 0,
-        "height": 0,
-        "name": "",
-        "label": "Target:",
-        "format": "<h1>{{msg.plan}}</h1>",
-        "layout": "row-center",
-        "className": "",
-        "x": 1790,
-        "y": 900,
-        "wires": []
-    },
-    {
-        "id": "8343dcc4412b5877",
-        "type": "ui_level",
-        "z": "562197b4f4a67922",
-        "group": "be5530b09ed4e2d1",
-        "order": 4,
-        "width": 3,
-        "height": 2,
-        "name": "",
-        "label": "",
-        "colorHi": "#00e60f",
-        "colorWarn": "#ff9900",
-        "colorNormal": "#f00000",
-        "colorOff": "#e6e6e6",
-        "min": 0,
-        "max": 100,
-        "segWarn": "",
-        "segHigh": "90",
-        "unit": "Pcs",
-        "layout": "sv",
-        "channelA": "",
-        "channelB": "",
-        "decimals": 0,
-        "animations": "off",
-        "shape": 2,
-        "colorschema": "fixed",
-        "textoptions": "custom",
-        "colorText": "#eeeeee",
-        "fontLabel": "1.6",
-        "fontValue": "",
-        "fontSmall": "",
-        "colorFromTheme": true,
-        "textAnimations": false,
-        "hideValue": false,
-        "tickmode": "off",
-        "peakmode": false,
-        "property": "payload",
-        "peaktime": 3000,
-        "x": 1790,
-        "y": 1140,
-        "wires": []
-    },
-    {
-        "id": "e5a00f183ba35867",
-        "type": "change",
-        "z": "562197b4f4a67922",
-        "name": "setup display for Line F Cell D2 Part 1",
-        "rules": [
-            {
-                "t": "set",
-                "p": "control",
-                "pt": "msg",
-                "to": "payload[Line = \"F\" and Cell = \"D2-1\"].{\t    \"label\":`Back No`,\t    \"max\":`Plan`,\t    \"min\": 0\t}",
-                "tot": "jsonata"
-            },
-            {
-                "t": "set",
-                "p": "team",
-                "pt": "msg",
-                "to": "payload[Line = \"F\" and Cell = \"D2-1\"].TM",
-                "tot": "jsonata"
-            },
-            {
-                "t": "set",
-                "p": "plan",
-                "pt": "msg",
-                "to": "payload[Line = \"F\" and Cell = \"D2-1\"].Plan",
-                "tot": "jsonata"
-            },
-            {
-                "t": "set",
-                "p": "payload",
-                "pt": "msg",
-                "to": "payload[Line = \"F\" and Cell = \"D2-1\"].Actual",
-                "tot": "jsonata"
-            }
-        ],
-        "action": "",
-        "property": "",
-        "from": "",
-        "to": "",
-        "reg": false,
-        "x": 1550,
-        "y": 1140,
-        "wires": [
-            [
-                "8343dcc4412b5877",
-                "7746a6714c2680da",
-                "3136f7f19d7d497a"
-            ]
-        ]
-    },
-    {
-        "id": "c10e300dbfac4b73",
-        "type": "ui_level",
-        "z": "562197b4f4a67922",
-        "group": "be5530b09ed4e2d1",
-        "order": 5,
-        "width": 3,
-        "height": 2,
-        "name": "",
-        "label": "",
-        "colorHi": "#00e60f",
-        "colorWarn": "#ff9900",
-        "colorNormal": "#f00000",
-        "colorOff": "#e6e6e6",
-        "min": 0,
-        "max": 100,
-        "segWarn": "",
-        "segHigh": "90",
-        "unit": "Pcs",
-        "layout": "sv",
-        "channelA": "",
-        "channelB": "",
-        "decimals": 0,
-        "animations": "off",
-        "shape": 2,
-        "colorschema": "fixed",
-        "textoptions": "custom",
-        "colorText": "#eeeeee",
-        "fontLabel": "1.6",
-        "fontValue": "",
-        "fontSmall": "",
-        "colorFromTheme": true,
-        "textAnimations": false,
-        "hideValue": false,
-        "tickmode": "off",
-        "peakmode": false,
-        "property": "payload",
-        "peaktime": 3000,
-        "x": 1790,
-        "y": 1200,
-        "wires": []
-    },
-    {
-        "id": "76ec42689385a5c0",
-        "type": "change",
-        "z": "562197b4f4a67922",
-        "name": "setup display for Line F Cell D2 Part 2",
-        "rules": [
-            {
-                "t": "set",
-                "p": "control",
-                "pt": "msg",
-                "to": "payload[Line = \"F\" and Cell = \"D2-2\"].{\t    \"label\":`Back No`,\t    \"max\":`Plan`,\t    \"min\": 0\t}",
-                "tot": "jsonata"
-            },
-            {
-                "t": "set",
-                "p": "payload",
-                "pt": "msg",
-                "to": "payload[Line = \"F\" and Cell = \"D2-2\"].Actual",
-                "tot": "jsonata"
-            }
-        ],
-        "action": "",
-        "property": "",
-        "from": "",
-        "to": "",
-        "reg": false,
-        "x": 1550,
-        "y": 1200,
-        "wires": [
-            [
-                "c10e300dbfac4b73"
-            ]
-        ]
-    },
-    {
-        "id": "7746a6714c2680da",
-        "type": "ui_text",
-        "z": "562197b4f4a67922",
-        "group": "be5530b09ed4e2d1",
-        "order": 2,
-        "width": 0,
-        "height": 0,
-        "name": "",
-        "label": "Team Member:",
-        "format": "<h1>{{msg.team | uppercase}}</h1>",
-        "layout": "row-center",
-        "className": "",
-        "x": 1820,
-        "y": 1060,
-        "wires": []
-    },
-    {
-        "id": "3136f7f19d7d497a",
-        "type": "ui_text",
-        "z": "562197b4f4a67922",
-        "group": "be5530b09ed4e2d1",
-        "order": 3,
-        "width": 0,
-        "height": 0,
-        "name": "",
-        "label": "Target:",
-        "format": "<h1>{{msg.plan}}</h1>",
-        "layout": "row-center",
-        "className": "",
-        "x": 1790,
-        "y": 1100,
-        "wires": []
-    },
-    {
-        "id": "8bad3adc2db84a5a",
-        "type": "ui_level",
-        "z": "562197b4f4a67922",
-        "group": "54c1916e62442956",
-        "order": 4,
-        "width": 3,
-        "height": 2,
-        "name": "",
-        "label": "",
-        "colorHi": "#00e60f",
-        "colorWarn": "#ff9900",
-        "colorNormal": "#f00000",
-        "colorOff": "#e6e6e6",
-        "min": 0,
-        "max": 100,
-        "segWarn": "",
-        "segHigh": "90",
-        "unit": "Pcs",
-        "layout": "sv",
-        "channelA": "",
-        "channelB": "",
-        "decimals": 0,
-        "animations": "off",
-        "shape": 2,
-        "colorschema": "fixed",
-        "textoptions": "custom",
-        "colorText": "#eeeeee",
-        "fontLabel": "1.6",
-        "fontValue": "",
-        "fontSmall": "",
-        "colorFromTheme": true,
-        "textAnimations": false,
-        "hideValue": false,
-        "tickmode": "off",
-        "peakmode": false,
-        "property": "payload",
-        "peaktime": 3000,
-        "x": 1790,
-        "y": 1340,
-        "wires": []
-    },
-    {
-        "id": "7ad91f0c4dfc7f70",
-        "type": "change",
-        "z": "562197b4f4a67922",
-        "name": "setup display for Line F Cell E1 Part 1",
-        "rules": [
-            {
-                "t": "set",
-                "p": "control",
-                "pt": "msg",
-                "to": "payload[Line = \"F\" and Cell = \"E1-1\"].{\t    \"label\":`Back No`,\t    \"max\":`Plan`,\t    \"min\": 0\t}",
-                "tot": "jsonata"
-            },
-            {
-                "t": "set",
-                "p": "team",
-                "pt": "msg",
-                "to": "payload[Line = \"F\" and Cell = \"E1-1\"].TM",
-                "tot": "jsonata"
-            },
-            {
-                "t": "set",
-                "p": "plan",
-                "pt": "msg",
-                "to": "payload[Line = \"F\" and Cell = \"E1-1\"].Plan",
-                "tot": "jsonata"
-            },
-            {
-                "t": "set",
-                "p": "payload",
-                "pt": "msg",
-                "to": "payload[Line = \"F\" and Cell = \"E1-1\"].Actual",
-                "tot": "jsonata"
-            }
-        ],
-        "action": "",
-        "property": "",
-        "from": "",
-        "to": "",
-        "reg": false,
-        "x": 1550,
-        "y": 1340,
-        "wires": [
-            [
-                "8bad3adc2db84a5a",
-                "03f536f45243ab41",
-                "6f0652475df246d6"
-            ]
-        ]
-    },
-    {
-        "id": "b7718196b64b6987",
-        "type": "ui_level",
-        "z": "562197b4f4a67922",
-        "group": "54c1916e62442956",
-        "order": 5,
-        "width": 3,
-        "height": 2,
-        "name": "",
-        "label": "",
-        "colorHi": "#00e60f",
-        "colorWarn": "#ff9900",
-        "colorNormal": "#f00000",
-        "colorOff": "#e6e6e6",
-        "min": 0,
-        "max": 100,
-        "segWarn": "",
-        "segHigh": "90",
-        "unit": "Pcs",
-        "layout": "sv",
-        "channelA": "",
-        "channelB": "",
-        "decimals": 0,
-        "animations": "off",
-        "shape": 2,
-        "colorschema": "fixed",
-        "textoptions": "custom",
-        "colorText": "#eeeeee",
-        "fontLabel": "1.6",
-        "fontValue": "",
-        "fontSmall": "",
-        "colorFromTheme": true,
-        "textAnimations": false,
-        "hideValue": false,
-        "tickmode": "off",
-        "peakmode": false,
-        "property": "payload",
-        "peaktime": 3000,
-        "x": 1790,
-        "y": 1400,
-        "wires": []
-    },
-    {
-        "id": "d47b2a2ebd1b6959",
-        "type": "change",
-        "z": "562197b4f4a67922",
-        "name": "setup display for Line F Cell E1 Part 2",
-        "rules": [
-            {
-                "t": "set",
-                "p": "control",
-                "pt": "msg",
-                "to": "payload[Line = \"F\" and Cell = \"E1-2\"].{\t    \"label\":`Back No`,\t    \"max\":`Plan`,\t    \"min\": 0\t}",
-                "tot": "jsonata"
-            },
-            {
-                "t": "set",
-                "p": "payload",
-                "pt": "msg",
-                "to": "payload[Line = \"F\" and Cell = \"E1-2\"].Actual",
-                "tot": "jsonata"
-            }
-        ],
-        "action": "",
-        "property": "",
-        "from": "",
-        "to": "",
-        "reg": false,
-        "x": 1550,
-        "y": 1400,
-        "wires": [
-            [
-                "b7718196b64b6987"
-            ]
-        ]
-    },
-    {
-        "id": "03f536f45243ab41",
-        "type": "ui_text",
-        "z": "562197b4f4a67922",
-        "group": "54c1916e62442956",
-        "order": 2,
-        "width": 0,
-        "height": 0,
-        "name": "",
-        "label": "Team Member:",
-        "format": "<h1>{{msg.team | uppercase}}</h1>",
-        "layout": "row-center",
-        "className": "",
-        "x": 1820,
-        "y": 1260,
-        "wires": []
-    },
-    {
-        "id": "6f0652475df246d6",
-        "type": "ui_text",
-        "z": "562197b4f4a67922",
-        "group": "54c1916e62442956",
-        "order": 3,
-        "width": 0,
-        "height": 0,
-        "name": "",
-        "label": "Target:",
-        "format": "<h1>{{msg.plan}}</h1>",
-        "layout": "row-center",
-        "className": "",
-        "x": 1790,
-        "y": 1300,
-        "wires": []
-    },
-    {
-        "id": "b95e0e10c742f257",
-        "type": "ui_level",
-        "z": "562197b4f4a67922",
-        "group": "ed4f37bf1c12fb43",
-        "order": 4,
-        "width": 3,
-        "height": 2,
-        "name": "",
-        "label": "",
-        "colorHi": "#00e60f",
-        "colorWarn": "#ff9900",
-        "colorNormal": "#f00000",
-        "colorOff": "#e6e6e6",
-        "min": 0,
-        "max": 100,
-        "segWarn": "",
-        "segHigh": "90",
-        "unit": "Pcs",
-        "layout": "sv",
-        "channelA": "",
-        "channelB": "",
-        "decimals": 0,
-        "animations": "off",
-        "shape": 2,
-        "colorschema": "fixed",
-        "textoptions": "custom",
-        "colorText": "#eeeeee",
-        "fontLabel": "1.6",
-        "fontValue": "",
-        "fontSmall": "",
-        "colorFromTheme": true,
-        "textAnimations": false,
-        "hideValue": false,
-        "tickmode": "off",
-        "peakmode": false,
-        "property": "payload",
-        "peaktime": 3000,
-        "x": 1790,
-        "y": 1540,
-        "wires": []
-    },
-    {
-        "id": "d3947d221334bca4",
-        "type": "change",
-        "z": "562197b4f4a67922",
-        "name": "setup display for Line F Cell E2 Part 1",
-        "rules": [
-            {
-                "t": "set",
-                "p": "control",
-                "pt": "msg",
-                "to": "payload[Line = \"F\" and Cell = \"E2-1\"].{\t    \"label\":`Back No`,\t    \"max\":`Plan`,\t    \"min\": 0\t}",
-                "tot": "jsonata"
-            },
-            {
-                "t": "set",
-                "p": "team",
-                "pt": "msg",
-                "to": "payload[Line = \"F\" and Cell = \"E2-1\"].TM",
-                "tot": "jsonata"
-            },
-            {
-                "t": "set",
-                "p": "plan",
-                "pt": "msg",
-                "to": "payload[Line = \"F\" and Cell = \"E2-1\"].Plan",
-                "tot": "jsonata"
-            },
-            {
-                "t": "set",
-                "p": "payload",
-                "pt": "msg",
-                "to": "payload[Line = \"F\" and Cell = \"E2-1\"].Actual",
-                "tot": "jsonata"
-            }
-        ],
-        "action": "",
-        "property": "",
-        "from": "",
-        "to": "",
-        "reg": false,
-        "x": 1550,
-        "y": 1540,
-        "wires": [
-            [
-                "b95e0e10c742f257",
-                "189121105006a79c",
-                "4921be461d386f70"
-            ]
-        ]
-    },
-    {
-        "id": "b26dcb242b489723",
-        "type": "ui_level",
-        "z": "562197b4f4a67922",
-        "group": "ed4f37bf1c12fb43",
-        "order": 5,
-        "width": 3,
-        "height": 2,
-        "name": "",
-        "label": "",
-        "colorHi": "#00e60f",
-        "colorWarn": "#ff9900",
-        "colorNormal": "#f00000",
-        "colorOff": "#e6e6e6",
-        "min": 0,
-        "max": 100,
-        "segWarn": "",
-        "segHigh": "90",
-        "unit": "Pcs",
-        "layout": "sv",
-        "channelA": "",
-        "channelB": "",
-        "decimals": 0,
-        "animations": "off",
-        "shape": 2,
-        "colorschema": "fixed",
-        "textoptions": "custom",
-        "colorText": "#eeeeee",
-        "fontLabel": "1.6",
-        "fontValue": "",
-        "fontSmall": "",
-        "colorFromTheme": true,
-        "textAnimations": false,
-        "hideValue": false,
-        "tickmode": "off",
-        "peakmode": false,
-        "property": "payload",
-        "peaktime": 3000,
-        "x": 1790,
-        "y": 1600,
-        "wires": []
-    },
-    {
-        "id": "497bd9d36c5f423e",
-        "type": "change",
-        "z": "562197b4f4a67922",
-        "name": "setup display for Line F Cell E2 Part 2",
-        "rules": [
-            {
-                "t": "set",
-                "p": "control",
-                "pt": "msg",
-                "to": "payload[Line = \"F\" and Cell = \"E2-2\"].{\t    \"label\":`Back No`,\t    \"max\":`Plan`,\t    \"min\": 0\t}",
-                "tot": "jsonata"
-            },
-            {
-                "t": "set",
-                "p": "payload",
-                "pt": "msg",
-                "to": "payload[Line = \"F\" and Cell = \"E2-2\"].Actual",
-                "tot": "jsonata"
-            }
-        ],
-        "action": "",
-        "property": "",
-        "from": "",
-        "to": "",
-        "reg": false,
-        "x": 1550,
-        "y": 1600,
-        "wires": [
-            [
-                "b26dcb242b489723"
-            ]
-        ]
-    },
-    {
-        "id": "189121105006a79c",
-        "type": "ui_text",
-        "z": "562197b4f4a67922",
-        "group": "ed4f37bf1c12fb43",
-        "order": 2,
-        "width": 0,
-        "height": 0,
-        "name": "",
-        "label": "Team Member:",
-        "format": "<h1>{{msg.team | uppercase}}</h1>",
-        "layout": "row-center",
-        "className": "",
-        "x": 1820,
-        "y": 1460,
-        "wires": []
-    },
-    {
-        "id": "4921be461d386f70",
-        "type": "ui_text",
-        "z": "562197b4f4a67922",
-        "group": "ed4f37bf1c12fb43",
-        "order": 3,
-        "width": 0,
-        "height": 0,
-        "name": "",
-        "label": "Target:",
-        "format": "<h1>{{msg.plan}}</h1>",
-        "layout": "row-center",
-        "className": "",
-        "x": 1790,
-        "y": 1500,
-        "wires": []
-    },
-    {
         "id": "21da1cf5e4453d55",
         "type": "inject",
         "z": "562197b4f4a67922",
@@ -2509,23 +993,6 @@
         ]
     },
     {
-        "id": "60777285779bb9c6",
-        "type": "ui_text",
-        "z": "562197b4f4a67922",
-        "group": "6708d78d72cc1a6d",
-        "order": 1,
-        "width": 0,
-        "height": 0,
-        "name": "",
-        "label": "<h1>Last updated</h1>",
-        "format": "<h1>{{msg.payload}}</h1>",
-        "layout": "row-center",
-        "className": "",
-        "x": 650,
-        "y": 220,
-        "wires": []
-    },
-    {
         "id": "6f1e36e8e531547c",
         "type": "comment",
         "z": "562197b4f4a67922",
@@ -2533,152 +1000,6 @@
         "info": "",
         "x": 320,
         "y": 180,
-        "wires": []
-    },
-    {
-        "id": "4e179cf8454307dd",
-        "type": "ui_text",
-        "z": "562197b4f4a67922",
-        "group": "8e34121cef5b559c",
-        "order": 1,
-        "width": 0,
-        "height": 0,
-        "name": "Cell A Label",
-        "label": "",
-        "format": "<h1>CELL A</h1>",
-        "layout": "row-center",
-        "className": "",
-        "x": 2050,
-        "y": 120,
-        "wires": []
-    },
-    {
-        "id": "b069ca5ff675aa29",
-        "type": "ui_text",
-        "z": "562197b4f4a67922",
-        "group": "72a409debd40a171",
-        "order": 1,
-        "width": 0,
-        "height": 0,
-        "name": "Cell B Label",
-        "label": "",
-        "format": "<h1>CELL B</h1>",
-        "layout": "row-center",
-        "className": "",
-        "x": 2050,
-        "y": 160,
-        "wires": []
-    },
-    {
-        "id": "bdddb572a23fdc69",
-        "type": "ui_text",
-        "z": "562197b4f4a67922",
-        "group": "1ee6fae1e6dd0ff9",
-        "order": 1,
-        "width": 0,
-        "height": 0,
-        "name": "Cell C Label",
-        "label": "",
-        "format": "<h1>CELL C</h1>",
-        "layout": "row-center",
-        "className": "",
-        "x": 2050,
-        "y": 200,
-        "wires": []
-    },
-    {
-        "id": "375a97c35164f038",
-        "type": "ui_text",
-        "z": "562197b4f4a67922",
-        "group": "4ad3863a54fa3a9f",
-        "order": 1,
-        "width": 0,
-        "height": 0,
-        "name": "Cell D1 Label",
-        "label": "",
-        "format": "<h1>CELL D1</h1>",
-        "layout": "row-center",
-        "className": "",
-        "x": 2060,
-        "y": 240,
-        "wires": []
-    },
-    {
-        "id": "0b618c7c5bba453e",
-        "type": "ui_text",
-        "z": "562197b4f4a67922",
-        "group": "be5530b09ed4e2d1",
-        "order": 1,
-        "width": 0,
-        "height": 0,
-        "name": "Cell D2 Label",
-        "label": "",
-        "format": "<h1>CELL D2</h1>",
-        "layout": "row-center",
-        "className": "",
-        "x": 2060,
-        "y": 280,
-        "wires": []
-    },
-    {
-        "id": "97615dd3a84a6d83",
-        "type": "ui_text",
-        "z": "562197b4f4a67922",
-        "group": "54c1916e62442956",
-        "order": 1,
-        "width": 0,
-        "height": 0,
-        "name": "Cell E1 Label",
-        "label": "",
-        "format": "<h1>CELL E1</h1>",
-        "layout": "row-center",
-        "className": "",
-        "x": 2050,
-        "y": 320,
-        "wires": []
-    },
-    {
-        "id": "2b30982d92d95ba0",
-        "type": "ui_text",
-        "z": "562197b4f4a67922",
-        "group": "ed4f37bf1c12fb43",
-        "order": 1,
-        "width": 0,
-        "height": 0,
-        "name": "Cell E2 Label",
-        "label": "",
-        "format": "<h1>CELL E2</h1>",
-        "layout": "row-center",
-        "className": "",
-        "x": 2050,
-        "y": 360,
-        "wires": []
-    },
-    {
-        "id": "cfc342bd2bc80aba",
-        "type": "debug",
-        "z": "562197b4f4a67922",
-        "name": "from setup",
-        "active": false,
-        "tosidebar": true,
-        "console": false,
-        "tostatus": false,
-        "complete": "true",
-        "targetType": "full",
-        "statusVal": "",
-        "statusType": "auto",
-        "x": 670,
-        "y": 360,
-        "wires": []
-    },
-    {
-        "id": "602bf3b8a91cc581",
-        "type": "comment",
-        "z": "562197b4f4a67922",
-        "name": "Label2 statik utk setiap cell dlm dashboard",
-        "info": "",
-        "x": 2120,
-        "y": 80,
         "wires": []
     },
     {
@@ -2720,158 +1041,6 @@
         "wires": [
             [
                 "9765f3da2d535ee3"
-            ]
-        ]
-    },
-    {
-        "id": "c69ed5cda6e5893b",
-        "type": "ui_level",
-        "z": "562197b4f4a67922",
-        "group": "1ee6fae1e6dd0ff9",
-        "order": 7,
-        "width": 3,
-        "height": 2,
-        "name": "",
-        "label": "",
-        "colorHi": "#00e60f",
-        "colorWarn": "#ff9900",
-        "colorNormal": "#f00000",
-        "colorOff": "#e6e6e6",
-        "min": 0,
-        "max": 100,
-        "segWarn": "",
-        "segHigh": "90",
-        "unit": "Pcs",
-        "layout": "sv",
-        "channelA": "",
-        "channelB": "",
-        "decimals": 0,
-        "animations": "off",
-        "shape": 2,
-        "colorschema": "fixed",
-        "textoptions": "custom",
-        "colorText": "#eeeeee",
-        "fontLabel": "1.6",
-        "fontValue": "",
-        "fontSmall": "",
-        "colorFromTheme": true,
-        "textAnimations": false,
-        "hideValue": false,
-        "tickmode": "off",
-        "peakmode": false,
-        "property": "payload",
-        "peaktime": 3000,
-        "x": 1790,
-        "y": 740,
-        "wires": []
-    },
-    {
-        "id": "30914a070604fcaa",
-        "type": "change",
-        "z": "562197b4f4a67922",
-        "name": "setup display for Line F Cell C Part 4",
-        "rules": [
-            {
-                "t": "set",
-                "p": "control",
-                "pt": "msg",
-                "to": "payload[Line = \"F\" and Cell = \"C-4\"].{\t    \"label\":`Back No`,\t    \"max\":`Plan`,\t    \"min\": 0\t}",
-                "tot": "jsonata"
-            },
-            {
-                "t": "set",
-                "p": "payload",
-                "pt": "msg",
-                "to": "payload[Line = \"F\" and Cell = \"C-4\"].Actual",
-                "tot": "jsonata"
-            }
-        ],
-        "action": "",
-        "property": "",
-        "from": "",
-        "to": "",
-        "reg": false,
-        "x": 1550,
-        "y": 740,
-        "wires": [
-            [
-                "c69ed5cda6e5893b"
-            ]
-        ]
-    },
-    {
-        "id": "4667633f2b995232",
-        "type": "ui_level",
-        "z": "562197b4f4a67922",
-        "group": "1ee6fae1e6dd0ff9",
-        "order": 8,
-        "width": 3,
-        "height": 2,
-        "name": "",
-        "label": "",
-        "colorHi": "#00e60f",
-        "colorWarn": "#ff9900",
-        "colorNormal": "#f00000",
-        "colorOff": "#e6e6e6",
-        "min": 0,
-        "max": 100,
-        "segWarn": "",
-        "segHigh": "90",
-        "unit": "Pcs",
-        "layout": "sv",
-        "channelA": "",
-        "channelB": "",
-        "decimals": 0,
-        "animations": "off",
-        "shape": 2,
-        "colorschema": "fixed",
-        "textoptions": "custom",
-        "colorText": "#eeeeee",
-        "fontLabel": "1.6",
-        "fontValue": "",
-        "fontSmall": "",
-        "colorFromTheme": true,
-        "textAnimations": false,
-        "hideValue": false,
-        "tickmode": "off",
-        "peakmode": false,
-        "property": "payload",
-        "peaktime": 3000,
-        "x": 1790,
-        "y": 800,
-        "wires": []
-    },
-    {
-        "id": "75fc3f3c85b641b3",
-        "type": "change",
-        "z": "562197b4f4a67922",
-        "name": "setup display for Line F Cell C Part 5",
-        "rules": [
-            {
-                "t": "set",
-                "p": "control",
-                "pt": "msg",
-                "to": "payload[Line = \"F\" and Cell = \"C-5\"].{\t    \"label\":`Back No`,\t    \"max\":`Plan`,\t    \"min\": 0\t}",
-                "tot": "jsonata"
-            },
-            {
-                "t": "set",
-                "p": "payload",
-                "pt": "msg",
-                "to": "payload[Line = \"F\" and Cell = \"C-5\"].Actual",
-                "tot": "jsonata"
-            }
-        ],
-        "action": "",
-        "property": "",
-        "from": "",
-        "to": "",
-        "reg": false,
-        "x": 1550,
-        "y": 800,
-        "wires": [
-            [
-                "4667633f2b995232"
             ]
         ]
     },
@@ -2999,29 +1168,6 @@
         "x": 400,
         "y": 220,
         "wires": [
-            [
-                "60777285779bb9c6"
-            ]
-        ]
-    },
-    {
-        "id": "063c23b4d89ae926",
-        "type": "ui_template",
-        "z": "562197b4f4a67922",
-        "group": "8e34121cef5b559c",
-        "name": "Tabulator CSS",
-        "order": 5,
-        "width": 0,
-        "height": 0,
-        "format": "<style>\n    .tabulator-table {\n        font-size: 1.7em !important;\n    }\n</style>",
-        "storeOutMessages": true,
-        "fwdInMessages": true,
-        "resendOnRefresh": true,
-        "templateScope": "global",
-        "className": "",
-        "x": 160,
-        "y": 520,
-        "wires": [
             []
         ]
     },
@@ -3043,6 +1189,74 @@
         "wires": []
     },
     {
+        "id": "aed69bd7994a8096",
+        "type": "ui_template",
+        "z": "562197b4f4a67922",
+        "group": "85b12cf0fa38d858",
+        "name": "Tabulator CSS",
+        "order": 1,
+        "width": 0,
+        "height": 0,
+        "format": "<style>\n    .tabulator {\n        font-size: 1.5em !important; \n    }\n</style>",
+        "storeOutMessages": false,
+        "fwdInMessages": false,
+        "resendOnRefresh": false,
+        "templateScope": "global",
+        "className": "",
+        "x": 120,
+        "y": 540,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "4b14e7763a1cb2d9",
+        "type": "ui_svg_graphics",
+        "z": "562197b4f4a67922",
+        "group": "85b12cf0fa38d858",
+        "order": 2,
+        "width": 0,
+        "height": 0,
+        "svgString": "<svg x=\"0\" y=\"0\" height=\"100\" viewBox=\"0 0 100 100\" width=\"100\" xmlns=\"http://www.w3.org/2000/svg\" xmlns:svg=\"http://www.w3.org/2000/svg\" xmlns:xlink=\"http://www.w3.org/1999/xlink\">\n<!-- Add here your SVG shapes (circles, rectangles, ...) -->\n<!-- Or remove everything, if you want to paste an entire drawing (<svg...>...</svg>).-->\n</svg>",
+        "clickableShapes": [],
+        "javascriptHandlers": [],
+        "smilAnimations": [],
+        "bindings": [],
+        "showCoordinates": false,
+        "autoFormatAfterEdit": false,
+        "showBrowserErrors": false,
+        "showBrowserEvents": false,
+        "enableJsDebugging": false,
+        "sendMsgWhenLoaded": false,
+        "noClickWhenDblClick": false,
+        "outputField": "payload",
+        "editorUrl": "//drawsvg.org/drawsvg.html",
+        "directory": "",
+        "panning": "disabled",
+        "zooming": "disabled",
+        "panOnlyWhenZoomed": false,
+        "doubleClickZoomEnabled": false,
+        "mouseWheelZoomEnabled": false,
+        "dblClickZoomPercentage": 150,
+        "cssString": "div.ui-svg svg{\n    color: var(--nr-dashboard-widgetColor);\n    fill: currentColor !important;\n}\ndiv.ui-svg path {\n    fill: inherit;\n}",
+        "name": "",
+        "x": 360,
+        "y": 540,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "d3a0745948b821c9",
+        "type": "comment",
+        "z": "562197b4f4a67922",
+        "name": "Dont Delete this!",
+        "info": "",
+        "x": 120,
+        "y": 500,
+        "wires": []
+    },
+    {
         "id": "d7197fbf265fda54",
         "type": "mqtt in",
         "z": "327571d15da5aceb",
@@ -3053,10 +1267,10 @@
         "broker": "56edfd93d9c67181",
         "nl": false,
         "rap": true,
-        "rh": 0,
+        "rh": "2",
         "inputs": 0,
         "x": 100,
-        "y": 200,
+        "y": 320,
         "wires": [
             [
                 "79d2dbe7240fa5dc",
@@ -3078,7 +1292,7 @@
         "statusVal": "",
         "statusType": "auto",
         "x": 280,
-        "y": 140,
+        "y": 260,
         "wires": []
     },
     {
@@ -3088,7 +1302,7 @@
         "name": "",
         "events": "all",
         "x": 920,
-        "y": 100,
+        "y": 220,
         "wires": [
             []
         ]
@@ -3113,7 +1327,7 @@
         "to": "",
         "reg": false,
         "x": 750,
-        "y": 100,
+        "y": 220,
         "wires": [
             [
                 "80b1fb2dd47643d8"
@@ -3127,7 +1341,7 @@
         "name": "",
         "events": "all",
         "x": 920,
-        "y": 60,
+        "y": 180,
         "wires": [
             []
         ]
@@ -3152,7 +1366,7 @@
         "to": "",
         "reg": false,
         "x": 720,
-        "y": 60,
+        "y": 180,
         "wires": [
             [
                 "39f563b3717d924b"
@@ -3164,20 +1378,21 @@
         "type": "function",
         "z": "327571d15da5aceb",
         "name": "process MQTT msg",
-        "func": "let callList = flow.get(\"callList\") || [];\nlet updateCall = { payload: false } ;\nlet FGQueue = flow.get(\"fgqueue\") || [];\nlet updateFGQ = { payload: false };\nlet KWQueue = flow.get(\"kwqueue\") || [];\nlet updateKWQ = { payload: false };\nlet changeTab = { payload: false };\n\nlet topic = msg.topic.split(\"/call/\");\n\nlet caller = {\n    \"id\" : topic[1],\n    \"plant\" : topic[0],\n    \"dept\" : \"\",\n    \"line\" : \"\",\n    \"cell\" : \"\",\n    \"type\" : \"\",\n    \"timestamp\": Date.now()\n}\ntopic = caller.id.split(\"/\");\n//node.warn(topic);\n\nfor (let word of topic) {\n    word = word.split(\"-\");\n    //node.warn(word);\n    switch(word[0]) {\n        case \"dept\":\n            caller.dept = word[1].toUpperCase();\n            break;\n        case \"line\":\n            caller.line = word[1].toUpperCase();\n            break;\n        case \"cell\":\n            caller.cell = word[1].toUpperCase();\n            break;\n        default:\n    }\n}\n//node.warn(caller);\n\nif (!msg.payload.MT && !msg.payload.QC && !msg.payload.SV){\n    callList = callList.filter((call) => { return call.id != caller.id });\n    flow.set(\"callList\", callList);\n    updateCall.payload = true;\n} else {\n    let callIndex = callList.findIndex((call) => { return call.id == caller.id });\n    //node.warn(callIndex);\n    if (msg.payload.MT && msg.payload.QC && msg.payload.SV){\n        caller.type = \"SV,QC,MTCE\";\n        updateCall.payload = true;\n    } else if (msg.payload.SV && msg.payload.QC && !msg.payload.MT) {\n        caller.type = \"SV,QC\";\n        updateCall.payload = true;\n    } else if (msg.payload.SV && msg.payload.MT && !msg.payload.QC) {\n        caller.type = \"SV, MTCE\";\n        updateCall.payload = true;\n    } else if (msg.payload.MT && msg.payload.QC && !msg.payload.SV) {\n        caller.type = \"QC, MTCE\";\n        updateCall.payload = true;\n    } else {\n        if (msg.payload.MT){\n            caller.type = \"MTCE\";\n        }\n        if (msg.payload.QC){\n            caller.type = \"QC\";\n        }\n        if (msg.payload.SV){\n            caller.type = \"SV\";\n        }\n        updateCall.payload = true;\n    }\n    if (callIndex != -1) {\n        callList[callIndex] = caller;\n    } else {    \n        callList.push(caller);\n    }\n    flow.set(\"callList\", callList);\n}\n\nif(msg.payload.FG){\n    FGQueue.push(caller);\n    flow.set(\"fgqueue\", FGQueue);\n    updateFGQ.payload = true;\n}\nif(msg.payload.KW){\n    KWQueue.push(caller);\n    flow.set(\"kwqueue\", KWQueue);\n    updateKWQ.payload = true;\n}\n\nchangeTab.payload = callList.length > 0;\nreturn [changeTab, updateCall, updateFGQ, updateKWQ];",
+        "func": "let callList = flow.get(\"callList\") || [];\nlet updateCall = { payload: false } ;\nlet FGQueue = flow.get(\"fgQueue\") || [];\nlet updateFGQ = { payload: false };\nlet KWQueue = flow.get(\"kwQueue\") || [];\nlet updateKWQ = { payload: false };\nlet changeTab = { payload: false };\n\nlet topic = msg.topic.split(\"/call/\");\n\nlet caller = {\n    \"id\" : topic[1],\n    \"plant\" : topic[0],\n    \"dept\" : \"\",\n    \"line\" : \"\",\n    \"cell\" : \"\",\n    \"type\" : \"\",\n    \"timestamp\": Date.now()\n}\ntopic = caller.id.split(\"/\");\n//node.warn(topic);\n\nfor (let word of topic) {\n    word = word.split(\"-\");\n    node.warn(word);\n    switch(word[0]) {\n        case \"dept\":\n            caller.dept = word[1].toUpperCase();\n            break;\n        case \"line\":\n            caller.line = word[1].toUpperCase();\n            break;\n        case \"cell\":\n            caller.cell = word[1].toUpperCase();\n            break;\n        default:\n    }\n}\n//node.warn(caller);\n\nif (!msg.payload.MT && !msg.payload.QC && !msg.payload.SV){\n    callList = callList.filter((call) => { return call.id != caller.id });\n    flow.set(\"callList\", callList);\n    updateCall.payload = true;\n} else {\n    let callIndex = callList.findIndex((call) => { return call.id == caller.id });\n    //node.warn(callIndex);\n    if (msg.payload.MT && msg.payload.QC && msg.payload.SV){\n        caller.type = \"SV,QC,MTCE\";\n        updateCall.payload = true;\n    } else if (msg.payload.SV && msg.payload.QC && !msg.payload.MT) {\n        caller.type = \"SV,QC\";\n        updateCall.payload = true;\n    } else if (msg.payload.SV && msg.payload.MT && !msg.payload.QC) {\n        caller.type = \"SV, MTCE\";\n        updateCall.payload = true;\n    } else if (msg.payload.MT && msg.payload.QC && !msg.payload.SV) {\n        caller.type = \"QC, MTCE\";\n        updateCall.payload = true;\n    } else {\n        if (msg.payload.MT){\n            caller.type = \"MTCE\";\n        }\n        if (msg.payload.QC){\n            caller.type = \"QC\";\n        }\n        if (msg.payload.SV){\n            caller.type = \"SV\";\n        }\n        updateCall.payload = true;\n    }\n    if (callIndex != -1) {\n        callList[callIndex] = caller;\n    } else {    \n        callList.push(caller);\n    }\n    flow.set(\"callList\", callList);\n}\n\nif(msg.payload.FG){\n    FGQueue.push(caller);\n    flow.set(\"fgQueue\", FGQueue);\n    updateFGQ.payload = true;\n}\nif(msg.payload.KW){\n    KWQueue.push(caller);\n    flow.set(\"kwQueue\", KWQueue);\n    updateKWQ.payload = true;\n}\n\nchangeTab.payload = callList.length > 0;\nreturn [changeTab, updateCall, updateFGQ, updateKWQ];",
         "outputs": 4,
         "noerr": 0,
         "initialize": "",
         "finalize": "",
         "libs": [],
         "x": 310,
-        "y": 200,
+        "y": 320,
         "wires": [
             [
                 "eb8b7ad763ba6eb8"
             ],
             [
-                "174d10222275a595"
+                "174d10222275a595",
+                "9d2ef9790b80b50f"
             ],
             [
                 "d1f47fe3e00fb131"
@@ -3206,7 +1421,7 @@
         "repair": false,
         "outputs": 2,
         "x": 530,
-        "y": 80,
+        "y": 200,
         "wires": [
             [
                 "60ec8fc7c03081d6",
@@ -3233,10 +1448,10 @@
         "repair": false,
         "outputs": 1,
         "x": 550,
-        "y": 160,
+        "y": 280,
         "wires": [
             [
-                "0c1c8a6450ad2cdc"
+                "ab9809ea3c7053e3"
             ]
         ]
     },
@@ -3256,10 +1471,10 @@
         "repair": false,
         "outputs": 1,
         "x": 550,
-        "y": 220,
+        "y": 420,
         "wires": [
             [
-                "e095abbdc378dd80"
+                "9b3585928247d412"
             ]
         ]
     },
@@ -3279,10 +1494,10 @@
         "repair": false,
         "outputs": 1,
         "x": 560,
-        "y": 280,
+        "y": 580,
         "wires": [
             [
-                "16f03951565dc142"
+                "91f6b3446bbbacb5"
             ]
         ]
     },
@@ -3313,8 +1528,8 @@
         "from": "",
         "to": "",
         "reg": false,
-        "x": 780,
-        "y": 160,
+        "x": 1060,
+        "y": 280,
         "wires": [
             [
                 "0b668fefdd7e1138"
@@ -3331,34 +1546,14 @@
                 "t": "set",
                 "p": "payload",
                 "pt": "msg",
-                "to": "{\"tab\":\"Alert\"}",
-                "tot": "json"
-            }
-        ],
-        "action": "",
-        "property": "",
-        "from": "",
-        "to": "",
-        "reg": false,
-        "x": 790,
-        "y": 220,
-        "wires": [
-            [
-                "93a21d5dcdc32268"
-            ]
-        ]
-    },
-    {
-        "id": "16f03951565dc142",
-        "type": "change",
-        "z": "327571d15da5aceb",
-        "name": "true: Update Queue",
-        "rules": [
+                "to": "fgQueue",
+                "tot": "flow"
+            },
             {
                 "t": "set",
-                "p": "payload",
+                "p": "ui_control",
                 "pt": "msg",
-                "to": "{\"tab\":\"Alert\"}",
+                "to": "{\"tabulator\":{\"responsiveLayout\":\"collapse\",\"layout\":\"fitColumns\",\"movableColumns\":true,\"index\":\"Id\",\"columns\":[{\"frozen\":true,\"title\":\"ID\",\"align\":\"center\",\"width\":\"5%\",\"formatter\":\"rownum\"},{\"frozen\":true,\"title\":\"Department\",\"field\":\"Department\"},{\"frozen\":true,\"title\":\"Line\",\"field\":\"Line\"},{\"frozen\":true,\"title\":\"Cell\",\"field\":\"Cell\"},{\"title\":\"Time (mins)\",\"field\":\"Time\"},{\"title\":\"Action\",\"align\":\"center\",\"width\":\"10%\",\"formatter\":\"buttonCross\"}],\"columnResized\":\"function(column){     var newColumn = {         field: column._column.field,         visible: column._column.visible,         width: column._column.width,         widthFixed: column._column.widthFixed,         widthStyled: column._column.widthStyled     }; this.send({topic:this.config.topic,ui_control:{callback:'columnResized',columnWidths:newColumn}}); }\",\"columnMoved\":\"function(column, columns){     var newColumns=[];     columns.forEach(function (column) {         newColumns.push({'field': column._column.definition.field, 'title': column._column.definition.title});     });     this.send({topic:this.config.topic,ui_control:{callback:'columnMoved',columns:newColumns}}); }\",\"rowFormatter\":\"function(row){     var data = row.getData();     switch (data.$state) {         case \\\"lost\\\":             row.getElement().style.backgroundColor = \\\"#9e2e66\\\";             row.getElement().style.color = \\\"#a6a6a6\\\";             break;         case \\\"sleeping\\\":             row.getElement().style.backgroundColor = \\\"#336699\\\";             break;         case \\\"disconnected\\\":             row.getElement().style.backgroundColor = \\\"#cc3300\\\";             row.getElement().style.color = \\\"#a6a6a6\\\";             break;         case \\\"alert\\\":             row.getElement().style.backgroundColor = \\\"#A6A6DF\\\";             break;         case \\\"init\\\":             row.getElement().style.backgroundColor = \\\"#f2f20d\\\";             break;         case \\\"ready\\\":             row.getElement().style.backgroundColor = \\\"\\\";             row.getElement().style.color = \\\"\\\";             break;         } }\",\"cellEdited\":\"celledited = function (cell) {         console.log('celledited callback called');    this.send(                 {                          ui_control: {callback:'cellEdited'},            payload: cell.getValue(),            oldValue: cell.getOldValue(),            field: cell.getColumn().getField(),            id: cell.getRow().getCell('Id').getValue()         });    console.log('table edit success');}\"}}",
                 "tot": "json"
             }
         ],
@@ -3367,11 +1562,11 @@
         "from": "",
         "to": "",
         "reg": false,
-        "x": 790,
-        "y": 280,
+        "x": 1070,
+        "y": 420,
         "wires": [
             [
-                "927f828ace007c7e"
+                "fdfeeb33a12745aa"
             ]
         ]
     },
@@ -3387,8 +1582,8 @@
         "columns": [],
         "outputs": 0,
         "cts": false,
-        "x": 1230,
-        "y": 160,
+        "x": 1490,
+        "y": 320,
         "wires": []
     },
     {
@@ -3397,31 +1592,20 @@
         "z": "327571d15da5aceb",
         "group": "569dc256923818f6",
         "name": "FG Queue",
-        "order": 0,
-        "width": 0,
-        "height": 0,
+        "order": 1,
+        "width": 25,
+        "height": 7,
         "columns": [],
-        "outputs": 0,
-        "cts": false,
-        "x": 1190,
-        "y": 220,
-        "wires": []
-    },
-    {
-        "id": "927f828ace007c7e",
-        "type": "ui_table",
-        "z": "327571d15da5aceb",
-        "group": "e5276d6b5a48a00a",
-        "name": "KW Queue",
-        "order": 0,
-        "width": 0,
-        "height": 0,
-        "columns": [],
-        "outputs": 0,
-        "cts": false,
-        "x": 1190,
-        "y": 280,
-        "wires": []
+        "outputs": 1,
+        "cts": true,
+        "x": 1490,
+        "y": 460,
+        "wires": [
+            [
+                "99f5d5d010547613",
+                "26197aba70f1aa94"
+            ]
+        ]
     },
     {
         "id": "0b668fefdd7e1138",
@@ -3433,7 +1617,7 @@
                 "t": "set",
                 "p": "payload",
                 "pt": "msg",
-                "to": "payload[].{ \t    \"Plant\":plant,\t    \"Department\":dept,\t    \"Line\":line,\t    \"Cell\":cell,\t    \"Calling\":type,\t    \"Time\":$moment(timestamp).fromNow()\t}",
+                "to": "payload[].{ \t    \"Plant\":plant,\t    \"Department\":dept,\t    \"Line\":line,\t    \"Cell\":cell,\t    \"Calling\":type,\t    \"Time (sec)\":-1 * $moment(timestamp).diff($moment(), 'seconds')\t}",
                 "tot": "jsonata"
             }
         ],
@@ -3442,12 +1626,13 @@
         "from": "",
         "to": "",
         "reg": false,
-        "x": 1020,
-        "y": 160,
+        "x": 1280,
+        "y": 280,
         "wires": [
             [
                 "a48c49277460197f",
-                "7429e2bad420c896"
+                "5b3dd757e53da23a",
+                "4e83d9db6a3b8bb5"
             ]
         ]
     },
@@ -3460,11 +1645,12 @@
         "tosidebar": true,
         "console": false,
         "tostatus": false,
-        "complete": "false",
+        "complete": "true",
+        "targetType": "full",
         "statusVal": "",
         "statusType": "auto",
-        "x": 1200,
-        "y": 100,
+        "x": 1520,
+        "y": 400,
         "wires": []
     },
     {
@@ -3472,15 +1658,16 @@
         "type": "debug",
         "z": "327571d15da5aceb",
         "name": "debug 5",
-        "active": true,
+        "active": false,
         "tosidebar": true,
         "console": false,
         "tostatus": false,
-        "complete": "false",
+        "complete": "true",
+        "targetType": "full",
         "statusVal": "",
         "statusType": "auto",
-        "x": 1280,
-        "y": 20,
+        "x": 1300,
+        "y": 200,
         "wires": []
     },
     {
@@ -3492,11 +1679,9 @@
         "haserroroutput": true,
         "outputs": 2,
         "x": 1100,
-        "y": 20,
+        "y": 140,
         "wires": [
-            [
-                "4e83d9db6a3b8bb5"
-            ],
+            [],
             []
         ]
     },
@@ -3512,7 +1697,7 @@
         "template": "{\n    \"chatId\": 21709557,\n    \"type\": \"message\",\n    \"content\": \"Call Queue: \\n {{#payload}} For: {{type}}, Dept: {{dept}}, Line: {{line}}, Cell: {{cell}} \\n {{/payload}}\"\n}",
         "output": "json",
         "x": 920,
-        "y": 20,
+        "y": 140,
         "wires": [
             [
                 "d1437eb961e4e577"
@@ -3540,7 +1725,7 @@
         "to": "",
         "reg": false,
         "x": 740,
-        "y": 20,
+        "y": 140,
         "wires": [
             [
                 "0408a92bd9d1a49c"
@@ -3548,81 +1733,51 @@
         ]
     },
     {
-        "id": "2e6a6379.742abc",
-        "type": "ui_table",
-        "z": "78809bb47c7f02cd",
-        "group": "ff9fdb9a.7da098",
-        "name": "testTable",
-        "order": 2,
-        "width": 21,
-        "height": 6,
-        "columns": [
-            {
-                "field": "rowNumber",
-                "title": "Row Number 1",
-                "width": "",
-                "align": "left",
-                "formatter": "rownum",
-                "formatterParams": {
-                    "target": "_blank"
-                }
-            },
-            {
-                "field": "textValue",
-                "title": "Text",
-                "width": "",
-                "align": "left",
-                "formatter": "plaintext",
-                "formatterParams": {
-                    "target": "_blank"
-                }
-            },
-            {
-                "field": "numberValue",
-                "title": "Number",
-                "width": "",
-                "align": "left",
-                "formatter": "plaintext",
-                "formatterParams": {
-                    "target": "_blank"
-                }
-            }
-        ],
-        "outputs": 1,
-        "cts": true,
-        "x": 900,
-        "y": 120,
-        "wires": [
-            [
-                "1c377ea0.5801e1"
-            ]
-        ]
-    },
-    {
-        "id": "16664cef.5b26b3",
-        "type": "function",
-        "z": "78809bb47c7f02cd",
-        "name": "table paramter",
-        "func": "msg.ui_control = {tabulator:{}};\n\n//workaround that buttos can`t deliver empty strings\nif (msg.payload.hasOwnProperty('payload')) {\n    msg.payload=msg.payload.payload;\n}\n\nmsg.ui_control.tabulator[msg.topic]=msg.payload;\ndelete msg.topic;\nmsg.payload=null;\nreturn msg;",
-        "outputs": 1,
-        "noerr": 0,
-        "initialize": "",
-        "finalize": "",
-        "libs": [],
-        "x": 680,
-        "y": 400,
-        "wires": [
-            [
-                "2e6a6379.742abc",
-                "b8d75d24.6cbed"
-            ]
-        ]
-    },
-    {
-        "id": "b8d75d24.6cbed",
+        "id": "9d2ef9790b80b50f",
         "type": "debug",
-        "z": "78809bb47c7f02cd",
-        "name": "table input",
+        "z": "327571d15da5aceb",
+        "name": "debug 7",
+        "active": false,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "false",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 580,
+        "y": 320,
+        "wires": []
+    },
+    {
+        "id": "40c648f526c3cd63",
+        "type": "delay",
+        "z": "327571d15da5aceb",
+        "name": "",
+        "pauseType": "delay",
+        "timeout": "5",
+        "timeoutUnits": "seconds",
+        "rate": "1",
+        "nbRateUnits": "1",
+        "rateUnits": "second",
+        "randomFirst": "1",
+        "randomLast": "5",
+        "randomUnits": "seconds",
+        "drop": false,
+        "allowrate": false,
+        "outputs": 1,
+        "x": 900,
+        "y": 360,
+        "wires": [
+            [
+                "0c1c8a6450ad2cdc"
+            ]
+        ]
+    },
+    {
+        "id": "99f5d5d010547613",
+        "type": "debug",
+        "z": "327571d15da5aceb",
+        "name": "debug 8",
         "active": false,
         "tosidebar": true,
         "console": false,
@@ -3631,1282 +1786,146 @@
         "targetType": "full",
         "statusVal": "",
         "statusType": "auto",
-        "x": 910,
-        "y": 409,
+        "x": 1700,
+        "y": 440,
         "wires": []
     },
     {
-        "id": "1c377ea0.5801e1",
-        "type": "debug",
-        "z": "78809bb47c7f02cd",
-        "name": "table output",
-        "active": false,
-        "tosidebar": true,
-        "console": false,
-        "tostatus": false,
-        "complete": "true",
-        "targetType": "full",
-        "x": 1063,
-        "y": 120,
-        "wires": []
-    },
-    {
-        "id": "b15c31a9.af37c",
-        "type": "ui_switch",
-        "z": "78809bb47c7f02cd",
-        "name": "selectable",
-        "label": "selectable",
-        "tooltip": "",
-        "group": "ff9fdb9a.7da098",
-        "order": 5,
-        "width": 4,
-        "height": 1,
-        "passthru": true,
-        "decouple": "false",
-        "topic": "selectable",
-        "style": "",
-        "onvalue": "true",
-        "onvalueType": "bool",
-        "onicon": "",
-        "oncolor": "",
-        "offvalue": "false",
-        "offvalueType": "bool",
-        "officon": "",
-        "offcolor": "",
-        "x": 322,
-        "y": 205,
-        "wires": [
-            [
-                "391e0fd118491fa4"
-            ]
-        ]
-    },
-    {
-        "id": "75207e8d.c54d4",
-        "type": "ui_switch",
-        "z": "78809bb47c7f02cd",
-        "name": "movableColumns",
-        "label": "movableColumns",
-        "tooltip": "",
-        "group": "ff9fdb9a.7da098",
-        "order": 9,
-        "width": 4,
-        "height": 1,
-        "passthru": true,
-        "decouple": "false",
-        "topic": "movableColumns",
-        "style": "",
-        "onvalue": "true",
-        "onvalueType": "bool",
-        "onicon": "",
-        "oncolor": "",
-        "offvalue": "false",
-        "offvalueType": "bool",
-        "officon": "",
-        "offcolor": "",
-        "x": 352,
-        "y": 256,
-        "wires": [
-            [
-                "391e0fd118491fa4"
-            ]
-        ]
-    },
-    {
-        "id": "c585e7a1.dfc648",
-        "type": "ui_button",
-        "z": "78809bb47c7f02cd",
-        "name": "",
-        "group": "ff9fdb9a.7da098",
-        "order": 10,
-        "width": 4,
-        "height": 1,
-        "passthru": false,
-        "label": "Format Numbers > 100",
-        "tooltip": "using a rowFormatter callback function",
-        "color": "",
-        "bgcolor": "",
-        "className": "",
-        "icon": "",
-        "payload": "function(row){         if(row.getData().numberValue>100){             row.getElement().style.backgroundColor = \"#A6A6DF\";         }     },",
-        "payloadType": "str",
-        "topic": "rowFormatter",
-        "topicType": "str",
-        "x": 372,
-        "y": 392,
-        "wires": [
-            [
-                "391e0fd118491fa4"
-            ]
-        ]
-    },
-    {
-        "id": "f178c6fe.710ef8",
-        "type": "ui_button",
-        "z": "78809bb47c7f02cd",
-        "name": "",
-        "group": "ff9fdb9a.7da098",
-        "order": 1,
-        "width": 0,
-        "height": 0,
-        "passthru": false,
-        "label": "Fill demo data",
-        "tooltip": "",
-        "color": "",
-        "bgcolor": "",
-        "icon": "",
-        "payload": "[{\"textValue\":\"Line #1\",\"numberValue\":123.12},{\"textValue\":\"Line #2\",\"numberValue\":100},{\"textValue\":\"Line #3\",\"numberValue\":50}]",
-        "payloadType": "json",
-        "topic": "rowFormatter",
-        "x": 342,
-        "y": 120,
-        "wires": [
-            [
-                "2e6a6379.742abc"
-            ]
-        ]
-    },
-    {
-        "id": "2403f929.df4006",
-        "type": "ui_button",
-        "z": "78809bb47c7f02cd",
-        "name": "",
-        "group": "ff9fdb9a.7da098",
-        "order": 8,
-        "width": 4,
-        "height": 1,
-        "passthru": false,
-        "label": "inject Tooltips callback",
-        "tooltip": "cell.getColumn().getField() + \" - \" + cell.getValue();",
-        "color": "",
-        "bgcolor": "",
-        "className": "",
-        "icon": "",
-        "payload": "function(cell){return  cell.getColumn().getField() + \" - \" + cell.getValue(); },",
-        "payloadType": "str",
-        "topic": "tooltips",
-        "topicType": "str",
-        "x": 362,
-        "y": 494,
-        "wires": [
-            [
-                "391e0fd118491fa4"
-            ]
-        ]
-    },
-    {
-        "id": "f6c68c45.58003",
-        "type": "ui_button",
-        "z": "78809bb47c7f02cd",
-        "name": "",
-        "group": "ff9fdb9a.7da098",
-        "order": 4,
-        "width": 4,
-        "height": 1,
-        "passthru": false,
-        "label": "clear Tooltips callback",
-        "tooltip": "empty string is not possible! so use a single space",
-        "color": "",
-        "bgcolor": "",
-        "className": "",
-        "icon": "",
-        "payload": "{\"payload\":\"\"}",
-        "payloadType": "json",
-        "topic": "tooltips",
-        "topicType": "str",
-        "x": 362,
-        "y": 528,
-        "wires": [
-            [
-                "391e0fd118491fa4"
-            ]
-        ]
-    },
-    {
-        "id": "d2b29dda.60a5a",
-        "type": "ui_button",
-        "z": "78809bb47c7f02cd",
-        "name": "",
-        "group": "ff9fdb9a.7da098",
-        "order": 6,
-        "width": 4,
-        "height": 1,
-        "passthru": false,
-        "label": "reformat Number column",
-        "tooltip": "inject additional paramters to numberValue column",
-        "color": "",
-        "bgcolor": "",
-        "className": "",
-        "icon": "",
-        "payload": "[{\"field\":\"numberValue\",\"formatterParams\":{\"min\":0,\"max\":200,\"legend\":\"function (value) {     if (value<100) return \\\"<span style='color:#FF0000;'>\\\"+value+\\\"</span>\\\";     else return \\\"<span style='color:#000000;'>\\\"+value+\\\"</span>\\\";  }\",\"legendAlign\":\"center\"},\"formatter\":\"progress\",\"topCalc\":\"function(values, data, calcParams){     var total = 0;     var calc = 0;     var count = 0;     data.forEach(value => {         total+=Number(value.numberValue);         count++;     });     if (count>0) calc=(total/count).toFixed(2);     return `${calc} (avg)`; }\",\"headerTooltip\":\"avarage\"}]",
-        "payloadType": "json",
-        "topic": "columns",
-        "topicType": "str",
-        "x": 372,
-        "y": 596,
-        "wires": [
-            [
-                "391e0fd118491fa4"
-            ]
-        ]
-    },
-    {
-        "id": "7b6490b3.cd9c7",
-        "type": "function",
-        "z": "78809bb47c7f02cd",
-        "name": "callback function(s)",
-        "func": "// how to use the editor to write callback functions\n// DO NOT wire this into your flow!\n// copy / paste \"function( ... }\" into the correct calback parameter\n// use the \"debugger\" statement to debug your callback inside your browser\n\nvar topCalc = function(values, data, calcParams){\n    var total = 0;\n    var calc = 0;\n    var count = 0;\n    data.forEach(value => {\n        total+=Number(value.numberValue);\n        count++;\n    });\n    if (count>0) calc=(total/count).toFixed(2);\n    return `${calc} (avg)`;\n}\n\nvar legend = function (value) {\n    if (value<100) return \"<span style='color:#FF0000;'>\"+value+\"</span>\";\n    else return \"<span style='color:#000000;'>\"+value+\"</span>\"; \n}",
-        "outputs": 1,
-        "noerr": 0,
-        "x": 692,
-        "y": 528,
-        "wires": [
-            []
-        ]
-    },
-    {
-        "id": "91506d4b.4956a",
-        "type": "comment",
-        "z": "78809bb47c7f02cd",
-        "name": "Intentionally not wired into the flow!",
-        "info": "use the editor to write callback functions\n\nDO NOT wire this into your flow!\n\ncopy / paste `function( ... }` into the correct calback parameter\nuse the `debugger` statement to debug your callback inside your browser\n",
-        "x": 742,
-        "y": 494,
-        "wires": []
-    },
-    {
-        "id": "732afcea.f728f4",
-        "type": "ui_button",
-        "z": "78809bb47c7f02cd",
-        "name": "",
-        "group": "ff9fdb9a.7da098",
-        "order": 3,
-        "width": 4,
-        "height": 1,
-        "passthru": false,
-        "label": "reset Number column",
-        "tooltip": "inject additional paramters to numberValue column",
-        "color": "",
-        "bgcolor": "",
-        "icon": "",
-        "payload": "[{\"field\":\"numberValue\",\"formatter\":\"plainText\",\"topCalc\":\"\",\"headerTooltip\":\"\"}]",
-        "payloadType": "json",
-        "topic": "columns",
-        "x": 362,
-        "y": 630,
-        "wires": [
-            [
-                "391e0fd118491fa4"
-            ]
-        ]
-    },
-    {
-        "id": "89cca7ea.7fc998",
-        "type": "ui_button",
-        "z": "78809bb47c7f02cd",
-        "name": "",
-        "group": "ff9fdb9a.7da098",
-        "order": 14,
-        "width": 4,
-        "height": 1,
-        "passthru": false,
-        "label": "add/show id column",
-        "tooltip": "add a new column",
-        "color": "",
-        "bgcolor": "",
-        "icon": "",
-        "payload": "[{\"field\":\"id\",\"title\":\"id\",\"visible\":true,\"formatter\":\"plainText\"}]",
-        "payloadType": "json",
-        "topic": "columns",
-        "x": 362,
-        "y": 698,
-        "wires": [
-            [
-                "391e0fd118491fa4"
-            ]
-        ]
-    },
-    {
-        "id": "32a3c4ad.1b85fc",
-        "type": "ui_button",
-        "z": "78809bb47c7f02cd",
-        "name": "",
-        "group": "ff9fdb9a.7da098",
-        "order": 11,
-        "width": 4,
-        "height": 1,
-        "passthru": false,
-        "label": "hide id column",
-        "tooltip": "hide id column (it is not possible to delete a existing column definition)",
-        "color": "",
-        "bgcolor": "",
-        "icon": "",
-        "payload": "[{\"field\":\"id\",\"title\":\"id\",\"visible\":false,\"formatter\":\"plainText\"}]",
-        "payloadType": "json",
-        "topic": "columns",
-        "x": 342,
-        "y": 732,
-        "wires": [
-            [
-                "391e0fd118491fa4"
-            ]
-        ]
-    },
-    {
-        "id": "25247f4b.cc7ec",
-        "type": "inject",
-        "z": "78809bb47c7f02cd",
-        "name": "",
-        "repeat": "",
-        "crontab": "",
-        "once": true,
-        "onceDelay": 0.1,
-        "topic": "",
-        "payload": "true",
-        "payloadType": "bool",
-        "x": 176,
-        "y": 256,
-        "wires": [
-            [
-                "75207e8d.c54d4",
-                "bd3fd382.a2aa9"
-            ]
-        ]
-    },
-    {
-        "id": "18ed8d27.bf00a3",
-        "type": "ui_button",
-        "z": "78809bb47c7f02cd",
-        "name": "",
-        "group": "ff9fdb9a.7da098",
-        "order": 12,
-        "width": 4,
-        "height": 1,
-        "passthru": false,
-        "label": "reset Numbers > 100",
-        "tooltip": "using a rowFormatter callback function",
-        "color": "",
-        "bgcolor": "",
-        "className": "",
-        "icon": "",
-        "payload": "{\"payload\":\"\"}",
-        "payloadType": "json",
-        "topic": "rowFormatter",
-        "topicType": "str",
-        "x": 362,
-        "y": 426,
-        "wires": [
-            [
-                "391e0fd118491fa4"
-            ]
-        ]
-    },
-    {
-        "id": "bd3fd382.a2aa9",
-        "type": "ui_switch",
-        "z": "78809bb47c7f02cd",
-        "name": "headerVisible",
-        "label": "headerVisible",
-        "tooltip": "",
-        "group": "ff9fdb9a.7da098",
-        "order": 7,
-        "width": 4,
-        "height": 1,
-        "passthru": true,
-        "decouple": "false",
-        "topic": "headerVisible",
-        "style": "",
-        "onvalue": "true",
-        "onvalueType": "bool",
-        "onicon": "",
-        "oncolor": "",
-        "offvalue": "false",
-        "offvalueType": "bool",
-        "officon": "",
-        "offcolor": "",
-        "x": 342,
-        "y": 307,
-        "wires": [
-            [
-                "391e0fd118491fa4"
-            ]
-        ]
-    },
-    {
-        "id": "b075d2ac.a69f3",
-        "type": "ui_table",
-        "z": "3426577f90538292",
-        "group": "237da972.5d69a6",
-        "name": "",
-        "order": 0,
-        "width": "17",
-        "height": "9",
-        "columns": [
-            {
-                "field": "id",
-                "title": "id",
-                "width": "",
-                "align": "right",
-                "formatter": "plaintext",
-                "formatterParams": {
-                    "target": "_blank"
-                }
-            },
-            {
-                "field": "timestamp",
-                "title": "Timestamp",
-                "width": "",
-                "align": "left",
-                "formatter": "plaintext",
-                "formatterParams": {
-                    "target": "_blank"
-                }
-            },
-            {
-                "field": "text",
-                "title": "Text",
-                "width": "",
-                "align": "left",
-                "formatter": "plaintext",
-                "formatterParams": {
-                    "target": "_blank"
-                }
-            }
-        ],
-        "outputs": 1,
-        "cts": true,
-        "x": 730,
-        "y": 420,
-        "wires": [
-            [
-                "588f316.0b070d",
-                "76c4495f.da70f8"
-            ]
-        ]
-    },
-    {
-        "id": "f8a9323b.fedf4",
-        "type": "inject",
-        "z": "3426577f90538292",
-        "name": "add @ top",
-        "repeat": "",
-        "crontab": "",
-        "once": false,
-        "onceDelay": 0.1,
-        "topic": "",
-        "payload": "",
-        "payloadType": "date",
-        "x": 94,
-        "y": 318,
-        "wires": [
-            [
-                "eb577b4b.510388"
-            ]
-        ]
-    },
-    {
-        "id": "b54f6ce8.3b1a4",
-        "type": "debug",
-        "z": "3426577f90538292",
-        "name": "addRow",
-        "active": false,
-        "tosidebar": true,
-        "console": false,
-        "tostatus": false,
-        "complete": "true",
-        "targetType": "full",
-        "x": 315,
-        "y": 420,
-        "wires": []
-    },
-    {
-        "id": "eb577b4b.510388",
-        "type": "function",
-        "z": "3426577f90538292",
-        "name": "addRow @ top",
-        "func": "var id=flow.get(\"lastId\") || 0;\n++id;\nmsg.payload={\n    command:\"addRow\",\n    arguments: [\n        [\n            {\n            \"id\":id,\n            \"timestamp\":msg.payload,\n            \"text\":\"addRow @ top (#\"+id+\")\"\n            }\n        ],\n        true\n    ],\n    returnPromise: true\n}\nflow.set(\"lastId\",id);\nreturn msg;",
-        "outputs": 1,
-        "noerr": 0,
-        "x": 335,
-        "y": 284,
-        "wires": [
-            [
-                "b54f6ce8.3b1a4",
-                "b075d2ac.a69f3"
-            ]
-        ],
-        "info": "# addRow([row],onTop)\n\n`onTop=true`\n\nadds a new Row on top of the table"
-    },
-    {
-        "id": "588f316.0b070d",
-        "type": "debug",
-        "z": "3426577f90538292",
-        "name": "response from ui-table",
-        "active": false,
-        "tosidebar": true,
-        "console": false,
-        "tostatus": false,
-        "complete": "true",
-        "targetType": "full",
-        "x": 1035,
-        "y": 420,
-        "wires": []
-    },
-    {
-        "id": "12606591.7a3dca",
-        "type": "inject",
-        "z": "3426577f90538292",
-        "name": "Init 20 rows",
-        "repeat": "",
-        "crontab": "",
-        "once": false,
-        "onceDelay": 0.1,
-        "topic": "",
-        "payload": "20",
-        "payloadType": "num",
-        "x": 104,
-        "y": 148,
-        "wires": [
-            [
-                "d4dce9b4.1f2588"
-            ]
-        ]
-    },
-    {
-        "id": "d4dce9b4.1f2588",
-        "type": "function",
-        "z": "3426577f90538292",
-        "name": "table with n rows as array",
-        "func": "var numberOfRows = msg.payload;\nflow.set(\"lastId\",numberOfRows);\nmsg.payload=[];\nfor (let i=1; i<=numberOfRows; i++) {\n    msg.payload.push({\"id\":i,\"timestamp\":Date.now(),\"text\":\"this is line\"+i})\n}\nreturn msg;",
-        "outputs": 1,
-        "noerr": 0,
-        "x": 365,
-        "y": 114,
-        "wires": [
-            [
-                "b075d2ac.a69f3",
-                "f9bfd98.abe1a28",
-                "76c4495f.da70f8"
-            ]
-        ]
-    },
-    {
-        "id": "8254f2d2.eeaa1",
-        "type": "function",
-        "z": "3426577f90538292",
-        "name": "updateOrAddData (add)",
-        "func": "var id=flow.get(\"lastId\") || 0;\n++id;\nmsg.payload={\n    command:\"updateOrAddData\",\n    arguments: [\n        [\n            {\n            \"id\":id,\n            \"timestamp\":msg.payload,\n            \"text\":\"updateOrAddData (add) (#\"+id+\")\"\n            }\n        ]\n    ],\n    returnPromise: true\n}\nflow.set(\"lastId\",id);\nreturn msg;",
-        "outputs": 1,
-        "noerr": 0,
-        "x": 365,
-        "y": 471,
-        "wires": [
-            [
-                "570e922d.1d465c",
-                "b075d2ac.a69f3"
-            ]
-        ],
-        "info": "# updateOrAddData([row])\n\nadds a the row with a new id (same as addRow)"
-    },
-    {
-        "id": "cbd6baa0.fa7d78",
-        "type": "inject",
-        "z": "3426577f90538292",
-        "name": "add",
-        "repeat": "",
-        "crontab": "",
-        "once": false,
-        "onceDelay": 0.1,
-        "topic": "",
-        "payload": "",
-        "payloadType": "date",
-        "x": 84,
-        "y": 505,
-        "wires": [
-            [
-                "8254f2d2.eeaa1"
-            ]
-        ]
-    },
-    {
-        "id": "570e922d.1d465c",
-        "type": "debug",
-        "z": "3426577f90538292",
-        "name": "updateOrAddData",
-        "active": false,
-        "tosidebar": true,
-        "console": false,
-        "tostatus": false,
-        "complete": "true",
-        "targetType": "full",
-        "x": 345,
-        "y": 590,
-        "wires": []
-    },
-    {
-        "id": "782ab41e.cbb66c",
-        "type": "inject",
-        "z": "3426577f90538292",
-        "name": "add @ end",
-        "repeat": "",
-        "crontab": "",
-        "once": false,
-        "onceDelay": 0.1,
-        "topic": "",
-        "payload": "",
-        "payloadType": "date",
-        "x": 94,
-        "y": 403,
-        "wires": [
-            [
-                "760fde70.028f"
-            ]
-        ]
-    },
-    {
-        "id": "760fde70.028f",
-        "type": "function",
-        "z": "3426577f90538292",
-        "name": "addRow @ end",
-        "func": "var id=flow.get(\"lastId\") || 0;\n++id;\nmsg.payload={\n    command:\"addRow\",\n    arguments: [\n        [\n            {\n            \"id\":id,\n            \"timestamp\":msg.payload,\n            \"text\":\"addRow @ end (#\"+id+\")\"\n            }\n        ],\n        false\n    ],\n    returnPromise: true\n}\nflow.set(\"lastId\",id);\nreturn msg;",
-        "outputs": 1,
-        "noerr": 0,
-        "x": 335,
-        "y": 369,
-        "wires": [
-            [
-                "b54f6ce8.3b1a4",
-                "b075d2ac.a69f3"
-            ]
-        ],
-        "info": "# addRow([row],onTop)\n\n`onTop=false`\n\nadds a new Row on top of the table"
-    },
-    {
-        "id": "deeff963.289f08",
-        "type": "function",
-        "z": "3426577f90538292",
-        "name": "updateOrAddData (update)",
-        "func": "var id=flow.get(\"lastId\") || 0;\nif (id<2) {\n    node.error(\"use only if minimum of 2 Lines existing!\")\n    return;\n}\n\nid=Math.floor(id/2); //\nmsg.payload={\n    command:\"updateOrAddData\",\n    arguments: [\n        [\n            {\n            \"id\":id,\n            \"timestamp\":msg.payload,\n            \"text\":\"updateOrAddData (update) (#\"+id+\")\"\n            }\n        ]\n    ],\n    returnPromise: true\n}\nreturn msg;",
-        "outputs": 1,
-        "noerr": 0,
-        "x": 375,
-        "y": 539,
-        "wires": [
-            [
-                "570e922d.1d465c",
-                "b075d2ac.a69f3"
-            ]
-        ],
-        "info": "# updateOrAddData([row])\n\nupdates a the row with an id in the middle from 1 to lastId, hope it exists!\nIf not a row will be added"
-    },
-    {
-        "id": "557e109d.f9d7e",
-        "type": "comment",
-        "z": "3426577f90538292",
-        "name": "update ui-table by passing the complete tableData as array",
-        "info": "",
-        "x": 227,
-        "y": 63,
-        "wires": []
-    },
-    {
-        "id": "6a095f36.8f13a",
-        "type": "comment",
-        "z": "3426577f90538292",
-        "name": "update ui-table by using commands",
-        "info": "",
-        "x": 157,
-        "y": 233,
-        "wires": []
-    },
-    {
-        "id": "f08308d6.c66f68",
-        "type": "inject",
-        "z": "3426577f90538292",
-        "name": "update",
-        "repeat": "",
-        "crontab": "",
-        "once": false,
-        "onceDelay": 0.1,
-        "topic": "",
-        "payload": "",
-        "payloadType": "date",
-        "x": 84,
-        "y": 573,
-        "wires": [
-            [
-                "deeff963.289f08"
-            ]
-        ]
-    },
-    {
-        "id": "77b4d006.543ed",
-        "type": "function",
-        "z": "3426577f90538292",
-        "name": "deleteRow",
-        "func": "var id=flow.get(\"lastId\") || 0;\nif (id<2) {\n    node.error(\"use only if minimum of 2 Lines existing!\")\n    return;\n}\n\nid=Math.floor(id/2); //\nmsg.payload={\n    command:\"deleteRow\",\n    arguments: [id],\n    returnPromise: true\n}\nreturn msg;",
-        "outputs": 1,
-        "noerr": 0,
-        "x": 325,
-        "y": 692,
-        "wires": [
-            [
-                "e34a75a3.9f0188",
-                "b075d2ac.a69f3"
-            ]
-        ],
-        "info": "# deleteRow(row / [rows])\n\n`row=singleId`\n\nor\n\n`row=[array of IDs]` // seems there is a bug/issue in tabulator\n\ndelete a single the row with an id in the middle from 1 to lastId, hope it exists.\n\nWill fail on the second hit if you inject this two times because the id wad deleteted on the first"
-    },
-    {
-        "id": "936c8219.458bc",
-        "type": "inject",
-        "z": "3426577f90538292",
-        "name": "delete",
-        "repeat": "",
-        "crontab": "",
-        "once": false,
-        "onceDelay": 0.1,
-        "topic": "",
-        "payload": "",
-        "payloadType": "date",
-        "x": 84,
-        "y": 726,
-        "wires": [
-            [
-                "77b4d006.543ed"
-            ]
-        ]
-    },
-    {
-        "id": "e34a75a3.9f0188",
-        "type": "debug",
-        "z": "3426577f90538292",
-        "name": "deleteRow",
-        "active": false,
-        "tosidebar": true,
-        "console": false,
-        "tostatus": false,
-        "complete": "true",
-        "targetType": "full",
-        "x": 325,
-        "y": 811,
-        "wires": []
-    },
-    {
-        "id": "fafa24f8.577d28",
-        "type": "comment",
-        "z": "3426577f90538292",
-        "name": "deleteRow will punch holes in table!",
-        "info": "",
-        "x": 157,
-        "y": 641,
-        "wires": []
-    },
-    {
-        "id": "f9bfd98.abe1a28",
-        "type": "debug",
-        "z": "3426577f90538292",
-        "name": "addRow",
-        "active": false,
-        "tosidebar": true,
-        "console": false,
-        "tostatus": false,
-        "complete": "true",
-        "targetType": "full",
-        "x": 315,
-        "y": 165,
-        "wires": []
-    },
-    {
-        "id": "76c4495f.da70f8",
-        "type": "function",
-        "z": "3426577f90538292",
-        "name": "table recorder",
-        "func": "var status = {fill:\"red\",shape:\"ring\",text:\"an error occured\"};\nvar success = (msg.topic && msg.topic===\"success\") || false;\nvar tableData = flow.get(\"tableData\");\nif (tableData === undefined) {\n    tableData = [];\n    flow.set(\"tableData\",tableData);\n}\n\n// find the index for a row in tableData for a given index (id)\nfunction checkIndex(id) {\n    let matchRow=-1\n    tableData.forEach(function (row,index){\n        if (row.id === id){\n            matchRow=index;\n            return matchRow;\n        }\n    })\n    return matchRow;\n}\n\n// flat merge one row \nfunction mergeRow(dest,source) {\n    Object.keys(source).forEach(function(key) {\n        dest[key]=source[key];\n    })\n}\n\n//merge or add one or many rows into tableData \nfunction mergeData(newData,toTop) {\n    newData.forEach(function (item,index) {\n        node.warn([\"findIndex\",item]);\n        let row=checkIndex(item.id);\n        if (row<0) { // row do not existst in tableData\n            if (toTop) {\n                tableData.push(item);\n                status.text+=\"newRow @ top\";\n            } else {\n                tableData.unshift(item);\n                status.text+=\"newRow @ bottom\";\n            }\n            return;\n        } else { // row exists so update\n            mergeRow(tableData[row],item);\n            status.text+=\"row updated\";\n            return;\n        }\n        if (status.text!==\"\") node.status(status);\n    });\n}\n\nswitch (typeof msg.payload){\n    case \"string\":\n        node.warn([\"[table recorder] \",(typeof msg.payload),msg.payload]);\n        switch (msg.payload){\n            case \"change\":\n                status={fill:\"green\",shape:\"dot\",text:\"table restored \"+tableData.length+\" rows\"};\n                msg.payload=tableData;\n                break;\n        }\n        break;\n    case \"object\":\n        node.warn([\"[table recorder] \",(typeof msg.payload),msg.payload]);\n        if (Array.isArray(msg.payload)) { // replace all tableData\n            status={fill:\"green\",shape:\"dot\",text:\"table replaced \"+msg.payload.length+\" rows\"};\n            tableData=RED.util.cloneMessage(msg.payload); \n        } else {\n            switch (msg.payload.command) { // clearData does not return a promise!\n                case \"clearData\":\n                    status={fill:\"green\",shape:\"dot\",text:\"clearData: done\"};\n                    tableData=[];\n                    flow.set(\"lastId\",0);\n                    break;                \n            }\n        }\n        break;\n    default: // likely a msg fom a ui-table command or callback\n        if (msg.hasOwnProperty(\"topic\")&&\n            msg.hasOwnProperty(\"ui_control\") && \n            msg.ui_control.hasOwnProperty(\"callback\") &&\n            msg.hasOwnProperty(\"return\")) { // message originates from a ui-table callback\n            if (success) {\n                switch(msg.return.command) {\n                    case \"addRow\":\n                        status.text=\"addRow: \";\n                        mergeData(msg.return.arguments[0],msg.return.arguments[1]);\n                        status.shape=\"dot\";\n                        break;\n                    case \"updateOrAddData\":\n                        status.text=\"updateOrAddData: \";\n                        mergeData(msg.return.arguments[0]);\n                        break;\n                    case \"deleteRow\":\n                        let row=checkIndex(msg.return.arguments[0]);\n                        tableData.splice(row,1);\n                        status.shape=\"dot\";\n                        status.text=\"deleteRow: \"+row+\" deleted\";\n                        break;\n                    default:\n                        status={fill:\"yellow\",shape:\"dot\",text:msg.return.command + \" unknown!\"};\n                        break;         \n                }\n            } else {\n                status.text=msg.topic+\" \"+msg.error;\n            }\n        }\n        break;\n}\nif (success) status.fill=\"green\";\nflow.set(\"tableData\",tableData);\nnode.status(status);\nreturn msg;",
-        "outputs": 1,
-        "noerr": 0,
-        "x": 1015,
-        "y": 488,
-        "wires": [
-            [
-                "b075d2ac.a69f3"
-            ]
-        ],
-        "icon": "font-awesome/fa-database",
-        "info": "# simple ui-table handler\n## abstract\nUsing ui-table with commands offer the hole flexibilty of tabulator. The table can be manipulated down to cell level.\nAs the ui-table node only passes the commands to tabulator and receives promises back the node does not hold the table data. If the data should be available after refresh, tab change, new connections the flow is responsible to cache the data and all the manipulations.\nThis node takes care of most simple data manipulation commands and holds a copy of the data in `flow.context.tabledata`\n\n## details\n\n### row index (id)\n\nTo identify a [row a index](http://tabulator.info/docs/4.5/data#overview) column has to be defined. This colum defaults to `id` but can be changed by specifing a **field** by using `msg.ui_control`. In this example the row index is a simple counter adding up by one if a new line is added.\n\n### addRow command\n\n[details @ tabulator addRow docs](http://tabulator.info/docs/4.5/update#alter-add)\n\nYou can add a row by sending the `addRow` command. You can decide if the row adds on the top or at the bottom of table.\n\n### addOrUpdate command\n\n[details @ tabulator addOrUpdate docs](http://tabulator.info/docs/4.5/update#alter-update)\n\nTo update data the best way is to use the `addOrUpdate` command. If the row indetified by the index is not exeisting a new row will be added automatically\n\n### deleteRow command\n\n[details @ tabulator deleteRow docs](http://tabulator.info/docs/4.5/update#row)\n\nDelete one or more rows (passing an array always results in \"row not found error\"! I think there is an issue in tabulator)\n\n### clearData\n\n[details @ tabulator clearData docs](http://tabulator.info/docs/4.5/update#alter-empty)\n\nunfortunately this command (currently) do not send a promise back! So we have to pass it directly to the table handler"
-    },
-    {
-        "id": "7b1c27f4.36a718",
-        "type": "ui_ui_control",
-        "z": "3426577f90538292",
-        "name": "",
-        "events": "all",
-        "x": 740,
-        "y": 488,
-        "wires": [
-            [
-                "76c4495f.da70f8"
-            ]
-        ]
-    },
-    {
-        "id": "8b79840b.aff7e8",
-        "type": "inject",
-        "z": "3426577f90538292",
-        "d": true,
-        "name": "delete 1-5",
-        "repeat": "",
-        "crontab": "",
-        "once": false,
-        "onceDelay": 0.1,
-        "topic": "",
-        "payload": "",
-        "payloadType": "date",
-        "x": 94,
-        "y": 760,
-        "wires": [
-            [
-                "fee8b78d.068f98"
-            ]
-        ]
-    },
-    {
-        "id": "fee8b78d.068f98",
-        "type": "function",
-        "z": "3426577f90538292",
-        "d": true,
-        "name": "delete Rows [2,4,6,8,10]",
-        "func": "var id=flow.get(\"lastId\") || 0;\nif (id<10) {\n    node.error(\"use only if minimum of 10 Lines existing!\")\n    return;\n}\n\nid=Math.floor(id/2); //\nmsg.payload={\n    command:\"deleteRow\",\n    arguments: [[2,4,6,8,10]],\n    returnPromise: true\n}\nreturn msg;",
-        "outputs": 1,
-        "noerr": 0,
-        "x": 365,
-        "y": 760,
-        "wires": [
-            [
-                "b075d2ac.a69f3",
-                "e34a75a3.9f0188"
-            ]
-        ],
-        "info": "# deleteRow(row / [rows])\n\n`row=singleId`\n\nor\n\n`row=[array of IDs]` // seems there is a bug/issue in tabulator\n\ndelete a single the row with an id in the middle from 1 to lastId, hope it exists.\n\nWill fail on the second hit if you inject this two times because the id wad deleteted on the first"
-    },
-    {
-        "id": "fe4ba122.df8fb",
-        "type": "function",
-        "z": "3426577f90538292",
-        "name": "clearData",
-        "func": "\nmsg.payload={\n    command:\"clearData\",\n    arguments: [],\n    returnPromise: true\n}\nreturn msg;",
-        "outputs": 1,
-        "noerr": 0,
-        "x": 315,
-        "y": 930,
-        "wires": [
-            [
-                "6e49e266.f72b6c",
-                "b075d2ac.a69f3",
-                "76c4495f.da70f8"
-            ]
-        ],
-        "info": "# clear data\n\nunfortunately this command (currently) do not send a promise back! So we have to pass it directly to the table handler"
-    },
-    {
-        "id": "82194704.7ab2d8",
-        "type": "inject",
-        "z": "3426577f90538292",
-        "name": "clear",
-        "repeat": "",
-        "crontab": "",
-        "once": false,
-        "onceDelay": 0.1,
-        "topic": "",
-        "payload": "",
-        "payloadType": "date",
-        "x": 84,
-        "y": 964,
-        "wires": [
-            [
-                "fe4ba122.df8fb"
-            ]
-        ]
-    },
-    {
-        "id": "df623146.8270a",
-        "type": "comment",
-        "z": "3426577f90538292",
-        "name": "Erase all data by using clearData command",
-        "info": "",
-        "x": 187,
-        "y": 879,
-        "wires": []
-    },
-    {
-        "id": "6e49e266.f72b6c",
-        "type": "debug",
-        "z": "3426577f90538292",
-        "name": "clearData",
-        "active": true,
-        "tosidebar": true,
-        "console": false,
-        "tostatus": false,
-        "complete": "true",
-        "targetType": "full",
-        "x": 315,
-        "y": 981,
-        "wires": []
-    },
-    {
-        "id": "d404def3.39a63",
-        "type": "inject",
-        "z": "3426577f90538292",
-        "name": "change",
-        "props": [
-            {
-                "p": "payload",
-                "v": "change",
-                "vt": "str"
-            },
-            {
-                "p": "topic",
-                "v": "",
-                "vt": "str"
-            }
-        ],
-        "repeat": "",
-        "crontab": "",
-        "once": false,
-        "onceDelay": 0.1,
-        "topic": "",
-        "payload": "change",
-        "payloadType": "str",
-        "x": 730,
-        "y": 556,
-        "wires": [
-            [
-                "76c4495f.da70f8"
-            ]
-        ]
-    },
-    {
-        "id": "36be75f0.115c6a",
-        "type": "ui_button",
-        "z": "3426577f90538292",
-        "name": "",
-        "group": "c91332c0.50c11",
-        "order": 1,
-        "width": 0,
-        "height": 0,
-        "passthru": false,
-        "label": "Init 20 rows",
-        "tooltip": "init table by passing the hole table array (default way)",
-        "color": "",
-        "bgcolor": "",
-        "icon": "",
-        "payload": "20",
-        "payloadType": "num",
-        "topic": "",
-        "x": 104,
-        "y": 114,
-        "wires": [
-            [
-                "d4dce9b4.1f2588"
-            ]
-        ]
-    },
-    {
-        "id": "b496aa6a.32f2d8",
-        "type": "ui_button",
-        "z": "3426577f90538292",
-        "name": "",
-        "group": "c91332c0.50c11",
-        "order": 2,
-        "width": 0,
-        "height": 0,
-        "passthru": false,
-        "label": "add one row @ top",
-        "tooltip": "add a new row to the top",
-        "color": "",
-        "bgcolor": "",
-        "icon": "",
-        "payload": "",
-        "payloadType": "date",
-        "topic": "",
-        "x": 124,
-        "y": 284,
-        "wires": [
-            [
-                "eb577b4b.510388"
-            ]
-        ]
-    },
-    {
-        "id": "79d05aaa.e2c7d4",
-        "type": "ui_button",
-        "z": "3426577f90538292",
-        "name": "",
-        "group": "c91332c0.50c11",
-        "order": 3,
-        "width": 0,
-        "height": 0,
-        "passthru": false,
-        "label": "add one row @ end",
-        "tooltip": "add a new row at the end ",
-        "color": "",
-        "bgcolor": "",
-        "icon": "",
-        "payload": "",
-        "payloadType": "date",
-        "topic": "",
-        "x": 124,
-        "y": 369,
-        "wires": [
-            [
-                "760fde70.028f"
-            ]
-        ]
-    },
-    {
-        "id": "d37bf3a8.373dd",
-        "type": "ui_button",
-        "z": "3426577f90538292",
-        "name": "",
-        "group": "c91332c0.50c11",
-        "order": 4,
-        "width": 0,
-        "height": 0,
-        "passthru": false,
-        "label": "addOrUpdate (add)",
-        "tooltip": "add a new row by passing a new id",
-        "color": "",
-        "bgcolor": "",
-        "icon": "",
-        "payload": "",
-        "payloadType": "date",
-        "topic": "",
-        "x": 124,
-        "y": 471,
-        "wires": [
-            [
-                "8254f2d2.eeaa1"
-            ]
-        ]
-    },
-    {
-        "id": "d31c2ac7.05bed8",
-        "type": "ui_button",
-        "z": "3426577f90538292",
-        "name": "",
-        "group": "c91332c0.50c11",
-        "order": 5,
-        "width": 0,
-        "height": 0,
-        "passthru": false,
-        "label": "addOrUpdate (update)",
-        "tooltip": "update the row in the middle (or add if a row with that id not exists)",
-        "color": "",
-        "bgcolor": "",
-        "icon": "",
-        "payload": "",
-        "payloadType": "date",
-        "topic": "",
-        "x": 134,
-        "y": 539,
-        "wires": [
-            [
-                "deeff963.289f08"
-            ]
-        ]
-    },
-    {
-        "id": "c637efb3.9c38c",
-        "type": "ui_button",
-        "z": "3426577f90538292",
-        "name": "",
-        "group": "c91332c0.50c11",
-        "order": 6,
-        "width": 0,
-        "height": 0,
-        "passthru": false,
-        "label": "delete (middle)",
-        "tooltip": "delate the row with the id=maxId/2. Will result an error if not existing",
-        "color": "",
-        "bgcolor": "",
-        "icon": "",
-        "payload": "",
-        "payloadType": "date",
-        "topic": "",
-        "x": 114,
-        "y": 692,
-        "wires": [
-            [
-                "77b4d006.543ed"
-            ]
-        ]
-    },
-    {
-        "id": "5531f2d0.fb913c",
-        "type": "ui_button",
-        "z": "3426577f90538292",
-        "name": "",
-        "group": "c91332c0.50c11",
-        "order": 7,
-        "width": 0,
-        "height": 0,
-        "passthru": false,
-        "label": "clear",
-        "tooltip": "clear all table data",
-        "color": "",
-        "bgcolor": "",
-        "icon": "",
-        "payload": "",
-        "payloadType": "date",
-        "topic": "",
-        "x": 84,
-        "y": 930,
-        "wires": [
-            [
-                "fe4ba122.df8fb"
-            ]
-        ]
-    },
-    {
-        "id": "858a6bc2.0384e8",
-        "type": "ui_text",
-        "z": "3426577f90538292",
-        "group": "c91332c0.50c11",
-        "order": 9,
-        "width": 0,
-        "height": 0,
-        "name": "",
-        "label": "status",
-        "format": "{{status.text}}",
-        "layout": "col-center",
-        "x": 900,
-        "y": 726,
-        "wires": []
-    },
-    {
-        "id": "213d641a.12a53c",
-        "type": "status",
-        "z": "3426577f90538292",
-        "name": "",
-        "scope": [
-            "76c4495f.da70f8"
-        ],
-        "x": 739,
-        "y": 726,
-        "wires": [
-            [
-                "858a6bc2.0384e8"
-            ]
-        ]
-    },
-    {
-        "id": "e7d10007.d6e73",
-        "type": "ui_button",
-        "z": "3426577f90538292",
-        "name": "",
-        "group": "c91332c0.50c11",
-        "order": 8,
-        "width": 0,
-        "height": 0,
-        "passthru": false,
-        "label": "refresh (change)",
-        "tooltip": "Same as ui-control sending a change message",
-        "color": "",
-        "bgcolor": "",
-        "icon": "",
-        "payload": "change",
-        "payloadType": "str",
-        "topic": "",
-        "x": 760,
-        "y": 522,
-        "wires": [
-            [
-                "76c4495f.da70f8"
-            ]
-        ]
-    },
-    {
-        "id": "8386c3a7.41ead",
-        "type": "inject",
-        "z": "3426577f90538292",
-        "name": "format table",
-        "repeat": "",
-        "crontab": "",
-        "once": false,
-        "onceDelay": 0.1,
-        "topic": "",
-        "payload": "",
-        "payloadType": "date",
-        "x": 104,
-        "y": 1117,
-        "wires": [
-            [
-                "8ae898e7.418068"
-            ]
-        ]
-    },
-    {
-        "id": "f59e9830.e23608",
-        "type": "comment",
-        "z": "3426577f90538292",
-        "name": "Format Table using ui_control",
-        "info": "",
-        "x": 137,
-        "y": 1032,
-        "wires": []
-    },
-    {
-        "id": "19e88f0.0c32071",
-        "type": "debug",
-        "z": "3426577f90538292",
-        "name": "clearData",
-        "active": true,
-        "tosidebar": true,
-        "console": false,
-        "tostatus": false,
-        "complete": "true",
-        "targetType": "full",
-        "x": 315,
-        "y": 1134,
-        "wires": []
-    },
-    {
-        "id": "ea064e3c.22437",
-        "type": "ui_button",
-        "z": "3426577f90538292",
-        "name": "",
-        "group": "c91332c0.50c11",
-        "order": 7,
-        "width": 0,
-        "height": 0,
-        "passthru": false,
-        "label": "format table",
-        "tooltip": "Formats the table using msg.ui_control",
-        "color": "",
-        "bgcolor": "",
-        "icon": "",
-        "payload": "",
-        "payloadType": "date",
-        "topic": "",
-        "x": 104,
-        "y": 1083,
-        "wires": [
-            [
-                "8ae898e7.418068"
-            ]
-        ]
-    },
-    {
-        "id": "8ae898e7.418068",
+        "id": "fdfeeb33a12745aa",
         "type": "change",
-        "z": "3426577f90538292",
-        "name": "",
+        "z": "327571d15da5aceb",
+        "name": "transform timestamps",
         "rules": [
             {
                 "t": "set",
-                "p": "ui_control",
+                "p": "payload",
                 "pt": "msg",
-                "to": "{\"customHeight\":18,\"tabulator\":{\"layout\":\"fitColumns\",\"movableColumns\":false,\"index\":\"id\",\"columns\":[{\"title\":\"ID\",\"field\":\"id\",\"formatter\":\"text\",\"headerTooltip\":\"id number act as row index\"},{\"formatterParams\":{\"outputFormat\":\"HH:mm:ss.SSS\",\"inputFormat\":\"x\",\"invalidPlaceholder\":\"(unknown)\"},\"title\":\"Timestamp\",\"field\":\"timestamp\",\"formatter\":\"datetime\",\"headerTooltip\":\"timestamp of last change\"},{\"title\":\"Text\",\"field\":\"text\",\"headerTooltip\":\"last cause of reboot (provided by http json request)\"}]}}",
+                "to": "payload[].{ \t    \"Plant\":plant,\t    \"Department\":dept,\t    \"Line\":line,\t    \"Cell\":cell,\t    \"Time\":$round(-1*$moment(timestamp).diff($moment(), 'minutes', 1), 2)\t}",
+                "tot": "jsonata"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 1280,
+        "y": 420,
+        "wires": [
+            [
+                "93a21d5dcdc32268",
+                "7429e2bad420c896",
+                "5572052e45be3a2f"
+            ]
+        ]
+    },
+    {
+        "id": "2d665c92d372ae93",
+        "type": "delay",
+        "z": "327571d15da5aceb",
+        "name": "",
+        "pauseType": "delay",
+        "timeout": "5",
+        "timeoutUnits": "seconds",
+        "rate": "1",
+        "nbRateUnits": "1",
+        "rateUnits": "second",
+        "randomFirst": "1",
+        "randomLast": "5",
+        "randomUnits": "seconds",
+        "drop": false,
+        "allowrate": false,
+        "outputs": 1,
+        "x": 900,
+        "y": 500,
+        "wires": [
+            [
+                "e095abbdc378dd80"
+            ]
+        ]
+    },
+    {
+        "id": "5b3dd757e53da23a",
+        "type": "switch",
+        "z": "327571d15da5aceb",
+        "name": "is not empty?",
+        "property": "callList",
+        "propertyType": "flow",
+        "rules": [
+            {
+                "t": "nempty"
+            }
+        ],
+        "checkall": "true",
+        "repair": false,
+        "outputs": 1,
+        "x": 750,
+        "y": 360,
+        "wires": [
+            [
+                "40c648f526c3cd63"
+            ]
+        ]
+    },
+    {
+        "id": "26197aba70f1aa94",
+        "type": "function",
+        "z": "327571d15da5aceb",
+        "name": "Delete rows onclick",
+        "func": "let queue = flow.get(\"fgQueue\");\n\nif(msg.row > -1){\n    if(queue.length > 1) {\n        queue.splice(msg.row, 1);\n    } else {\n        queue=[]; \n    }\n}\n\nflow.set(\"fgQueue\", queue);\n\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 1210,
+        "y": 520,
+        "wires": [
+            [
+                "9b3585928247d412"
+            ]
+        ]
+    },
+    {
+        "id": "9b3585928247d412",
+        "type": "switch",
+        "z": "327571d15da5aceb",
+        "name": "is not empty?",
+        "property": "fgQueue",
+        "propertyType": "flow",
+        "rules": [
+            {
+                "t": "nempty"
+            },
+            {
+                "t": "empty"
+            }
+        ],
+        "checkall": "true",
+        "repair": false,
+        "outputs": 2,
+        "x": 750,
+        "y": 440,
+        "wires": [
+            [
+                "e095abbdc378dd80"
+            ],
+            [
+                "194f316c416ded39"
+            ]
+        ]
+    },
+    {
+        "id": "194f316c416ded39",
+        "type": "change",
+        "z": "327571d15da5aceb",
+        "name": "false: empty table",
+        "rules": [
+            {
+                "t": "set",
+                "p": "payload",
+                "pt": "msg",
+                "to": "[]",
                 "tot": "json"
             }
         ],
@@ -4915,33 +1934,56 @@
         "from": "",
         "to": "",
         "reg": false,
-        "x": 345,
-        "y": 1083,
+        "x": 1070,
+        "y": 460,
         "wires": [
             [
-                "19e88f0.0c32071",
-                "b075d2ac.a69f3",
-                "6bd61b7.a6a56e4"
+                "93a21d5dcdc32268"
             ]
         ]
     },
     {
-        "id": "6bd61b7.a6a56e4",
-        "type": "change",
-        "z": "3426577f90538292",
-        "name": "change",
+        "id": "5572052e45be3a2f",
+        "type": "switch",
+        "z": "327571d15da5aceb",
+        "name": "is not empty?",
+        "property": "fgQueue",
+        "propertyType": "flow",
         "rules": [
             {
-                "t": "delete",
-                "p": "ui_control",
-                "pt": "msg"
-            },
+                "t": "nempty"
+            }
+        ],
+        "checkall": "true",
+        "repair": false,
+        "outputs": 1,
+        "x": 750,
+        "y": 500,
+        "wires": [
+            [
+                "2d665c92d372ae93"
+            ]
+        ]
+    },
+    {
+        "id": "e7a6aef5978e156b",
+        "type": "change",
+        "z": "327571d15da5aceb",
+        "name": "true: Update Queue",
+        "rules": [
             {
                 "t": "set",
                 "p": "payload",
                 "pt": "msg",
-                "to": "change",
-                "tot": "str"
+                "to": "kwQueue",
+                "tot": "flow"
+            },
+            {
+                "t": "set",
+                "p": "ui_control",
+                "pt": "msg",
+                "to": "{\"tabulator\":{\"responsiveLayout\":\"collapse\",\"layout\":\"fitColumns\",\"movableColumns\":true,\"index\":\"Id\",\"columns\":[{\"frozen\":true,\"title\":\"ID\",\"align\":\"center\",\"width\":\"5%\",\"formatter\":\"rownum\"},{\"frozen\":true,\"title\":\"Department\",\"field\":\"Department\"},{\"frozen\":true,\"title\":\"Line\",\"field\":\"Line\"},{\"frozen\":true,\"title\":\"Cell\",\"field\":\"Cell\"},{\"title\":\"Time (mins)\",\"field\":\"Time\"},{\"title\":\"Action\",\"align\":\"center\",\"width\":\"10%\",\"formatter\":\"buttonCross\"}],\"columnResized\":\"function(column){     var newColumn = {         field: column._column.field,         visible: column._column.visible,         width: column._column.width,         widthFixed: column._column.widthFixed,         widthStyled: column._column.widthStyled     }; this.send({topic:this.config.topic,ui_control:{callback:'columnResized',columnWidths:newColumn}}); }\",\"columnMoved\":\"function(column, columns){     var newColumns=[];     columns.forEach(function (column) {         newColumns.push({'field': column._column.definition.field, 'title': column._column.definition.title});     });     this.send({topic:this.config.topic,ui_control:{callback:'columnMoved',columns:newColumns}}); }\",\"rowFormatter\":\"function(row){     var data = row.getData();     switch (data.$state) {         case \\\"lost\\\":             row.getElement().style.backgroundColor = \\\"#9e2e66\\\";             row.getElement().style.color = \\\"#a6a6a6\\\";             break;         case \\\"sleeping\\\":             row.getElement().style.backgroundColor = \\\"#336699\\\";             break;         case \\\"disconnected\\\":             row.getElement().style.backgroundColor = \\\"#cc3300\\\";             row.getElement().style.color = \\\"#a6a6a6\\\";             break;         case \\\"alert\\\":             row.getElement().style.backgroundColor = \\\"#A6A6DF\\\";             break;         case \\\"init\\\":             row.getElement().style.backgroundColor = \\\"#f2f20d\\\";             break;         case \\\"ready\\\":             row.getElement().style.backgroundColor = \\\"\\\";             row.getElement().style.color = \\\"\\\";             break;         } }\",\"cellEdited\":\"celledited = function (cell) {         console.log('celledited callback called');    this.send(                 {                          ui_control: {callback:'cellEdited'},            payload: cell.getValue(),            oldValue: cell.getOldValue(),            field: cell.getColumn().getField(),            id: cell.getRow().getCell('Id').getValue()         });    console.log('table edit success');}\"}}",
+                "tot": "json"
             }
         ],
         "action": "",
@@ -4949,11 +1991,238 @@
         "from": "",
         "to": "",
         "reg": false,
-        "x": 553,
-        "y": 1083,
+        "x": 1090,
+        "y": 580,
         "wires": [
             [
-                "76c4495f.da70f8"
+                "77c8340879363b84"
+            ]
+        ]
+    },
+    {
+        "id": "e054f574d3e939c0",
+        "type": "ui_table",
+        "z": "327571d15da5aceb",
+        "group": "e5276d6b5a48a00a",
+        "name": "KW Queue",
+        "order": 1,
+        "width": 25,
+        "height": 7,
+        "columns": [],
+        "outputs": 1,
+        "cts": true,
+        "x": 1510,
+        "y": 620,
+        "wires": [
+            [
+                "c4d311be3afeebfe"
+            ]
+        ]
+    },
+    {
+        "id": "77c8340879363b84",
+        "type": "change",
+        "z": "327571d15da5aceb",
+        "name": "transform timestamps",
+        "rules": [
+            {
+                "t": "set",
+                "p": "payload",
+                "pt": "msg",
+                "to": "payload[].{ \t    \"Plant\":plant,\t    \"Department\":dept,\t    \"Line\":line,\t    \"Cell\":cell,\t    \"Time\":$round(-1*$moment(timestamp).diff($moment(), 'minutes', 1), 2)\t}",
+                "tot": "jsonata"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 1300,
+        "y": 580,
+        "wires": [
+            [
+                "e054f574d3e939c0",
+                "7c13368efceb0c8a"
+            ]
+        ]
+    },
+    {
+        "id": "7864380f40932de4",
+        "type": "delay",
+        "z": "327571d15da5aceb",
+        "name": "",
+        "pauseType": "delay",
+        "timeout": "5",
+        "timeoutUnits": "seconds",
+        "rate": "1",
+        "nbRateUnits": "1",
+        "rateUnits": "second",
+        "randomFirst": "1",
+        "randomLast": "5",
+        "randomUnits": "seconds",
+        "drop": false,
+        "allowrate": false,
+        "outputs": 1,
+        "x": 920,
+        "y": 660,
+        "wires": [
+            [
+                "e7a6aef5978e156b"
+            ]
+        ]
+    },
+    {
+        "id": "c4d311be3afeebfe",
+        "type": "function",
+        "z": "327571d15da5aceb",
+        "name": "Delete rows onclick",
+        "func": "let queue = flow.get(\"kwQueue\");\n\nif(msg.row > -1){\n    if(queue.length > 1) {\n        queue.splice(msg.row, 1);\n    } else {\n        queue=[]; \n    }\n}\n\nflow.set(\"kwQueue\", queue);\n\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 1230,
+        "y": 680,
+        "wires": [
+            [
+                "91f6b3446bbbacb5"
+            ]
+        ]
+    },
+    {
+        "id": "91f6b3446bbbacb5",
+        "type": "switch",
+        "z": "327571d15da5aceb",
+        "name": "is not empty?",
+        "property": "kwQueue",
+        "propertyType": "flow",
+        "rules": [
+            {
+                "t": "nempty"
+            },
+            {
+                "t": "empty"
+            }
+        ],
+        "checkall": "true",
+        "repair": false,
+        "outputs": 2,
+        "x": 770,
+        "y": 600,
+        "wires": [
+            [
+                "e7a6aef5978e156b"
+            ],
+            [
+                "9c95bf426dc58e26"
+            ]
+        ]
+    },
+    {
+        "id": "9c95bf426dc58e26",
+        "type": "change",
+        "z": "327571d15da5aceb",
+        "name": "false: empty table",
+        "rules": [
+            {
+                "t": "set",
+                "p": "payload",
+                "pt": "msg",
+                "to": "[]",
+                "tot": "json"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 1090,
+        "y": 620,
+        "wires": [
+            [
+                "e054f574d3e939c0"
+            ]
+        ]
+    },
+    {
+        "id": "7c13368efceb0c8a",
+        "type": "switch",
+        "z": "327571d15da5aceb",
+        "name": "is not empty?",
+        "property": "kwQueue",
+        "propertyType": "flow",
+        "rules": [
+            {
+                "t": "nempty"
+            }
+        ],
+        "checkall": "true",
+        "repair": false,
+        "outputs": 1,
+        "x": 770,
+        "y": 660,
+        "wires": [
+            [
+                "7864380f40932de4"
+            ]
+        ]
+    },
+    {
+        "id": "ab9809ea3c7053e3",
+        "type": "switch",
+        "z": "327571d15da5aceb",
+        "name": "is not empty?",
+        "property": "fgqueue",
+        "propertyType": "flow",
+        "rules": [
+            {
+                "t": "nempty"
+            },
+            {
+                "t": "empty"
+            }
+        ],
+        "checkall": "true",
+        "repair": false,
+        "outputs": 2,
+        "x": 750,
+        "y": 300,
+        "wires": [
+            [
+                "0c1c8a6450ad2cdc"
+            ],
+            [
+                "6bd420886a8214f9"
+            ]
+        ]
+    },
+    {
+        "id": "6bd420886a8214f9",
+        "type": "change",
+        "z": "327571d15da5aceb",
+        "name": "false: empty table",
+        "rules": [
+            {
+                "t": "set",
+                "p": "payload",
+                "pt": "msg",
+                "to": "[]",
+                "tot": "json"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 1070,
+        "y": 320,
+        "wires": [
+            [
+                "a48c49277460197f"
             ]
         ]
     }
