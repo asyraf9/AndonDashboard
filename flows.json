@@ -24,6 +24,14 @@
         "env": []
     },
     {
+        "id": "1694d57381b3dfec",
+        "type": "tab",
+        "label": "Flow 1",
+        "disabled": false,
+        "info": "",
+        "env": []
+    },
+    {
         "id": "2924702c.b33a7",
         "type": "subflow",
         "name": "ui-table handler",
@@ -1043,6 +1051,7 @@
         "id": "d7197fbf265fda54",
         "type": "mqtt in",
         "z": "327571d15da5aceb",
+        "d": true,
         "name": "from trial WISE ",
         "topic": "AKSB/SA/call/#",
         "qos": "1",
@@ -2242,5 +2251,43 @@
                 "78eba51fe7dbbeb4"
             ]
         ]
+    },
+    {
+        "id": "2d6258541bda347b",
+        "type": "mqtt in",
+        "z": "1694d57381b3dfec",
+        "name": "Temp Sensors",
+        "topic": "Advantech/#",
+        "qos": "1",
+        "datatype": "auto-detect",
+        "broker": "56edfd93d9c67181",
+        "nl": false,
+        "rap": true,
+        "rh": "1",
+        "inputs": 0,
+        "x": 110,
+        "y": 200,
+        "wires": [
+            [
+                "619d49c989b8af21"
+            ]
+        ]
+    },
+    {
+        "id": "619d49c989b8af21",
+        "type": "debug",
+        "z": "1694d57381b3dfec",
+        "name": "analyze mqtt output",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "true",
+        "targetType": "full",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 330,
+        "y": 160,
+        "wires": []
     }
 ]
