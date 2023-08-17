@@ -201,6 +201,172 @@
         }
     },
     {
+        "id": "5958c5854f8ba7cd",
+        "type": "subflow",
+        "name": "Route & Process MQTT",
+        "info": "Used for routing MQTT messages to the relevant database and table updates. \nAlso updates msg.caller with a 'type' property to be displayed on dashboards.\n\nThis is for multiple display handling within the call system\nfor example if you have the following displays within a system:\n 1.   1 dashboard for calling of SV, QC, Maintenance etc\n 2.   1 dashboard for displaying finished goods pickup queue\n 3.   1 dashboard for displaying child part supply queue\n  \nFor each of these displays create one of these nodes and specify the `Message Type` it needs to react to. This needs to be specified in comma separated string of message values. If the value of said message is present within the mqtt msg.payload, then the router will pass on msg to the next node. otherwise, msg stops here. for example: \n\n 1. \"SV,QC,FM\" for calling dashboard\n 2. \"FG\" for finished goods dashboard\n 3. \"CP\" for child parts supply dashboard\n\n",
+        "category": "",
+        "in": [
+            {
+                "x": 60,
+                "y": 80,
+                "wires": [
+                    {
+                        "id": "ca29863c4aa8e8c4"
+                    }
+                ]
+            }
+        ],
+        "out": [
+            {
+                "x": 600,
+                "y": 80,
+                "wires": [
+                    {
+                        "id": "da8bd97b81da3575",
+                        "port": 0
+                    }
+                ]
+            }
+        ],
+        "env": [
+            {
+                "name": "Function Topic",
+                "type": "str",
+                "value": "call",
+                "ui": {
+                    "icon": "font-awesome/fa-file-text",
+                    "type": "input",
+                    "opts": {
+                        "types": [
+                            "str"
+                        ]
+                    }
+                }
+            },
+            {
+                "name": "Message Types",
+                "type": "str",
+                "value": "SV,QC,FM",
+                "ui": {
+                    "icon": "font-awesome/fa-comment",
+                    "type": "input",
+                    "opts": {
+                        "types": [
+                            "str"
+                        ]
+                    }
+                }
+            },
+            {
+                "name": "List",
+                "type": "bool",
+                "value": "true",
+                "ui": {
+                    "icon": "font-awesome/fa-list-ul",
+                    "label": {
+                        "en-US": "List? (false = Queue)"
+                    },
+                    "type": "input",
+                    "opts": {
+                        "types": [
+                            "bool"
+                        ]
+                    }
+                }
+            }
+        ],
+        "meta": {},
+        "color": "#DDAA99"
+    },
+    {
+        "id": "02bee84c2c61bcc8",
+        "type": "subflow",
+        "name": "Update List",
+        "info": "",
+        "category": "",
+        "in": [
+            {
+                "x": 60,
+                "y": 80,
+                "wires": [
+                    {
+                        "id": "788fac08512fd696"
+                    }
+                ]
+            }
+        ],
+        "out": [
+            {
+                "x": 320,
+                "y": 80,
+                "wires": [
+                    {
+                        "id": "788fac08512fd696",
+                        "port": 0
+                    }
+                ]
+            }
+        ],
+        "env": [
+            {
+                "name": "List Name",
+                "type": "str",
+                "value": "callList"
+            }
+        ],
+        "meta": {},
+        "color": "#DDAA99"
+    },
+    {
+        "id": "842e4db7b876be11",
+        "type": "subflow",
+        "name": "Update Queue",
+        "info": "",
+        "category": "",
+        "in": [
+            {
+                "x": 60,
+                "y": 80,
+                "wires": [
+                    {
+                        "id": "7bd4bb2e3900da1c"
+                    }
+                ]
+            }
+        ],
+        "out": [
+            {
+                "x": 340,
+                "y": 80,
+                "wires": [
+                    {
+                        "id": "7bd4bb2e3900da1c",
+                        "port": 0
+                    }
+                ]
+            }
+        ],
+        "env": [
+            {
+                "name": "Queue Name",
+                "type": "str",
+                "value": "",
+                "ui": {
+                    "icon": "font-awesome/fa-list-ol",
+                    "type": "input",
+                    "opts": {
+                        "types": [
+                            "str"
+                        ]
+                    }
+                }
+            }
+        ],
+        "meta": {},
+        "color": "#DDAA99"
+    },
+    {
         "id": "d2bd110790f6ae19",
         "type": "ui_base",
         "theme": {
@@ -354,7 +520,7 @@
         "icon": "dashboard",
         "order": 5,
         "disabled": false,
-        "hidden": true
+        "hidden": false
     },
     {
         "id": "ea1829c43a6e8ad0",
@@ -450,6 +616,76 @@
             []
         ],
         "icon": "font-awesome/fa-table"
+    },
+    {
+        "id": "ca29863c4aa8e8c4",
+        "type": "function",
+        "z": "5958c5854f8ba7cd",
+        "name": "Route MQTT Msg",
+        "func": "let target = env.get(\"Message Types\");\nlet isList = env.get(\"List\");\nlet message = msg.payload;\nlet type = \"\";\nlet targetFound = false;\nlet otherTargetFound = false;\nmsg.caller = msg.caller ? msg.caller : {};\n\ntarget = target.split(\",\")\ntarget.forEach((val,i,arr) => {\n    arr[i] = val.trim();\n});\n\nfor(let i in target){\n    if(message[target[i]] == true){\n        targetFound = true;\n        type += target[i] + \", \";\n        delete message[target[i]];\n    } \n} \n\ntype = type.slice(0,-2);\nmsg.caller.type = type;\n\nif (Object.keys(message) > 0) {\n    message.forEach((val) => {\n        if(val) {\n            otherTargetFound = true;\n        }\n    })\n}\n\n\nif(targetFound || (isList && !otherTargetFound)){\n    return msg;\n} else {\n    return null;\n}",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 210,
+        "y": 80,
+        "wires": [
+            [
+                "da8bd97b81da3575"
+            ]
+        ]
+    },
+    {
+        "id": "da8bd97b81da3575",
+        "type": "function",
+        "z": "5958c5854f8ba7cd",
+        "name": "Process MQTT Topic",
+        "func": "let callName = env.get(\"Function Topic\");\nlet topic = msg.topic.split(\"/\"+callName+\"/\");\n// node.warn(topic);\nlet caller = {\n    \"plant\" : topic[0],\n    \"id\" : topic[1],\n    \"timestamp\": Date.now()\n}\ntopic = caller.id.split(\"/\");\n// node.warn(topic);\n\nfor (let word of topic) {\n    word = word.split(\"-\");\n    caller[word[0]] = word[1].toUpperCase();\n}\n\nObject.assign(msg.caller, caller);\n\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 440,
+        "y": 80,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "788fac08512fd696",
+        "type": "function",
+        "z": "02bee84c2c61bcc8",
+        "name": "Update List",
+        "func": "// caller is already prepared from previous nodes.\n// it will either have a list of call types, or be empty. \nlet caller = msg.caller;\nlet list = \"$parent.\" + env.get(\"List Name\");\nlet dbList = flow.get(list);\n// node.warn(dbList);\n\nif (caller.type.length < 1){\n    //if caller.type is empty, means call from caller is cleared\n    //delete caller row in list\n    dbList = dbList.filter((call) => { return call.id != caller.id });\n    flow.set(list, dbList);\n} else {\n    //else if caller.type is not empty, means call from caller is a new call\n    //if caller already exists in list, update that caller row\n    //else add caller to list. \n    let index = dbList.findIndex((call) => { return call.id == caller.id });\n    if (index != -1) {\n        dbList[index] = caller;\n    } else {    \n        dbList.push(caller);\n    }\n    flow.set(list, dbList);\n}\n\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 190,
+        "y": 80,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "7bd4bb2e3900da1c",
+        "type": "function",
+        "z": "842e4db7b876be11",
+        "name": "Update Queue",
+        "func": "let queue = \"$parent.\"+env.get(\"Queue Name\");\nlet dbQueue = flow.get(queue);\nlet caller = msg.caller;\n\ndbQueue.push(caller);\nflow.set(queue, dbQueue);\n\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 200,
+        "y": 80,
+        "wires": [
+            []
+        ]
     },
     {
         "id": "3bb529f3123a381b",
@@ -1051,7 +1287,6 @@
         "id": "d7197fbf265fda54",
         "type": "mqtt in",
         "z": "327571d15da5aceb",
-        "d": true,
         "name": "from trial WISE ",
         "topic": "AKSB/SA/call/#",
         "qos": "1",
@@ -1065,10 +1300,9 @@
         "y": 320,
         "wires": [
             [
-                "79d2dbe7240fa5dc",
                 "db3d86086a08ee76",
-                "423738f0c2aef552",
-                "27b684e18df0f5af"
+                "e039e2b37c45b70f",
+                "61765029e1a65f4f"
             ]
         ]
     },
@@ -1077,7 +1311,7 @@
         "type": "debug",
         "z": "327571d15da5aceb",
         "name": "debug 1",
-        "active": false,
+        "active": true,
         "tosidebar": true,
         "console": false,
         "tostatus": false,
@@ -1085,8 +1319,8 @@
         "targetType": "full",
         "statusVal": "",
         "statusType": "auto",
-        "x": 280,
-        "y": 260,
+        "x": 540,
+        "y": 280,
         "wires": []
     },
     {
@@ -1096,7 +1330,7 @@
         "name": "",
         "events": "all",
         "x": 920,
-        "y": 220,
+        "y": 180,
         "wires": [
             []
         ]
@@ -1121,7 +1355,7 @@
         "to": "",
         "reg": false,
         "x": 750,
-        "y": 220,
+        "y": 180,
         "wires": [
             [
                 "80b1fb2dd47643d8"
@@ -1135,7 +1369,7 @@
         "name": "",
         "events": "all",
         "x": 920,
-        "y": 180,
+        "y": 140,
         "wires": [
             []
         ]
@@ -1160,7 +1394,7 @@
         "to": "",
         "reg": false,
         "x": 720,
-        "y": 180,
+        "y": 140,
         "wires": [
             [
                 "39f563b3717d924b"
@@ -1171,25 +1405,22 @@
         "id": "db3d86086a08ee76",
         "type": "function",
         "z": "327571d15da5aceb",
+        "d": true,
         "name": "process MQTT msg",
-        "func": "let callList = flow.get(\"callList\") || [];\nlet updateCall = { payload: false } ;\nlet FGQueue = flow.get(\"fgQueue\") || [];\nlet updateFGQ = { payload: false };\nlet KWQueue = flow.get(\"kwQueue\") || [];\nlet updateKWQ = { payload: false };\nlet changeTab = { payload: false };\n\nlet topic = msg.topic.split(\"/call/\");\n\nlet caller = {\n    \"id\" : topic[1],\n    \"plant\" : topic[0],\n    \"dept\" : \"\",\n    \"line\" : \"\",\n    \"cell\" : \"\",\n    \"type\" : \"\",\n    \"timestamp\": Date.now()\n}\ntopic = caller.id.split(\"/\");\n//node.warn(topic);\n\nfor (let word of topic) {\n    word = word.split(\"-\");\n    //node.warn(word);\n    switch(word[0]) {\n        case \"dept\":\n            caller.dept = word[1].toUpperCase();\n            break;\n        case \"line\":\n            caller.line = word[1].toUpperCase();\n            break;\n        case \"cell\":\n            caller.cell = word[1].toUpperCase();\n            break;\n        default:\n    }\n}\nnode.warn(caller);\n\nif (!msg.payload.MT && !msg.payload.QC && !msg.payload.SV){\n    callList = callList.filter((call) => { return call.id != caller.id });\n    flow.set(\"callList\", callList);\n    updateCall.payload = true;\n} else {\n    let callIndex = callList.findIndex((call) => { return call.id == caller.id });\n    //node.warn(callIndex);\n    if (msg.payload.MT && msg.payload.QC && msg.payload.SV){\n        caller.type = \"SV,QC,MTCE\";\n        updateCall.payload = true;\n    } else if (msg.payload.SV && msg.payload.QC && !msg.payload.MT) {\n        caller.type = \"SV,QC\";\n        updateCall.payload = true;\n    } else if (msg.payload.SV && msg.payload.MT && !msg.payload.QC) {\n        caller.type = \"SV, MTCE\";\n        updateCall.payload = true;\n    } else if (msg.payload.MT && msg.payload.QC && !msg.payload.SV) {\n        caller.type = \"QC, MTCE\";\n        updateCall.payload = true;\n    } else {\n        if (msg.payload.MT){\n            caller.type = \"MTCE\";\n        }\n        if (msg.payload.QC){\n            caller.type = \"QC\";\n        }\n        if (msg.payload.SV){\n            caller.type = \"SV\";\n        }\n        updateCall.payload = true;\n    }\n    if (callIndex != -1) {\n        callList[callIndex] = caller;\n    } else {    \n        callList.push(caller);\n    }\n    flow.set(\"callList\", callList);\n}\n\nif(msg.payload.FG){\n    FGQueue.push(caller);\n    flow.set(\"fgQueue\", FGQueue);\n    updateFGQ.payload = true;\n}\nif(msg.payload.KW){\n    KWQueue.push(caller);\n    flow.set(\"kwQueue\", KWQueue);\n    updateKWQ.payload = true;\n}\n\nchangeTab.payload = callList.length > 0;\nreturn [changeTab, updateCall, updateFGQ, updateKWQ];",
+        "func": "let callList = flow.get(\"callList\") || [];\nlet updateCall = { payload: false } ;\nlet FGQueue = flow.get(\"fgQueue\") || [];\nlet updateFGQ = { payload: false };\nlet KWQueue = flow.get(\"kwQueue\") || [];\nlet updateKWQ = { payload: false };\nlet changeTab = { payload: false };\n\nlet topic = msg.topic.split(\"/call/\");\n\nlet caller = {\n    \"id\" : topic[1],\n    \"plant\" : topic[0],\n    \"dept\" : \"\",\n    \"line\" : \"\",\n    \"cell\" : \"\",\n    \"type\" : \"\",\n    \"timestamp\": Date.now()\n}\ntopic = caller.id.split(\"/\");\n//node.warn(topic);\n\nfor (let word of topic) {\n    word = word.split(\"-\");\n    //node.warn(word);\n    switch(word[0]) {\n        case \"dept\":\n            caller.dept = word[1].toUpperCase();\n            break;\n        case \"line\":\n            caller.line = word[1].toUpperCase();\n            break;\n        case \"cell\":\n            caller.cell = word[1].toUpperCase();\n            break;\n        default:\n    }\n}\n// node.warn(caller);\n\nif (!msg.payload.MT && !msg.payload.QC && !msg.payload.SV){\n    callList = callList.filter((call) => { return call.id != caller.id });\n    flow.set(\"callList\", callList);\n    updateCall.payload = true;\n} else {\n    let callIndex = callList.findIndex((call) => { return call.id == caller.id });\n    //node.warn(callIndex);\n    if (msg.payload.MT && msg.payload.QC && msg.payload.SV){\n        caller.type = \"SV,QC,MTCE\";\n        updateCall.payload = true;\n    } else if (msg.payload.SV && msg.payload.QC && !msg.payload.MT) {\n        caller.type = \"SV,QC\";\n        updateCall.payload = true;\n    } else if (msg.payload.SV && msg.payload.MT && !msg.payload.QC) {\n        caller.type = \"SV, MTCE\";\n        updateCall.payload = true;\n    } else if (msg.payload.MT && msg.payload.QC && !msg.payload.SV) {\n        caller.type = \"QC, MTCE\";\n        updateCall.payload = true;\n    } else {\n        if (msg.payload.MT){\n            caller.type = \"MTCE\";\n        }\n        if (msg.payload.QC){\n            caller.type = \"QC\";\n        }\n        if (msg.payload.SV){\n            caller.type = \"SV\";\n        }\n        updateCall.payload = true;\n    }\n    if (callIndex != -1) {\n        callList[callIndex] = caller;\n    } else {    \n        callList.push(caller);\n    }\n    flow.set(\"callList\", callList);\n}\n\nif(msg.payload.FG){\n    FGQueue.push(caller);\n    flow.set(\"fgQueue\", FGQueue);\n    updateFGQ.payload = true;\n}\nif(msg.payload.KW){\n    KWQueue.push(caller);\n    flow.set(\"kwQueue\", KWQueue);\n    updateKWQ.payload = true;\n}\n\nchangeTab.payload = callList.length > 0;\nreturn [changeTab, updateCall, updateFGQ, updateKWQ];",
         "outputs": 4,
         "noerr": 0,
         "initialize": "",
         "finalize": "",
         "libs": [],
-        "x": 310,
-        "y": 320,
+        "x": 150,
+        "y": 200,
         "wires": [
             [
                 "eb8b7ad763ba6eb8"
             ],
-            [
-                "174d10222275a595"
-            ],
-            [
-                "d1f47fe3e00fb131"
-            ],
+            [],
+            [],
             [
                 "443a9f25028c9c89"
             ]
@@ -1199,6 +1430,7 @@
         "id": "eb8b7ad763ba6eb8",
         "type": "switch",
         "z": "327571d15da5aceb",
+        "d": true,
         "name": "Change Tab?",
         "property": "payload",
         "propertyType": "msg",
@@ -1213,61 +1445,14 @@
         "checkall": "true",
         "repair": false,
         "outputs": 2,
-        "x": 530,
-        "y": 200,
+        "x": 550,
+        "y": 160,
         "wires": [
             [
-                "60ec8fc7c03081d6",
-                "388823226a3f39ea"
+                "60ec8fc7c03081d6"
             ],
             [
                 "2022fca4a20f48d0"
-            ]
-        ]
-    },
-    {
-        "id": "174d10222275a595",
-        "type": "switch",
-        "z": "327571d15da5aceb",
-        "name": "Update Call List?",
-        "property": "payload",
-        "propertyType": "msg",
-        "rules": [
-            {
-                "t": "true"
-            }
-        ],
-        "checkall": "true",
-        "repair": false,
-        "outputs": 1,
-        "x": 550,
-        "y": 280,
-        "wires": [
-            [
-                "ab9809ea3c7053e3"
-            ]
-        ]
-    },
-    {
-        "id": "d1f47fe3e00fb131",
-        "type": "switch",
-        "z": "327571d15da5aceb",
-        "name": "Update FG Queue?",
-        "property": "payload",
-        "propertyType": "msg",
-        "rules": [
-            {
-                "t": "true"
-            }
-        ],
-        "checkall": "true",
-        "repair": false,
-        "outputs": 1,
-        "x": 550,
-        "y": 420,
-        "wires": [
-            [
-                "9b3585928247d412"
             ]
         ]
     },
@@ -1459,8 +1644,8 @@
         "targetType": "full",
         "statusVal": "",
         "statusType": "auto",
-        "x": 1300,
-        "y": 200,
+        "x": 1500,
+        "y": 240,
         "wires": []
     },
     {
@@ -1472,10 +1657,10 @@
         "fieldType": "msg",
         "format": "handlebars",
         "syntax": "mustache",
-        "template": "{\n    \"target\": \"asyraf\",\n    \"type\": \"message\",\n    \"content\": \"Call Queue: \\n {{#payload}} For: {{type}}, Dept: {{dept}}, Line: {{line}}, Cell: {{cell}} \\n {{/payload}}\"\n}",
+        "template": "{\n    \"target\": \"asyraf\",\n    \"type\": \"message\",\n    \"content\": \"Call Queue: \\n| For | Dept | Line | Cell |\\n{{#payload}} | {{type}} | {{dept}} | {{line}} | {{cell}} |\\n{{/payload}}\"\n}",
         "output": "json",
-        "x": 980,
-        "y": 140,
+        "x": 1020,
+        "y": 240,
         "wires": [
             [
                 "bd1b0393d3b158c1"
@@ -1486,6 +1671,7 @@
         "id": "388823226a3f39ea",
         "type": "change",
         "z": "327571d15da5aceb",
+        "d": true,
         "name": "",
         "rules": [
             {
@@ -1502,8 +1688,8 @@
         "from": "",
         "to": "",
         "reg": false,
-        "x": 740,
-        "y": 140,
+        "x": 760,
+        "y": 240,
         "wires": [
             [
                 "0408a92bd9d1a49c"
@@ -1989,91 +2175,6 @@
         ]
     },
     {
-        "id": "423738f0c2aef552",
-        "type": "function",
-        "z": "327571d15da5aceb",
-        "name": "Process MQTT Topic",
-        "func": "let topic = msg.topic.split(\"/call/\");\n\nlet caller = {\n    \"plant\" : topic[0],\n    \"id\" : topic[1],\n    \"timestamp\": Date.now()\n}\ntopic = caller.id.split(\"/\");\n//node.warn(topic);\n\nfor (let word of topic) {\n    word = word.split(\"-\");\n    caller[word[0]] = word[1].toUpperCase();\n}\n//node.warn(caller);\nmsg.caller = caller;\n\nreturn msg;",
-        "outputs": 1,
-        "noerr": 0,
-        "initialize": "",
-        "finalize": "",
-        "libs": [],
-        "x": 220,
-        "y": 440,
-        "wires": [
-            []
-        ]
-    },
-    {
-        "id": "27b684e18df0f5af",
-        "type": "function",
-        "z": "327571d15da5aceb",
-        "name": "Process MQTT Message",
-        "func": "let message = \"\";\n\n//set the call message to be displayed first. \nfor(let prop in msg.payload){\n    if(msg.payload.prop == true){\n        message += prop + \", \";\n    }\n}\nmessage = message.slice(0,-2); //remove the last comma and space\nmsg.caller.type = message;\nnode.warn(msg);\n\nreturn msg;",
-        "outputs": 1,
-        "noerr": 0,
-        "initialize": "",
-        "finalize": "",
-        "libs": [],
-        "x": 230,
-        "y": 500,
-        "wires": [
-            []
-        ]
-    },
-    {
-        "id": "788fac08512fd696",
-        "type": "function",
-        "z": "327571d15da5aceb",
-        "name": "Update List Databases",
-        "func": "let caller = msg.caller;\nlet list = env.get(\"List\");\nlet dbList = flow.get(list);\n\nif (caller.type.length < 1){\n    dbList = dbList.filter((call) => { return call.id != caller.id });\n    flow.set(list, dbList);\n} else {\n    let index = dbList.findIndex((call) => { return call.id == caller.id });\n    if (index != -1) {\n        dbList[index] = caller;\n    } else {    \n        dbList.push(caller);\n    }\n    flow.set(list, dbList);\n}\n\nreturn msg;",
-        "outputs": 1,
-        "noerr": 0,
-        "initialize": "",
-        "finalize": "",
-        "libs": [],
-        "x": 220,
-        "y": 560,
-        "wires": [
-            []
-        ]
-    },
-    {
-        "id": "ca29863c4aa8e8c4",
-        "type": "function",
-        "z": "327571d15da5aceb",
-        "name": "route MQTT message",
-        "func": "if (caller.type.length < 1){\n    callList = callList.filter((call) => { return call.id != caller.id });\n    flow.set(\"callList\", callList);\n    updateCall.payload = true;\n} else {\n    let callIndex = callList.findIndex((call) => { return call.id == caller.id });\n    \n    if (callIndex != -1) {\n        callList[callIndex] = caller;\n    } else {    \n        callList.push(caller);\n    }\n    flow.set(\"callList\", callList);\n}\n\nif(msg.payload.FG){\n    FGQueue.push(caller);\n    flow.set(\"fgQueue\", FGQueue);\n    updateFGQ.payload = true;\n}\nif(msg.payload.KW){\n    KWQueue.push(caller);\n    flow.set(\"kwQueue\", KWQueue);\n    updateKWQ.payload = true;\n}\n\nchangeTab.payload = callList.length > 0;\nreturn [changeTab, updateCall, updateFGQ, updateKWQ];",
-        "outputs": 1,
-        "noerr": 0,
-        "initialize": "",
-        "finalize": "",
-        "libs": [],
-        "x": 220,
-        "y": 680,
-        "wires": [
-            []
-        ]
-    },
-    {
-        "id": "7bd4bb2e3900da1c",
-        "type": "function",
-        "z": "327571d15da5aceb",
-        "name": "Update Queue Databases",
-        "func": "let queue = env.get(\"Queue\");\nlet dbQueue = flow.get(queue);\nlet type = env.get(\"Message Type\");\n\nif(msg.payload[type]){\n    dbQueue.push(caller);\n    flow.set(queue, dbQueue);\n    // updateFGQ.payload = true;\n}\n\nreturn msg;",
-        "outputs": 1,
-        "noerr": 0,
-        "initialize": "",
-        "finalize": "",
-        "libs": [],
-        "x": 230,
-        "y": 620,
-        "wires": [
-            []
-        ]
-    },
-    {
         "id": "bd1b0393d3b158c1",
         "type": "link out",
         "z": "327571d15da5aceb",
@@ -2082,9 +2183,98 @@
         "links": [
             "21f38c7085dac4ce"
         ],
-        "x": 1155,
-        "y": 140,
+        "x": 1195,
+        "y": 240,
         "wires": []
+    },
+    {
+        "id": "e039e2b37c45b70f",
+        "type": "subflow:5958c5854f8ba7cd",
+        "z": "327571d15da5aceb",
+        "name": "Route & Process MQTT",
+        "x": 330,
+        "y": 320,
+        "wires": [
+            [
+                "79d2dbe7240fa5dc",
+                "0263eb07610f7c0a"
+            ]
+        ]
+    },
+    {
+        "id": "4d51428a87e920be",
+        "type": "function",
+        "z": "327571d15da5aceb",
+        "name": "Update Database",
+        "func": "let caller = msg.caller;\nlet list = env.get(\"List\");\nlet dbList = flow.get(list);\n\nif (caller.type.length < 1){\n    //if caller.type is empty, means call from caller is cleared\n    //delete caller row in list\n    dbList = dbList.filter((call) => { return call.id != caller.id });\n    flow.set(list, dbList);\n} else {\n    //else if caller.type is not empty, means call from caller is a new call\n    //if caller already exists in list, update that caller row\n    //else add caller to list. \n    let index = dbList.findIndex((call) => { return call.id == caller.id });\n    if (index != -1) {\n        dbList[index] = caller;\n    } else {    \n        dbList.push(caller);\n    }\n    flow.set(list, dbList);\n}\n\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 130,
+        "y": 600,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "0263eb07610f7c0a",
+        "type": "subflow:02bee84c2c61bcc8",
+        "z": "327571d15da5aceb",
+        "name": "",
+        "x": 550,
+        "y": 320,
+        "wires": [
+            [
+                "ab9809ea3c7053e3"
+            ]
+        ]
+    },
+    {
+        "id": "114adc50fe6e8c1d",
+        "type": "subflow:842e4db7b876be11",
+        "z": "327571d15da5aceb",
+        "name": "",
+        "env": [
+            {
+                "name": "Queue Name",
+                "value": "fgQueue",
+                "type": "str"
+            }
+        ],
+        "x": 540,
+        "y": 440,
+        "wires": [
+            [
+                "9b3585928247d412"
+            ]
+        ]
+    },
+    {
+        "id": "61765029e1a65f4f",
+        "type": "subflow:5958c5854f8ba7cd",
+        "z": "327571d15da5aceb",
+        "name": "Route & Process MQTT",
+        "env": [
+            {
+                "name": "Message Types",
+                "value": "FG",
+                "type": "str"
+            },
+            {
+                "name": "List",
+                "value": "false",
+                "type": "bool"
+            }
+        ],
+        "x": 330,
+        "y": 440,
+        "wires": [
+            [
+                "114adc50fe6e8c1d"
+            ]
+        ]
     },
     {
         "id": "0e5e988da6ace305",
@@ -2166,7 +2356,7 @@
                 "t": "set",
                 "p": "chatIds",
                 "pt": "flow",
-                "to": "{\"asyraf\":21709557,\"IT\":123,\"Press Mtce\":-1001957517829,\"Die Mtce\":123,\"Assy Mtce\":123,\"Press QC\":123,\"Assy QC\":123,\"Press SV\":123,\"Assy SV\":123,\"HOD\":123}",
+                "to": "{\"asyraf\":21709557,\"IT\":123,\"Press\":123,\"Assy\":123,\"Press Mtce\":-1001957517829,\"Die Mtce\":123,\"Assy Mtce\":123,\"Press QC\":123,\"Assy QC\":123,\"HOD\":123}",
                 "tot": "json"
             }
         ],
