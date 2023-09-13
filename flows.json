@@ -1,13 +1,5 @@
 [
     {
-        "id": "562197b4f4a67922",
-        "type": "tab",
-        "label": "Prodn Dashboard Flow",
-        "disabled": false,
-        "info": "",
-        "env": []
-    },
-    {
         "id": "327571d15da5aceb",
         "type": "tab",
         "label": "Calling System Flow",
@@ -21,12 +13,26 @@
         "label": "Telegram Messaging Flow",
         "disabled": false,
         "info": "",
+        "env": [
+            {
+                "name": "Chat Ids",
+                "value": "{\"asyraf\":21709557,\"Mgmt\":{\"id\":123,\"Press\":{\"id\":123,\"TRF\":{\"id\":123},\"Large\":{\"id\":123},\"Medium\":{\"id\":123},\"Rework\":{\"id\":123}},\"Assy\":{\"id\":123,\"AB\":{\"id\":123},\"C\":{\"id\":123},\"D\":{\"id\":123},\"EF\":{\"id\":123},\"H\":{\"id\":123}},\"QC\":{\"id\":123,\"Press\":{\"id\":123},\"Assy\":{\"id\":123},\"Incoming\":{\"id\":123},\"Delivery\":{\"id\":123}},\"FM\":{\"id\":123,\"Press\":{\"id\":-1001957517829},\"Assy\":{\"id\":123},\"Die\":{\"id\":123},\"Building\":{\"id\":123}},\"IT\":{\"id\":123}}}",
+                "type": "json"
+            }
+        ]
+    },
+    {
+        "id": "0ab2da76215ad380",
+        "type": "tab",
+        "label": "\"MQTT Dashboard\" App Setup",
+        "disabled": false,
+        "info": "",
         "env": []
     },
     {
-        "id": "1694d57381b3dfec",
+        "id": "562197b4f4a67922",
         "type": "tab",
-        "label": "Flow 1",
+        "label": "Prodn Dashboard Flow",
         "disabled": false,
         "info": "",
         "env": []
@@ -219,11 +225,15 @@
         ],
         "out": [
             {
-                "x": 600,
+                "x": 1000,
                 "y": 80,
                 "wires": [
                     {
-                        "id": "da8bd97b81da3575",
+                        "id": "0a6feae435792b59",
+                        "port": 0
+                    },
+                    {
+                        "id": "2d346ea6aca78b20",
                         "port": 0
                     }
                 ]
@@ -235,11 +245,11 @@
                 "type": "str",
                 "value": "call",
                 "ui": {
-                    "icon": "font-awesome/fa-file-text",
                     "type": "input",
                     "opts": {
                         "types": [
-                            "str"
+                            "str",
+                            "env"
                         ]
                     }
                 }
@@ -249,7 +259,6 @@
                 "type": "str",
                 "value": "SV,QC,FM",
                 "ui": {
-                    "icon": "font-awesome/fa-comment",
                     "type": "input",
                     "opts": {
                         "types": [
@@ -259,101 +268,13 @@
                 }
             },
             {
-                "name": "List",
-                "type": "bool",
-                "value": "true",
+                "name": "Database Name",
+                "type": "str",
+                "value": "callList",
                 "ui": {
-                    "icon": "font-awesome/fa-list-ul",
                     "label": {
-                        "en-US": "List? (false = Queue)"
+                        "en-US": "DataBase Name (flow context data)"
                     },
-                    "type": "input",
-                    "opts": {
-                        "types": [
-                            "bool"
-                        ]
-                    }
-                }
-            }
-        ],
-        "meta": {},
-        "color": "#DDAA99"
-    },
-    {
-        "id": "02bee84c2c61bcc8",
-        "type": "subflow",
-        "name": "Update List",
-        "info": "",
-        "category": "",
-        "in": [
-            {
-                "x": 60,
-                "y": 80,
-                "wires": [
-                    {
-                        "id": "788fac08512fd696"
-                    }
-                ]
-            }
-        ],
-        "out": [
-            {
-                "x": 320,
-                "y": 80,
-                "wires": [
-                    {
-                        "id": "788fac08512fd696",
-                        "port": 0
-                    }
-                ]
-            }
-        ],
-        "env": [
-            {
-                "name": "List Name",
-                "type": "str",
-                "value": "callList"
-            }
-        ],
-        "meta": {},
-        "color": "#DDAA99"
-    },
-    {
-        "id": "842e4db7b876be11",
-        "type": "subflow",
-        "name": "Update Queue",
-        "info": "",
-        "category": "",
-        "in": [
-            {
-                "x": 60,
-                "y": 80,
-                "wires": [
-                    {
-                        "id": "7bd4bb2e3900da1c"
-                    }
-                ]
-            }
-        ],
-        "out": [
-            {
-                "x": 340,
-                "y": 80,
-                "wires": [
-                    {
-                        "id": "7bd4bb2e3900da1c",
-                        "port": 0
-                    }
-                ]
-            }
-        ],
-        "env": [
-            {
-                "name": "Queue Name",
-                "type": "str",
-                "value": "",
-                "ui": {
-                    "icon": "font-awesome/fa-list-ol",
                     "type": "input",
                     "opts": {
                         "types": [
@@ -361,10 +282,212 @@
                         ]
                     }
                 }
+            },
+            {
+                "name": "Database Type",
+                "type": "str",
+                "value": "list",
+                "ui": {
+                    "type": "select",
+                    "opts": {
+                        "opts": [
+                            {
+                                "l": {
+                                    "en-US": "List"
+                                },
+                                "v": "list"
+                            },
+                            {
+                                "l": {
+                                    "en-US": "Queue"
+                                },
+                                "v": "queue"
+                            }
+                        ]
+                    }
+                }
             }
         ],
         "meta": {},
         "color": "#DDAA99"
+    },
+    {
+        "id": "da1f44dea6948311",
+        "type": "subflow",
+        "name": "Prepare Display",
+        "info": "",
+        "category": "",
+        "in": [
+            {
+                "x": 80,
+                "y": 140,
+                "wires": [
+                    {
+                        "id": "cbe7722c78ec5828"
+                    }
+                ]
+            }
+        ],
+        "out": [
+            {
+                "x": 900,
+                "y": 240,
+                "wires": [
+                    {
+                        "id": "60e11389bb8c4eeb",
+                        "port": 0
+                    },
+                    {
+                        "id": "4b1dda8b64c7e08b",
+                        "port": 0
+                    }
+                ]
+            }
+        ],
+        "env": [
+            {
+                "name": "List/Queue Name",
+                "type": "str",
+                "value": "callList",
+                "ui": {
+                    "type": "input",
+                    "opts": {
+                        "types": [
+                            "str"
+                        ]
+                    }
+                }
+            },
+            {
+                "name": "Display Format",
+                "type": "json",
+                "value": "{}",
+                "ui": {
+                    "label": {
+                        "en-US": "Display Format (JSON)"
+                    },
+                    "type": "input",
+                    "opts": {
+                        "types": [
+                            "json",
+                            "env"
+                        ]
+                    }
+                }
+            },
+            {
+                "name": "Refresh Interval",
+                "type": "num",
+                "value": "5",
+                "ui": {
+                    "label": {
+                        "en-US": "Refresh Rate (secondss)"
+                    },
+                    "type": "spinner"
+                }
+            }
+        ],
+        "meta": {},
+        "color": "#DDAA99"
+    },
+    {
+        "id": "fa9ee2fc5ce99563",
+        "type": "subflow",
+        "name": "Prepare Messaging",
+        "info": "",
+        "category": "",
+        "in": [
+            {
+                "x": 80,
+                "y": 80,
+                "wires": [
+                    {
+                        "id": "9c847bce7cbf0393"
+                    }
+                ]
+            }
+        ],
+        "out": [
+            {
+                "x": 620,
+                "y": 80,
+                "wires": [
+                    {
+                        "id": "b5800b192ab7eeeb",
+                        "port": 0
+                    }
+                ]
+            }
+        ],
+        "env": [
+            {
+                "name": "List/Queue Name",
+                "type": "str",
+                "value": "callList",
+                "ui": {
+                    "type": "input",
+                    "opts": {
+                        "types": [
+                            "str",
+                            "env"
+                        ]
+                    }
+                }
+            },
+            {
+                "name": "Recipients List",
+                "type": "json",
+                "value": "{\"SV\":\"Mgmt/Press\",\"QC\":\"Mgmt/QC/Press\",\"FM\":\"Mgmt/FM/Press\",\"DM\":\"Mgmt/FM/Die\"}",
+                "ui": {
+                    "type": "input",
+                    "opts": {
+                        "types": [
+                            "json"
+                        ]
+                    }
+                }
+            },
+            {
+                "name": "Escalation Time",
+                "type": "num",
+                "value": "5",
+                "ui": {
+                    "label": {
+                        "en-US": "Escalation Time (mins)"
+                    },
+                    "type": "input",
+                    "opts": {
+                        "types": [
+                            "num"
+                        ]
+                    }
+                }
+            }
+        ],
+        "meta": {},
+        "color": "#DDAA99"
+    },
+    {
+        "id": "2df0c70bc86dd6ae",
+        "type": "group",
+        "z": "562197b4f4a67922",
+        "style": {
+            "stroke": "#999999",
+            "stroke-opacity": "1",
+            "fill": "none",
+            "fill-opacity": "1",
+            "label": true,
+            "label-position": "nw",
+            "color": "#a4a4a4"
+        },
+        "nodes": [
+            "aed69bd7994a8096",
+            "d3a0745948b821c9"
+        ],
+        "x": 34,
+        "y": 619,
+        "w": 232,
+        "h": 122
     },
     {
         "id": "d2bd110790f6ae19",
@@ -622,7 +745,7 @@
         "type": "function",
         "z": "5958c5854f8ba7cd",
         "name": "Route MQTT Msg",
-        "func": "let target = env.get(\"Message Types\");\nlet isList = env.get(\"List\");\nlet message = msg.payload;\nlet type = \"\";\nlet targetFound = false;\nlet otherTargetFound = false;\nmsg.caller = msg.caller ? msg.caller : {};\n\ntarget = target.split(\",\")\ntarget.forEach((val,i,arr) => {\n    arr[i] = val.trim();\n});\n\nfor(let i in target){\n    if(message[target[i]] == true){\n        targetFound = true;\n        type += target[i] + \", \";\n        delete message[target[i]];\n    } \n} \n\ntype = type.slice(0,-2);\nmsg.caller.type = type;\n\nif (Object.keys(message) > 0) {\n    message.forEach((val) => {\n        if(val) {\n            otherTargetFound = true;\n        }\n    })\n}\n\n\nif(targetFound || (isList && !otherTargetFound)){\n    return msg;\n} else {\n    return null;\n}",
+        "func": "let target = env.get(\"Message Types\");\nlet dbType = env.get(\"Database Type\");\nlet message = JSON.parse(JSON.stringify(msg.payload)); //HACK:in the future can change this to structuredClone\nlet callText = \"\";\nlet callFor = [];\nlet targetFound = false;\nlet otherTargetFound = false;\nmsg.callBy = msg.callBy ? msg.callBy : {};\n\ntarget = target.split(\",\")\ntarget.forEach((val,i,arr) => {\n    arr[i] = val.trim();\n});\n\nfor(let i in target){\n    if(message[target[i]] == true){\n        targetFound = true;\n        callText += target[i] + \", \";\n        callFor.push(target[i]);\n        delete message[target[i]];\n    } \n} \n\ncallText = callText.slice(0,-2);\nmsg.callBy.type = callText;\nmsg.callBy.callFor = callFor;\n\nif (Object.keys(message) > 0) {\n    message.forEach((val) => {\n        if(val) {\n            otherTargetFound = true;\n        }\n    })\n}\n\nif(dbType == 'list') {\n    // if dataType is list, return msg whether empty or not, but if other\n    // targets (other than the set targets) are found don't return msg\n    if(!otherTargetFound) {\n        return msg;\n    }\n} else if(dbType == 'queue'){\n    // if dataType is queue return msg only when targetFound. \n    if(targetFound){\n        return msg;\n    }\n} \n    \nreturn null;",
         "outputs": 1,
         "noerr": 0,
         "initialize": "",
@@ -634,14 +757,15 @@
             [
                 "da8bd97b81da3575"
             ]
-        ]
+        ],
+        "info": "This node does exactly what it says: \n\nRoute MQTT message according to caller\n\nif the message defined in the subflow corresponds to the ones in the MQTT message, then the subflow continues. \n\nthis router checks for two different scenarios according to call type:\n\n1) List\nwhen the call is a list type, then router not only allows the subflow to continue the defined messages are present within the MQTT message, but when the defined messages are absent as well - provided, that there are no other messages within the call (meaning it is a call for something else) - this is because list type calls are deactivated by an empty MQTT message. \n\n2) Queue\nWhen the call is a queue type, then router will only allow the subflow to continue when the defined messages are present within the MQTT message. this is because queue type calls are deactivated by clicking on the corresponding row in the queue.\n\nrouter also updates msg.caller.type to the corresponding values found within the MQTT message. this is for processing further down the subflow and the calling system\n"
     },
     {
         "id": "da8bd97b81da3575",
         "type": "function",
         "z": "5958c5854f8ba7cd",
         "name": "Process MQTT Topic",
-        "func": "let callName = env.get(\"Function Topic\");\nlet topic = msg.topic.split(\"/\"+callName+\"/\");\n// node.warn(topic);\nlet caller = {\n    \"plant\" : topic[0],\n    \"id\" : topic[1],\n    \"timestamp\": Date.now()\n}\ntopic = caller.id.split(\"/\");\n// node.warn(topic);\n\nfor (let word of topic) {\n    word = word.split(\"-\");\n    caller[word[0]] = word[1].toUpperCase();\n}\n\nObject.assign(msg.caller, caller);\n\nreturn msg;",
+        "func": "let callName = env.get(\"Function Topic\");\nlet topic = msg.topic.split(\"/\"+callName+\"/\");\nlet callBy = {\n    \"plant\" : topic[0],\n    \"id\" : topic[1],\n    \"timestamp\": Date.now()\n}\ntopic = callBy.id.split(\"/\");\n\nfor (let word of topic) {\n    word = word.split(\"-\");\n    callBy[word[0]] = word[1].toUpperCase();\n}\n\nObject.assign(msg.callBy, callBy);\n\nreturn msg;",
         "outputs": 1,
         "noerr": 0,
         "initialize": "",
@@ -650,42 +774,1040 @@
         "x": 440,
         "y": 80,
         "wires": [
-            []
+            [
+                "82f3836ced33bc01"
+            ]
         ]
     },
     {
-        "id": "788fac08512fd696",
+        "id": "82f3836ced33bc01",
+        "type": "switch",
+        "z": "5958c5854f8ba7cd",
+        "name": "List or Queue?",
+        "property": "Database Type",
+        "propertyType": "env",
+        "rules": [
+            {
+                "t": "eq",
+                "v": "list",
+                "vt": "str"
+            },
+            {
+                "t": "eq",
+                "v": "queue",
+                "vt": "str"
+            }
+        ],
+        "checkall": "false",
+        "repair": false,
+        "outputs": 2,
+        "x": 660,
+        "y": 80,
+        "wires": [
+            [
+                "0a6feae435792b59"
+            ],
+            [
+                "2d346ea6aca78b20"
+            ]
+        ]
+    },
+    {
+        "id": "0a6feae435792b59",
         "type": "function",
-        "z": "02bee84c2c61bcc8",
+        "z": "5958c5854f8ba7cd",
         "name": "Update List",
-        "func": "// caller is already prepared from previous nodes.\n// it will either have a list of call types, or be empty. \nlet caller = msg.caller;\nlet list = \"$parent.\" + env.get(\"List Name\");\nlet dbList = flow.get(list);\n// node.warn(dbList);\n\nif (caller.type.length < 1){\n    //if caller.type is empty, means call from caller is cleared\n    //delete caller row in list\n    dbList = dbList.filter((call) => { return call.id != caller.id });\n    flow.set(list, dbList);\n} else {\n    //else if caller.type is not empty, means call from caller is a new call\n    //if caller already exists in list, update that caller row\n    //else add caller to list. \n    let index = dbList.findIndex((call) => { return call.id == caller.id });\n    if (index != -1) {\n        dbList[index] = caller;\n    } else {    \n        dbList.push(caller);\n    }\n    flow.set(list, dbList);\n}\n\nreturn msg;",
+        "func": "// caller is already prepared from previous nodes.\n// it will either have a list of call types, or be empty. \nlet list = \"$parent.\" + env.get(\"Database Name\");\nlet dbList = flow.get(list);\nlet callBy = msg.callBy;\n// node.warn(dbList);\n\nif (callBy.type.length < 1){\n    //if caller.type is empty, means call from caller is cleared\n    //delete caller row in list\n    dbList = dbList.filter((call) => { return call.id != callBy.id });\n    flow.set(list, dbList);\n} else {\n    //else if caller.type is not empty, means call from caller is a new call\n    //if caller already exists in list, update that caller row\n    //else add caller to list. \n    let index = dbList.findIndex((call) => { return call.id == callBy.id });\n    if (index > -1) {\n        dbList[index] = callBy;\n    } else {    \n        dbList.push(callBy);\n    }\n    flow.set(list, dbList);\n}\n\nreturn msg;",
         "outputs": 1,
         "noerr": 0,
         "initialize": "",
         "finalize": "",
         "libs": [],
-        "x": 190,
-        "y": 80,
+        "x": 850,
+        "y": 60,
         "wires": [
             []
         ]
     },
     {
-        "id": "7bd4bb2e3900da1c",
+        "id": "2d346ea6aca78b20",
         "type": "function",
-        "z": "842e4db7b876be11",
+        "z": "5958c5854f8ba7cd",
         "name": "Update Queue",
-        "func": "let queue = \"$parent.\"+env.get(\"Queue Name\");\nlet dbQueue = flow.get(queue);\nlet caller = msg.caller;\n\ndbQueue.push(caller);\nflow.set(queue, dbQueue);\n\nreturn msg;",
+        "func": "let queue = \"$parent.\"+env.get(\"Database Name\");\nlet dbQueue = flow.get(queue);\nlet callBy = msg.callBy;\n\ndbQueue.push(callBy);\nflow.set(queue, dbQueue);\n\nreturn msg;",
         "outputs": 1,
         "noerr": 0,
         "initialize": "",
         "finalize": "",
         "libs": [],
-        "x": 200,
-        "y": 80,
+        "x": 860,
+        "y": 100,
         "wires": [
             []
         ]
+    },
+    {
+        "id": "60e11389bb8c4eeb",
+        "type": "change",
+        "z": "da1f44dea6948311",
+        "name": "transform timestamps",
+        "rules": [
+            {
+                "t": "set",
+                "p": "payload",
+                "pt": "msg",
+                "to": "payload[].{ \t    \"Plant\":plant,\t    \"Department\":dept,\t    \"Line\":line,\t    \"Cell\":cell,\t    \"Calling\":type,\t    \"Time\":$moment(timestamp).fromNow()\t}",
+                "tot": "jsonata"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 740,
+        "y": 120,
+        "wires": [
+            [
+                "130156beb9f78413"
+            ]
+        ]
+    },
+    {
+        "id": "d1149b483e78ed1d",
+        "type": "delay",
+        "z": "da1f44dea6948311",
+        "name": "Delay",
+        "pauseType": "delayv",
+        "timeout": "5",
+        "timeoutUnits": "seconds",
+        "rate": "1",
+        "nbRateUnits": "1",
+        "rateUnits": "second",
+        "randomFirst": "1",
+        "randomLast": "5",
+        "randomUnits": "seconds",
+        "drop": false,
+        "allowrate": false,
+        "outputs": 1,
+        "x": 470,
+        "y": 360,
+        "wires": [
+            [
+                "f032a993da54f785"
+            ]
+        ]
+    },
+    {
+        "id": "4b1dda8b64c7e08b",
+        "type": "change",
+        "z": "da1f44dea6948311",
+        "name": "false: empty table",
+        "rules": [
+            {
+                "t": "set",
+                "p": "payload",
+                "pt": "msg",
+                "to": "[]",
+                "tot": "json"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 530,
+        "y": 160,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "cbe7722c78ec5828",
+        "type": "function",
+        "z": "da1f44dea6948311",
+        "name": "db is not empty?",
+        "func": "// let db = ;\n\nif(flow.get(\"$parent.\"+ env.get(\"List/Queue Name\")).length == 0) {\n    return [null, msg];\n}\n\nreturn [msg, null];",
+        "outputs": 2,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 220,
+        "y": 140,
+        "wires": [
+            [
+                "f032a993da54f785"
+            ],
+            [
+                "4b1dda8b64c7e08b"
+            ]
+        ]
+    },
+    {
+        "id": "f032a993da54f785",
+        "type": "function",
+        "z": "da1f44dea6948311",
+        "name": "Update List",
+        "func": "let db = flow.get(\"$parent.\" + env.get(\"List/Queue Name\"));\nlet ui = env.get(\"Display Format\");\n\nmsg.payload = db;\nmsg.ui_control = ui;\n\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 510,
+        "y": 120,
+        "wires": [
+            [
+                "60e11389bb8c4eeb"
+            ]
+        ]
+    },
+    {
+        "id": "130156beb9f78413",
+        "type": "function",
+        "z": "da1f44dea6948311",
+        "name": "db is not empty?",
+        "func": "if(flow.get(\"$parent.\"+ env.get(\"List/Queue Name\")).length == 0) {\n    return null;\n} else {\n    msg.delay = env.get(\"Refresh Rate\")*1000;\n}\n\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 320,
+        "y": 360,
+        "wires": [
+            [
+                "d1149b483e78ed1d"
+            ]
+        ]
+    },
+    {
+        "id": "e4d3bccbb49e813b",
+        "type": "comment",
+        "z": "da1f44dea6948311",
+        "name": "",
+        "info": "payload[].{ \n    \"Plant\":plant,\n    \"Department\":dept,\n    \"Line\":line,\n    \"Cell\":cell,\n    \"Calling\":type,\n    \"Time (mins)\":$round(-1*$moment(timestamp).diff($moment(), 'minutes', 1), 2)\n}",
+        "x": 160,
+        "y": 240,
+        "wires": []
+    },
+    {
+        "id": "b5800b192ab7eeeb",
+        "type": "function",
+        "z": "fa9ee2fc5ce99563",
+        "name": "process targets",
+        "func": "let dbName = env.get(\"List/Queue Name\");\nlet db = flow.get(\"$parent.\"+ dbName);\nlet recipients = env.get(\"Recipients List\");\nlet escalateTime = env.get(\"Escalation Time\");\n// node.warn(\"escalateTime:\" + escalateTime);\nlet msgs = [];\n\ndb.forEach((row) => {\n    let escalation = row.escalation? row.escalation : 0;\n    let lapsedTime = Date.now() - row.timestamp;\n    let nextEscalation = escalateTime*escalation*60000;\n    // if duration from when call was made to now is bigger than the multiple of \n    // escalateTime multiplied by number of escalations, then do the following\n    if(escalation == 0 || lapsedTime > nextEscalation) {\n        let message = {};\n        message.payload = {};\n        \n        for(let callFor of row.callFor) {\n            let msgHierarchy = recipients[callFor].split(\"/\");\n            let hierarchyLength = msgHierarchy.length - escalation;\n            // node.warn(\"msgHierarchy length:\" + msgHierarchy.length);\n            // node.warn(\"escalation:\" + escalation);\n            \n            // if hierarchyLength is 1 or less, then set it to 1 so slice will take\n            // topmost array value only. if more than 1 then deduct 1 from the value\n            // so that slice will take the correct number of array values according to \n            // array indexing \n            hierarchyLength = hierarchyLength > 1 ? hierarchyLength : 1;\n        \n            // reconstruct msgHierarchy and put into targets. \n            msgHierarchy = msgHierarchy.slice(0,hierarchyLength);\n            // construct msg.payload for each row to send as array to next node\n            message.payload.type = \"message\";\n            message.payload.target = msgHierarchy;\n            message.payload.content = \"Call For: \" + row.type + \"\\nCaller:\\n\\tDept:\\t\" + row.dept + \"\\n\\tLine:\\t\" + row.line + \"\\n\\tCell:\\t\" + row.cell;\n            msgs.push(message);\n        }\n        escalation++;\n    }\n    row.escalation = escalation;\n})\n\nflow.set(\"parent.\" + dbName, db);\n// for(let i in msgCallBy.callFor) {\n//     let callFor = msgCallBy.callFor[i];\n//     node.warn(callFor);\n//     targets.push(recipients[callFor]);\n//     messageText += `Call For: ${msgCallBy.type}\n// Caller:\n//     Dept:   ${msgCallBy.dept}\n//     Line:   ${msgCallBy.line}\n//     Cell:   ${msgCallBy.cell}`;\n// }\n\n// msg.payload.target = targets;\n// msg.payload.type = \"message\";\n// msg.payload.content = message;\n\nreturn msgs;",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 440,
+        "y": 80,
+        "wires": [
+            [
+                "1fb3e3bc8968bbee"
+            ]
+        ]
+    },
+    {
+        "id": "9c847bce7cbf0393",
+        "type": "function",
+        "z": "fa9ee2fc5ce99563",
+        "name": "db is not empty?",
+        "func": "// let db = ;\n\nif(flow.get(\"$parent.\"+ env.get(\"List/Queue Name\")).length == 0) {\n    return null;\n}\n\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 220,
+        "y": 80,
+        "wires": [
+            [
+                "b5800b192ab7eeeb"
+            ]
+        ]
+    },
+    {
+        "id": "6259b7f6a580ffc5",
+        "type": "delay",
+        "z": "fa9ee2fc5ce99563",
+        "name": "Delay",
+        "pauseType": "delayv",
+        "timeout": "5",
+        "timeoutUnits": "minutes",
+        "rate": "1",
+        "nbRateUnits": "1",
+        "rateUnits": "second",
+        "randomFirst": "1",
+        "randomLast": "5",
+        "randomUnits": "seconds",
+        "drop": false,
+        "allowrate": false,
+        "outputs": 1,
+        "x": 470,
+        "y": 240,
+        "wires": [
+            [
+                "b5800b192ab7eeeb"
+            ]
+        ]
+    },
+    {
+        "id": "1fb3e3bc8968bbee",
+        "type": "function",
+        "z": "fa9ee2fc5ce99563",
+        "name": "db is not empty?",
+        "func": "if(flow.get(\"$parent.\"+ env.get(\"List/Queue Name\")).length == 0) {\n    return null;\n} else {\n    // multiplied by 60000 to convert escalation time to milliseconds. 100 is added to \n    // to allow a slight delay to enable Escalation Time to take effect.\n    msg.delay = env.get(\"Escalation Time\")*60100;\n}\n\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 300,
+        "y": 240,
+        "wires": [
+            [
+                "6259b7f6a580ffc5"
+            ]
+        ]
+    },
+    {
+        "id": "d7197fbf265fda54",
+        "type": "mqtt in",
+        "z": "327571d15da5aceb",
+        "name": "AKSB MQTT Server",
+        "topic": "AKSB/SA/call/#",
+        "qos": "1",
+        "datatype": "json",
+        "broker": "56edfd93d9c67181",
+        "nl": false,
+        "rap": true,
+        "rh": "2",
+        "inputs": 0,
+        "x": 110,
+        "y": 160,
+        "wires": [
+            [
+                "e039e2b37c45b70f",
+                "61765029e1a65f4f",
+                "b25444582b5abffb",
+                "bbea780b13bb2921"
+            ]
+        ]
+    },
+    {
+        "id": "79d2dbe7240fa5dc",
+        "type": "debug",
+        "z": "327571d15da5aceb",
+        "name": "debug 1",
+        "active": false,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "true",
+        "targetType": "full",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 300,
+        "y": 60,
+        "wires": []
+    },
+    {
+        "id": "80b1fb2dd47643d8",
+        "type": "ui_ui_control",
+        "z": "327571d15da5aceb",
+        "name": "",
+        "events": "all",
+        "x": 820,
+        "y": 540,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "2022fca4a20f48d0",
+        "type": "change",
+        "z": "327571d15da5aceb",
+        "name": "false: Dashboard",
+        "rules": [
+            {
+                "t": "set",
+                "p": "payload",
+                "pt": "msg",
+                "to": "{\"tab\":\"Data\"}",
+                "tot": "json"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 650,
+        "y": 540,
+        "wires": [
+            [
+                "80b1fb2dd47643d8"
+            ]
+        ]
+    },
+    {
+        "id": "39f563b3717d924b",
+        "type": "ui_ui_control",
+        "z": "327571d15da5aceb",
+        "name": "",
+        "events": "all",
+        "x": 820,
+        "y": 500,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "60ec8fc7c03081d6",
+        "type": "change",
+        "z": "327571d15da5aceb",
+        "name": "true: Alert",
+        "rules": [
+            {
+                "t": "set",
+                "p": "payload",
+                "pt": "msg",
+                "to": "{\"tab\":\"Alert\"}",
+                "tot": "json"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 620,
+        "y": 500,
+        "wires": [
+            [
+                "39f563b3717d924b"
+            ]
+        ]
+    },
+    {
+        "id": "eb8b7ad763ba6eb8",
+        "type": "switch",
+        "z": "327571d15da5aceb",
+        "d": true,
+        "name": "Change Tab?",
+        "property": "payload",
+        "propertyType": "msg",
+        "rules": [
+            {
+                "t": "true"
+            },
+            {
+                "t": "false"
+            }
+        ],
+        "checkall": "true",
+        "repair": false,
+        "outputs": 2,
+        "x": 450,
+        "y": 520,
+        "wires": [
+            [
+                "60ec8fc7c03081d6"
+            ],
+            [
+                "2022fca4a20f48d0"
+            ]
+        ]
+    },
+    {
+        "id": "a48c49277460197f",
+        "type": "ui_table",
+        "z": "327571d15da5aceb",
+        "group": "02f09ba258bf6625",
+        "name": "Call Queue",
+        "order": 1,
+        "width": 20,
+        "height": 7,
+        "columns": [],
+        "outputs": 0,
+        "cts": false,
+        "x": 750,
+        "y": 160,
+        "wires": []
+    },
+    {
+        "id": "93a21d5dcdc32268",
+        "type": "ui_table",
+        "z": "327571d15da5aceb",
+        "group": "569dc256923818f6",
+        "name": "FG Queue",
+        "order": 1,
+        "width": 25,
+        "height": 7,
+        "columns": [],
+        "outputs": 1,
+        "cts": true,
+        "x": 750,
+        "y": 220,
+        "wires": [
+            [
+                "26197aba70f1aa94"
+            ]
+        ]
+    },
+    {
+        "id": "26197aba70f1aa94",
+        "type": "function",
+        "z": "327571d15da5aceb",
+        "name": "Delete rows onclick",
+        "func": "let queue = flow.get(\"fgQueue\");\n\nif(msg.row > -1){\n    if(queue.length > 1) {\n        queue.splice(msg.row, 1);\n    } else {\n        queue=[]; \n    }\n}\n\nflow.set(\"fgQueue\", queue);\n\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 650,
+        "y": 280,
+        "wires": [
+            [
+                "d693f6da18b37b36"
+            ]
+        ]
+    },
+    {
+        "id": "e054f574d3e939c0",
+        "type": "ui_table",
+        "z": "327571d15da5aceb",
+        "group": "e5276d6b5a48a00a",
+        "name": "KW Queue",
+        "order": 1,
+        "width": 25,
+        "height": 7,
+        "columns": [],
+        "outputs": 1,
+        "cts": true,
+        "x": 750,
+        "y": 340,
+        "wires": [
+            [
+                "c4d311be3afeebfe"
+            ]
+        ]
+    },
+    {
+        "id": "c4d311be3afeebfe",
+        "type": "function",
+        "z": "327571d15da5aceb",
+        "name": "Delete rows onclick",
+        "func": "let queue = flow.get(\"kwQueue\");\n\nif(msg.row > -1){\n    if(queue.length > 1) {\n        queue.splice(msg.row, 1);\n    } else {\n        queue=[]; \n    }\n}\n\nflow.set(\"kwQueue\", queue);\n\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 650,
+        "y": 400,
+        "wires": [
+            [
+                "55b1db195a6345cf"
+            ]
+        ]
+    },
+    {
+        "id": "bd1b0393d3b158c1",
+        "type": "link out",
+        "z": "327571d15da5aceb",
+        "name": "send telegram message",
+        "mode": "link",
+        "links": [
+            "21f38c7085dac4ce"
+        ],
+        "x": 915,
+        "y": 120,
+        "wires": []
+    },
+    {
+        "id": "e039e2b37c45b70f",
+        "type": "subflow:5958c5854f8ba7cd",
+        "z": "327571d15da5aceb",
+        "name": "Call SV, QC, FM, DM",
+        "env": [
+            {
+                "name": "Message Types",
+                "value": "SV,QC,FM,DM",
+                "type": "str"
+            }
+        ],
+        "x": 340,
+        "y": 160,
+        "wires": [
+            [
+                "79d2dbe7240fa5dc",
+                "957b54dad0221a9d",
+                "3dc9b81d6024cb0a",
+                "ec62135526501520"
+            ]
+        ]
+    },
+    {
+        "id": "4d51428a87e920be",
+        "type": "function",
+        "z": "327571d15da5aceb",
+        "name": "Update Database",
+        "func": "let caller = msg.caller;\nlet list = env.get(\"List\");\nlet dbList = flow.get(list);\n\nif (caller.type.length < 1){\n    //if caller.type is empty, means call from caller is cleared\n    //delete caller row in list\n    dbList = dbList.filter((call) => { return call.id != caller.id });\n    flow.set(list, dbList);\n} else {\n    //else if caller.type is not empty, means call from caller is a new call\n    //if caller already exists in list, update that caller row\n    //else add caller to list. \n    let index = dbList.findIndex((call) => { return call.id == caller.id });\n    if (index != -1) {\n        dbList[index] = caller;\n    } else {    \n        dbList.push(caller);\n    }\n    flow.set(list, dbList);\n}\n\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 210,
+        "y": 400,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "61765029e1a65f4f",
+        "type": "subflow:5958c5854f8ba7cd",
+        "z": "327571d15da5aceb",
+        "name": "Call FG",
+        "env": [
+            {
+                "name": "Message Types",
+                "value": "FG",
+                "type": "str"
+            },
+            {
+                "name": "Database Name",
+                "value": "fgQueue",
+                "type": "str"
+            },
+            {
+                "name": "Database Type",
+                "value": "queue",
+                "type": "str"
+            },
+            {
+                "name": "Type of Data",
+                "value": "queue",
+                "type": "str"
+            },
+            {
+                "name": "List",
+                "value": "false",
+                "type": "bool"
+            }
+        ],
+        "x": 300,
+        "y": 220,
+        "wires": [
+            [
+                "d693f6da18b37b36"
+            ]
+        ]
+    },
+    {
+        "id": "957b54dad0221a9d",
+        "type": "subflow:da1f44dea6948311",
+        "z": "327571d15da5aceb",
+        "name": "",
+        "x": 560,
+        "y": 160,
+        "wires": [
+            [
+                "a48c49277460197f"
+            ]
+        ]
+    },
+    {
+        "id": "d693f6da18b37b36",
+        "type": "subflow:da1f44dea6948311",
+        "z": "327571d15da5aceb",
+        "name": "",
+        "env": [
+            {
+                "name": "List/Queue Name",
+                "value": "fgQueue",
+                "type": "str"
+            },
+            {
+                "name": "Display Format",
+                "value": "{\"tabulator\":{\"responsiveLayout\":\"collapse\",\"layout\":\"fitColumns\",\"movableColumns\":true,\"index\":\"Id\",\"columns\":[{\"frozen\":true,\"title\":\"ID\",\"align\":\"center\",\"width\":\"5%\",\"formatter\":\"rownum\"},{\"frozen\":true,\"title\":\"Department\",\"field\":\"Department\"},{\"frozen\":true,\"title\":\"Line\",\"field\":\"Line\"},{\"frozen\":true,\"title\":\"Cell\",\"field\":\"Cell\"},{\"title\":\"Time (mins)\",\"field\":\"Time\"},{\"title\":\"Action\",\"align\":\"center\",\"width\":\"10%\",\"formatter\":\"buttonCross\"}],\"columnResized\":\"function(column){     var newColumn = {         field: column._column.field,         visible: column._column.visible,         width: column._column.width,         widthFixed: column._column.widthFixed,         widthStyled: column._column.widthStyled     }; this.send({topic:this.config.topic,ui_control:{callback:'columnResized',columnWidths:newColumn}}); }\",\"columnMoved\":\"function(column, columns){     var newColumns=[];     columns.forEach(function (column) {         newColumns.push({'field': column._column.definition.field, 'title': column._column.definition.title});     });     this.send({topic:this.config.topic,ui_control:{callback:'columnMoved',columns:newColumns}}); }\",\"rowFormatter\":\"function(row){     var data = row.getData();     switch (data.$state) {         case \\\"lost\\\":             row.getElement().style.backgroundColor = \\\"#9e2e66\\\";             row.getElement().style.color = \\\"#a6a6a6\\\";             break;         case \\\"sleeping\\\":             row.getElement().style.backgroundColor = \\\"#336699\\\";             break;         case \\\"disconnected\\\":             row.getElement().style.backgroundColor = \\\"#cc3300\\\";             row.getElement().style.color = \\\"#a6a6a6\\\";             break;         case \\\"alert\\\":             row.getElement().style.backgroundColor = \\\"#A6A6DF\\\";             break;         case \\\"init\\\":             row.getElement().style.backgroundColor = \\\"#f2f20d\\\";             break;         case \\\"ready\\\":             row.getElement().style.backgroundColor = \\\"\\\";             row.getElement().style.color = \\\"\\\";             break;         } }\",\"cellEdited\":\"celledited = function (cell) {         console.log('celledited callback called');    this.send(                 {                          ui_control: {callback:'cellEdited'},            payload: cell.getValue(),            oldValue: cell.getOldValue(),            field: cell.getColumn().getField(),            id: cell.getRow().getCell('Id').getValue()         });    console.log('table edit success');}\"}}",
+                "type": "json"
+            }
+        ],
+        "x": 560,
+        "y": 220,
+        "wires": [
+            [
+                "93a21d5dcdc32268"
+            ]
+        ]
+    },
+    {
+        "id": "b25444582b5abffb",
+        "type": "subflow:5958c5854f8ba7cd",
+        "z": "327571d15da5aceb",
+        "name": "Call Kowake",
+        "env": [
+            {
+                "name": "Message Types",
+                "value": "KW",
+                "type": "str"
+            },
+            {
+                "name": "Database Name",
+                "value": "kwQueue",
+                "type": "str"
+            },
+            {
+                "name": "Database Type",
+                "value": "queue",
+                "type": "str"
+            },
+            {
+                "name": "Type of Data",
+                "value": "queue",
+                "type": "str"
+            }
+        ],
+        "x": 310,
+        "y": 340,
+        "wires": [
+            [
+                "55b1db195a6345cf"
+            ]
+        ]
+    },
+    {
+        "id": "55b1db195a6345cf",
+        "type": "subflow:da1f44dea6948311",
+        "z": "327571d15da5aceb",
+        "name": "",
+        "env": [
+            {
+                "name": "List/Queue Name",
+                "value": "kwQueue",
+                "type": "str"
+            },
+            {
+                "name": "Display Format",
+                "value": "{     \"tabulator\": {         \"responsiveLayout\": \"collapse\",         \"layout\": \"fitColumns\",         \"movableColumns\": true,         \"index\": \"Id\",         \"columns\": [             {                 \"frozen\": true,                 \"title\": \"ID\",                 \"align\": \"center\",                 \"width\": \"5%\",                 \"formatter\": \"rownum\"             },             {                 \"frozen\": true,                 \"title\": \"Department\",                 \"field\": \"Department\"             },             {                 \"frozen\": true,                 \"title\": \"Line\",                 \"field\": \"Line\"             },             {                 \"frozen\": true,                 \"title\": \"Cell\",                 \"field\": \"Cell\"             },             {                 \"title\": \"Time (mins)\",                 \"field\": \"Time\"             },             {                 \"title\": \"Action\",                 \"align\": \"center\",                 \"width\": \"10%\",                 \"formatter\": \"buttonCross\"             }         ],         \"columnResized\": \"function(column){     var newColumn = {         field: column._column.field,         visible: column._column.visible,         width: column._column.width,         widthFixed: column._column.widthFixed,         widthStyled: column._column.widthStyled     }; this.send({topic:this.config.topic,ui_control:{callback:'columnResized',columnWidths:newColumn}}); }\",         \"columnMoved\": \"function(column, columns){     var newColumns=[];     columns.forEach(function (column) {         newColumns.push({'field': column._column.definition.field, 'title': column._column.definition.title});     });     this.send({topic:this.config.topic,ui_control:{callback:'columnMoved',columns:newColumns}}); }\",         \"rowFormatter\": \"function(row){     var data = row.getData();     switch (data.$state) {         case \\\"lost\\\":             row.getElement().style.backgroundColor = \\\"#9e2e66\\\";             row.getElement().style.color = \\\"#a6a6a6\\\";             break;         case \\\"sleeping\\\":             row.getElement().style.backgroundColor = \\\"#336699\\\";             break;         case \\\"disconnected\\\":             row.getElement().style.backgroundColor = \\\"#cc3300\\\";             row.getElement().style.color = \\\"#a6a6a6\\\";             break;         case \\\"alert\\\":             row.getElement().style.backgroundColor = \\\"#A6A6DF\\\";             break;         case \\\"init\\\":             row.getElement().style.backgroundColor = \\\"#f2f20d\\\";             break;         case \\\"ready\\\":             row.getElement().style.backgroundColor = \\\"\\\";             row.getElement().style.color = \\\"\\\";             break;         } }\",         \"cellEdited\": \"celledited = function (cell) {         console.log('celledited callback called');    this.send(                 {                          ui_control: {callback:'cellEdited'},            payload: cell.getValue(),            oldValue: cell.getOldValue(),            field: cell.getColumn().getField(),            id: cell.getRow().getCell('Id').getValue()         });    console.log('table edit success');}\"     } }",
+                "type": "json"
+            }
+        ],
+        "x": 560,
+        "y": 340,
+        "wires": [
+            [
+                "e054f574d3e939c0"
+            ]
+        ]
+    },
+    {
+        "id": "bbea780b13bb2921",
+        "type": "debug",
+        "z": "327571d15da5aceb",
+        "name": "debug 13",
+        "active": false,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "true",
+        "targetType": "full",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 300,
+        "y": 120,
+        "wires": []
+    },
+    {
+        "id": "3dc9b81d6024cb0a",
+        "type": "subflow:fa9ee2fc5ce99563",
+        "z": "327571d15da5aceb",
+        "name": "",
+        "env": [
+            {
+                "name": "Recipient List",
+                "value": "{\"SV\":\"Press\",\"QC\":\"Press QC\",\"FM\":\"Press Mtce\",\"DM\":\"Die Mtce\",\"HOD\":\"HOD\"}",
+                "type": "json"
+            }
+        ],
+        "x": 570,
+        "y": 120,
+        "wires": [
+            [
+                "bd1b0393d3b158c1"
+            ]
+        ]
+    },
+    {
+        "id": "4f60142a7c9fa2c6",
+        "type": "rpi-gpio out",
+        "z": "327571d15da5aceb",
+        "name": "Siren Alert",
+        "pin": "17",
+        "set": true,
+        "level": "0",
+        "freq": "",
+        "out": "out",
+        "bcm": true,
+        "x": 970,
+        "y": 60,
+        "wires": []
+    },
+    {
+        "id": "ec62135526501520",
+        "type": "switch",
+        "z": "327571d15da5aceb",
+        "name": "Check List/Queue",
+        "property": "callList",
+        "propertyType": "flow",
+        "rules": [
+            {
+                "t": "nempty"
+            },
+            {
+                "t": "empty"
+            }
+        ],
+        "checkall": "true",
+        "repair": false,
+        "outputs": 2,
+        "x": 570,
+        "y": 60,
+        "wires": [
+            [
+                "a6d0b02b66e52388"
+            ],
+            [
+                "ac3d177d1d182824"
+            ]
+        ]
+    },
+    {
+        "id": "a6d0b02b66e52388",
+        "type": "change",
+        "z": "327571d15da5aceb",
+        "name": "",
+        "rules": [
+            {
+                "t": "set",
+                "p": "payload",
+                "pt": "msg",
+                "to": "1",
+                "tot": "num"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 780,
+        "y": 40,
+        "wires": [
+            [
+                "4f60142a7c9fa2c6"
+            ]
+        ]
+    },
+    {
+        "id": "ac3d177d1d182824",
+        "type": "change",
+        "z": "327571d15da5aceb",
+        "name": "",
+        "rules": [
+            {
+                "t": "set",
+                "p": "payload",
+                "pt": "msg",
+                "to": "1",
+                "tot": "num"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 780,
+        "y": 80,
+        "wires": [
+            [
+                "4f60142a7c9fa2c6"
+            ]
+        ]
+    },
+    {
+        "id": "0e5e988da6ace305",
+        "type": "telegram sender",
+        "z": "b7a483d0be44dbdd",
+        "name": "send message ",
+        "bot": "ea1829c43a6e8ad0",
+        "haserroroutput": true,
+        "outputs": 2,
+        "x": 620,
+        "y": 180,
+        "wires": [
+            [
+                "5f6be6d7ecced755"
+            ],
+            [
+                "c0dc87d6283b17a7"
+            ]
+        ]
+    },
+    {
+        "id": "c0dc87d6283b17a7",
+        "type": "debug",
+        "z": "b7a483d0be44dbdd",
+        "name": "debug 9",
+        "active": false,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "true",
+        "targetType": "full",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 820,
+        "y": 200,
+        "wires": []
+    },
+    {
+        "id": "5f6be6d7ecced755",
+        "type": "debug",
+        "z": "b7a483d0be44dbdd",
+        "name": "debug 10",
+        "active": false,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "false",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 820,
+        "y": 160,
+        "wires": []
+    },
+    {
+        "id": "21f38c7085dac4ce",
+        "type": "link in",
+        "z": "b7a483d0be44dbdd",
+        "name": "telegram input link",
+        "links": [
+            "2fa6a4a0490e047a",
+            "bd1b0393d3b158c1",
+            "f7ec67567aefe7c7"
+        ],
+        "x": 245,
+        "y": 180,
+        "wires": [
+            [
+                "53a3a84b4660c265"
+            ]
+        ]
+    },
+    {
+        "id": "69b847464ff1d895",
+        "type": "comment",
+        "z": "b7a483d0be44dbdd",
+        "name": "How to configure link out msg from your other flows (click here to read!)",
+        "info": "Instead of specifying chatIds, specify chat group names for each message type, in the heirarchical order as defined in the Chat Ids JSON as setup in the \"Chat Ids\" environment variable of this flow. See the example below:\n\n`{\n    \"SV\": [\"Mgmt/IT\", \"Mgmt/Press\"],\n    \"FM\": \"Mgmt/FM/Press\",\n    \"QC\": \"Mgmt/QC/Press\"\n}`\n\nYou can define multiple group names for each type of message. This allows for debugging work to be done, or for telegram notifications to be sent to multiple groups.  \n\nThe 'Prepare Messaging' subflow will automatically escalate the messaging according to the hierarchy, whenever calls exceed the Escalation Time as defined for each subflow node used.\n\nchatIds will be generated before the message is sent to telegram. ",
+        "x": 290,
+        "y": 80,
+        "wires": []
+    },
+    {
+        "id": "53a3a84b4660c265",
+        "type": "function",
+        "z": "b7a483d0be44dbdd",
+        "name": "convert target to chatId",
+        "func": "let chatIds = env.get(\"Chat Ids\");\nlet target = msg.payload.target;\n\n// will always receive an array\n// traverses chatIds according to the array provided and returns the telegram\n// id corresponding to the relevant group to notify\nmsg.payload.chatId = target.reduce((cur, key) => {\n    return cur[key];\n    \n}, chatIds).id;\n\n// if(Array.isArray(target)) {\n//     msg.payload[\"chatId\"] = [];\n//     for(let index in target) {\n//         msg.payload.chatId.push(chatIds[target[index]]);\n//     }\n// } else {\n//     msg.payload[\"chatId\"] = chatIds[target];\n//}\n\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 400,
+        "y": 180,
+        "wires": [
+            [
+                "0e5e988da6ace305",
+                "dbf1d935725ab591"
+            ]
+        ]
+    },
+    {
+        "id": "dbf1d935725ab591",
+        "type": "debug",
+        "z": "b7a483d0be44dbdd",
+        "name": "debug 12",
+        "active": false,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "false",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 600,
+        "y": 240,
+        "wires": []
+    },
+    {
+        "id": "c7ab74162d9d95c3",
+        "type": "comment",
+        "z": "b7a483d0be44dbdd",
+        "name": "IMPORTANT: Configure Telegram Chat Ids in the flow Environment Variable",
+        "info": "",
+        "x": 300,
+        "y": 40,
+        "wires": [],
+        "icon": "node-red/alert.svg"
+    },
+    {
+        "id": "6ab44a13f195e788",
+        "type": "mqtt in",
+        "z": "0ab2da76215ad380",
+        "name": "AKSB MQTT Server",
+        "topic": "json_exchange",
+        "qos": "1",
+        "datatype": "json",
+        "broker": "56edfd93d9c67181",
+        "nl": false,
+        "rap": true,
+        "rh": "2",
+        "inputs": 0,
+        "x": 150,
+        "y": 140,
+        "wires": [
+            [
+                "c0fd4308ca80b391"
+            ]
+        ]
+    },
+    {
+        "id": "c0fd4308ca80b391",
+        "type": "debug",
+        "z": "0ab2da76215ad380",
+        "name": "debug 15",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "true",
+        "targetType": "full",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 340,
+        "y": 140,
+        "wires": []
     },
     {
         "id": "3bb529f3123a381b",
@@ -1143,6 +2265,7 @@
         "id": "aed69bd7994a8096",
         "type": "ui_template",
         "z": "562197b4f4a67922",
+        "g": "2df0c70bc86dd6ae",
         "group": "85b12cf0fa38d858",
         "name": "Tabulator CSS",
         "order": 1,
@@ -1154,45 +2277,8 @@
         "resendOnRefresh": false,
         "templateScope": "global",
         "className": "",
-        "x": 120,
-        "y": 540,
-        "wires": [
-            []
-        ]
-    },
-    {
-        "id": "4b14e7763a1cb2d9",
-        "type": "ui_svg_graphics",
-        "z": "562197b4f4a67922",
-        "group": "02f09ba258bf6625",
-        "order": 2,
-        "width": 0,
-        "height": 0,
-        "svgString": "<svg x=\"0\" y=\"0\" height=\"100\" viewBox=\"0 0 100 100\" width=\"100\" xmlns=\"http://www.w3.org/2000/svg\" xmlns:svg=\"http://www.w3.org/2000/svg\" xmlns:xlink=\"http://www.w3.org/1999/xlink\">\n<!-- Add here your SVG shapes (circles, rectangles, ...) -->\n<!-- Or remove everything, if you want to paste an entire drawing (<svg...>...</svg>).-->\n</svg>",
-        "clickableShapes": [],
-        "javascriptHandlers": [],
-        "smilAnimations": [],
-        "bindings": [],
-        "showCoordinates": false,
-        "autoFormatAfterEdit": false,
-        "showBrowserErrors": false,
-        "showBrowserEvents": false,
-        "enableJsDebugging": false,
-        "sendMsgWhenLoaded": false,
-        "noClickWhenDblClick": false,
-        "outputField": "payload",
-        "editorUrl": "//drawsvg.org/drawsvg.html",
-        "directory": "",
-        "panning": "disabled",
-        "zooming": "disabled",
-        "panOnlyWhenZoomed": false,
-        "doubleClickZoomEnabled": false,
-        "mouseWheelZoomEnabled": false,
-        "dblClickZoomPercentage": 150,
-        "cssString": "div.ui-svg svg{\n    color: var(--nr-dashboard-widgetColor);\n    fill: currentColor !important;\n}\ndiv.ui-svg path {\n    fill: inherit;\n}",
-        "name": "",
-        "x": 360,
-        "y": 540,
+        "x": 160,
+        "y": 700,
         "wires": [
             []
         ]
@@ -1201,23 +2287,11 @@
         "id": "d3a0745948b821c9",
         "type": "comment",
         "z": "562197b4f4a67922",
+        "g": "2df0c70bc86dd6ae",
         "name": "Dont Delete this!",
         "info": "",
-        "x": 100,
-        "y": 500,
-        "wires": []
-    },
-    {
-        "id": "2fa6a4a0490e047a",
-        "type": "link out",
-        "z": "562197b4f4a67922",
-        "name": "send telegram message",
-        "mode": "link",
-        "links": [
-            "21f38c7085dac4ce"
-        ],
-        "x": 425,
-        "y": 620,
+        "x": 140,
+        "y": 660,
         "wires": []
     },
     {
@@ -1231,1253 +2305,6 @@
         ],
         "x": 755,
         "y": 260,
-        "wires": []
-    },
-    {
-        "id": "eda96cbe4fa18198",
-        "type": "inject",
-        "z": "562197b4f4a67922",
-        "name": "",
-        "props": [
-            {
-                "p": "payload"
-            }
-        ],
-        "repeat": "",
-        "crontab": "",
-        "once": false,
-        "onceDelay": 0.1,
-        "topic": "",
-        "payload": "{\"target\":[\"asyraf\",\"Press Mtce\"],\"type\":\"message\",\"content\":\"Call: Testing Call system for groups\"}",
-        "payloadType": "json",
-        "x": 330,
-        "y": 620,
-        "wires": [
-            [
-                "2fa6a4a0490e047a"
-            ]
-        ]
-    },
-    {
-        "id": "b7501e0898e46344",
-        "type": "inject",
-        "z": "562197b4f4a67922",
-        "name": "",
-        "props": [
-            {
-                "p": "payload"
-            }
-        ],
-        "repeat": "",
-        "crontab": "",
-        "once": false,
-        "onceDelay": 0.1,
-        "topic": "",
-        "payload": "{\"target\":\"Press Mtce\",\"type\":\"message\",\"content\":\"Call: Testing Call system for groups\"}",
-        "payloadType": "json",
-        "x": 330,
-        "y": 660,
-        "wires": [
-            [
-                "2fa6a4a0490e047a"
-            ]
-        ]
-    },
-    {
-        "id": "d7197fbf265fda54",
-        "type": "mqtt in",
-        "z": "327571d15da5aceb",
-        "name": "from trial WISE ",
-        "topic": "AKSB/SA/call/#",
-        "qos": "1",
-        "datatype": "json",
-        "broker": "56edfd93d9c67181",
-        "nl": false,
-        "rap": true,
-        "rh": "2",
-        "inputs": 0,
-        "x": 100,
-        "y": 320,
-        "wires": [
-            [
-                "db3d86086a08ee76",
-                "e039e2b37c45b70f",
-                "61765029e1a65f4f"
-            ]
-        ]
-    },
-    {
-        "id": "79d2dbe7240fa5dc",
-        "type": "debug",
-        "z": "327571d15da5aceb",
-        "name": "debug 1",
-        "active": true,
-        "tosidebar": true,
-        "console": false,
-        "tostatus": false,
-        "complete": "true",
-        "targetType": "full",
-        "statusVal": "",
-        "statusType": "auto",
-        "x": 540,
-        "y": 280,
-        "wires": []
-    },
-    {
-        "id": "80b1fb2dd47643d8",
-        "type": "ui_ui_control",
-        "z": "327571d15da5aceb",
-        "name": "",
-        "events": "all",
-        "x": 920,
-        "y": 180,
-        "wires": [
-            []
-        ]
-    },
-    {
-        "id": "2022fca4a20f48d0",
-        "type": "change",
-        "z": "327571d15da5aceb",
-        "name": "false: Dashboard",
-        "rules": [
-            {
-                "t": "set",
-                "p": "payload",
-                "pt": "msg",
-                "to": "{\"tab\":\"Data\"}",
-                "tot": "json"
-            }
-        ],
-        "action": "",
-        "property": "",
-        "from": "",
-        "to": "",
-        "reg": false,
-        "x": 750,
-        "y": 180,
-        "wires": [
-            [
-                "80b1fb2dd47643d8"
-            ]
-        ]
-    },
-    {
-        "id": "39f563b3717d924b",
-        "type": "ui_ui_control",
-        "z": "327571d15da5aceb",
-        "name": "",
-        "events": "all",
-        "x": 920,
-        "y": 140,
-        "wires": [
-            []
-        ]
-    },
-    {
-        "id": "60ec8fc7c03081d6",
-        "type": "change",
-        "z": "327571d15da5aceb",
-        "name": "true: Alert",
-        "rules": [
-            {
-                "t": "set",
-                "p": "payload",
-                "pt": "msg",
-                "to": "{\"tab\":\"Alert\"}",
-                "tot": "json"
-            }
-        ],
-        "action": "",
-        "property": "",
-        "from": "",
-        "to": "",
-        "reg": false,
-        "x": 720,
-        "y": 140,
-        "wires": [
-            [
-                "39f563b3717d924b"
-            ]
-        ]
-    },
-    {
-        "id": "db3d86086a08ee76",
-        "type": "function",
-        "z": "327571d15da5aceb",
-        "d": true,
-        "name": "process MQTT msg",
-        "func": "let callList = flow.get(\"callList\") || [];\nlet updateCall = { payload: false } ;\nlet FGQueue = flow.get(\"fgQueue\") || [];\nlet updateFGQ = { payload: false };\nlet KWQueue = flow.get(\"kwQueue\") || [];\nlet updateKWQ = { payload: false };\nlet changeTab = { payload: false };\n\nlet topic = msg.topic.split(\"/call/\");\n\nlet caller = {\n    \"id\" : topic[1],\n    \"plant\" : topic[0],\n    \"dept\" : \"\",\n    \"line\" : \"\",\n    \"cell\" : \"\",\n    \"type\" : \"\",\n    \"timestamp\": Date.now()\n}\ntopic = caller.id.split(\"/\");\n//node.warn(topic);\n\nfor (let word of topic) {\n    word = word.split(\"-\");\n    //node.warn(word);\n    switch(word[0]) {\n        case \"dept\":\n            caller.dept = word[1].toUpperCase();\n            break;\n        case \"line\":\n            caller.line = word[1].toUpperCase();\n            break;\n        case \"cell\":\n            caller.cell = word[1].toUpperCase();\n            break;\n        default:\n    }\n}\n// node.warn(caller);\n\nif (!msg.payload.MT && !msg.payload.QC && !msg.payload.SV){\n    callList = callList.filter((call) => { return call.id != caller.id });\n    flow.set(\"callList\", callList);\n    updateCall.payload = true;\n} else {\n    let callIndex = callList.findIndex((call) => { return call.id == caller.id });\n    //node.warn(callIndex);\n    if (msg.payload.MT && msg.payload.QC && msg.payload.SV){\n        caller.type = \"SV,QC,MTCE\";\n        updateCall.payload = true;\n    } else if (msg.payload.SV && msg.payload.QC && !msg.payload.MT) {\n        caller.type = \"SV,QC\";\n        updateCall.payload = true;\n    } else if (msg.payload.SV && msg.payload.MT && !msg.payload.QC) {\n        caller.type = \"SV, MTCE\";\n        updateCall.payload = true;\n    } else if (msg.payload.MT && msg.payload.QC && !msg.payload.SV) {\n        caller.type = \"QC, MTCE\";\n        updateCall.payload = true;\n    } else {\n        if (msg.payload.MT){\n            caller.type = \"MTCE\";\n        }\n        if (msg.payload.QC){\n            caller.type = \"QC\";\n        }\n        if (msg.payload.SV){\n            caller.type = \"SV\";\n        }\n        updateCall.payload = true;\n    }\n    if (callIndex != -1) {\n        callList[callIndex] = caller;\n    } else {    \n        callList.push(caller);\n    }\n    flow.set(\"callList\", callList);\n}\n\nif(msg.payload.FG){\n    FGQueue.push(caller);\n    flow.set(\"fgQueue\", FGQueue);\n    updateFGQ.payload = true;\n}\nif(msg.payload.KW){\n    KWQueue.push(caller);\n    flow.set(\"kwQueue\", KWQueue);\n    updateKWQ.payload = true;\n}\n\nchangeTab.payload = callList.length > 0;\nreturn [changeTab, updateCall, updateFGQ, updateKWQ];",
-        "outputs": 4,
-        "noerr": 0,
-        "initialize": "",
-        "finalize": "",
-        "libs": [],
-        "x": 150,
-        "y": 200,
-        "wires": [
-            [
-                "eb8b7ad763ba6eb8"
-            ],
-            [],
-            [],
-            [
-                "443a9f25028c9c89"
-            ]
-        ]
-    },
-    {
-        "id": "eb8b7ad763ba6eb8",
-        "type": "switch",
-        "z": "327571d15da5aceb",
-        "d": true,
-        "name": "Change Tab?",
-        "property": "payload",
-        "propertyType": "msg",
-        "rules": [
-            {
-                "t": "true"
-            },
-            {
-                "t": "false"
-            }
-        ],
-        "checkall": "true",
-        "repair": false,
-        "outputs": 2,
-        "x": 550,
-        "y": 160,
-        "wires": [
-            [
-                "60ec8fc7c03081d6"
-            ],
-            [
-                "2022fca4a20f48d0"
-            ]
-        ]
-    },
-    {
-        "id": "443a9f25028c9c89",
-        "type": "switch",
-        "z": "327571d15da5aceb",
-        "name": "Update KW Queue?",
-        "property": "payload",
-        "propertyType": "msg",
-        "rules": [
-            {
-                "t": "true"
-            }
-        ],
-        "checkall": "true",
-        "repair": false,
-        "outputs": 1,
-        "x": 560,
-        "y": 580,
-        "wires": [
-            [
-                "91f6b3446bbbacb5"
-            ]
-        ]
-    },
-    {
-        "id": "0c1c8a6450ad2cdc",
-        "type": "change",
-        "z": "327571d15da5aceb",
-        "name": "true: Update List",
-        "rules": [
-            {
-                "t": "set",
-                "p": "payload",
-                "pt": "msg",
-                "to": "callList",
-                "tot": "flow",
-                "dc": true
-            },
-            {
-                "t": "set",
-                "p": "ui_control",
-                "pt": "msg",
-                "to": "{}",
-                "tot": "json"
-            }
-        ],
-        "action": "",
-        "property": "",
-        "from": "",
-        "to": "",
-        "reg": false,
-        "x": 1060,
-        "y": 280,
-        "wires": [
-            [
-                "0b668fefdd7e1138"
-            ]
-        ]
-    },
-    {
-        "id": "e095abbdc378dd80",
-        "type": "change",
-        "z": "327571d15da5aceb",
-        "name": "true: Update Queue",
-        "rules": [
-            {
-                "t": "set",
-                "p": "payload",
-                "pt": "msg",
-                "to": "fgQueue",
-                "tot": "flow"
-            },
-            {
-                "t": "set",
-                "p": "ui_control",
-                "pt": "msg",
-                "to": "{\"tabulator\":{\"responsiveLayout\":\"collapse\",\"layout\":\"fitColumns\",\"movableColumns\":true,\"index\":\"Id\",\"columns\":[{\"frozen\":true,\"title\":\"ID\",\"align\":\"center\",\"width\":\"5%\",\"formatter\":\"rownum\"},{\"frozen\":true,\"title\":\"Department\",\"field\":\"Department\"},{\"frozen\":true,\"title\":\"Line\",\"field\":\"Line\"},{\"frozen\":true,\"title\":\"Cell\",\"field\":\"Cell\"},{\"title\":\"Time (mins)\",\"field\":\"Time\"},{\"title\":\"Action\",\"align\":\"center\",\"width\":\"10%\",\"formatter\":\"buttonCross\"}],\"columnResized\":\"function(column){     var newColumn = {         field: column._column.field,         visible: column._column.visible,         width: column._column.width,         widthFixed: column._column.widthFixed,         widthStyled: column._column.widthStyled     }; this.send({topic:this.config.topic,ui_control:{callback:'columnResized',columnWidths:newColumn}}); }\",\"columnMoved\":\"function(column, columns){     var newColumns=[];     columns.forEach(function (column) {         newColumns.push({'field': column._column.definition.field, 'title': column._column.definition.title});     });     this.send({topic:this.config.topic,ui_control:{callback:'columnMoved',columns:newColumns}}); }\",\"rowFormatter\":\"function(row){     var data = row.getData();     switch (data.$state) {         case \\\"lost\\\":             row.getElement().style.backgroundColor = \\\"#9e2e66\\\";             row.getElement().style.color = \\\"#a6a6a6\\\";             break;         case \\\"sleeping\\\":             row.getElement().style.backgroundColor = \\\"#336699\\\";             break;         case \\\"disconnected\\\":             row.getElement().style.backgroundColor = \\\"#cc3300\\\";             row.getElement().style.color = \\\"#a6a6a6\\\";             break;         case \\\"alert\\\":             row.getElement().style.backgroundColor = \\\"#A6A6DF\\\";             break;         case \\\"init\\\":             row.getElement().style.backgroundColor = \\\"#f2f20d\\\";             break;         case \\\"ready\\\":             row.getElement().style.backgroundColor = \\\"\\\";             row.getElement().style.color = \\\"\\\";             break;         } }\",\"cellEdited\":\"celledited = function (cell) {         console.log('celledited callback called');    this.send(                 {                          ui_control: {callback:'cellEdited'},            payload: cell.getValue(),            oldValue: cell.getOldValue(),            field: cell.getColumn().getField(),            id: cell.getRow().getCell('Id').getValue()         });    console.log('table edit success');}\"}}",
-                "tot": "json"
-            }
-        ],
-        "action": "",
-        "property": "",
-        "from": "",
-        "to": "",
-        "reg": false,
-        "x": 1070,
-        "y": 420,
-        "wires": [
-            [
-                "fdfeeb33a12745aa"
-            ]
-        ]
-    },
-    {
-        "id": "a48c49277460197f",
-        "type": "ui_table",
-        "z": "327571d15da5aceb",
-        "group": "02f09ba258bf6625",
-        "name": "Call Queue",
-        "order": 1,
-        "width": 20,
-        "height": 7,
-        "columns": [],
-        "outputs": 0,
-        "cts": false,
-        "x": 1490,
-        "y": 320,
-        "wires": []
-    },
-    {
-        "id": "93a21d5dcdc32268",
-        "type": "ui_table",
-        "z": "327571d15da5aceb",
-        "group": "569dc256923818f6",
-        "name": "FG Queue",
-        "order": 1,
-        "width": 25,
-        "height": 7,
-        "columns": [],
-        "outputs": 1,
-        "cts": true,
-        "x": 1490,
-        "y": 460,
-        "wires": [
-            [
-                "99f5d5d010547613",
-                "26197aba70f1aa94"
-            ]
-        ]
-    },
-    {
-        "id": "0b668fefdd7e1138",
-        "type": "change",
-        "z": "327571d15da5aceb",
-        "name": "transform timestamps",
-        "rules": [
-            {
-                "t": "set",
-                "p": "payload",
-                "pt": "msg",
-                "to": "payload[].{ \t    \"Plant\":plant,\t    \"Department\":dept,\t    \"Line\":line,\t    \"Cell\":cell,\t    \"Calling\":type,\t    \"Time (sec)\":-1 * $moment(timestamp).diff($moment(), 'seconds')\t}",
-                "tot": "jsonata"
-            }
-        ],
-        "action": "",
-        "property": "",
-        "from": "",
-        "to": "",
-        "reg": false,
-        "x": 1280,
-        "y": 280,
-        "wires": [
-            [
-                "a48c49277460197f",
-                "5b3dd757e53da23a",
-                "4e83d9db6a3b8bb5"
-            ]
-        ]
-    },
-    {
-        "id": "7429e2bad420c896",
-        "type": "debug",
-        "z": "327571d15da5aceb",
-        "name": "debug 4",
-        "active": false,
-        "tosidebar": true,
-        "console": false,
-        "tostatus": false,
-        "complete": "true",
-        "targetType": "full",
-        "statusVal": "",
-        "statusType": "auto",
-        "x": 1520,
-        "y": 400,
-        "wires": []
-    },
-    {
-        "id": "4e83d9db6a3b8bb5",
-        "type": "debug",
-        "z": "327571d15da5aceb",
-        "name": "debug 5",
-        "active": false,
-        "tosidebar": true,
-        "console": false,
-        "tostatus": false,
-        "complete": "true",
-        "targetType": "full",
-        "statusVal": "",
-        "statusType": "auto",
-        "x": 1500,
-        "y": 240,
-        "wires": []
-    },
-    {
-        "id": "0408a92bd9d1a49c",
-        "type": "template",
-        "z": "327571d15da5aceb",
-        "name": "Send call message to group",
-        "field": "payload",
-        "fieldType": "msg",
-        "format": "handlebars",
-        "syntax": "mustache",
-        "template": "{\n    \"target\": \"asyraf\",\n    \"type\": \"message\",\n    \"content\": \"Call Queue: \\n| For | Dept | Line | Cell |\\n{{#payload}} | {{type}} | {{dept}} | {{line}} | {{cell}} |\\n{{/payload}}\"\n}",
-        "output": "json",
-        "x": 1020,
-        "y": 240,
-        "wires": [
-            [
-                "bd1b0393d3b158c1"
-            ]
-        ]
-    },
-    {
-        "id": "388823226a3f39ea",
-        "type": "change",
-        "z": "327571d15da5aceb",
-        "d": true,
-        "name": "",
-        "rules": [
-            {
-                "t": "set",
-                "p": "payload",
-                "pt": "msg",
-                "to": "callList",
-                "tot": "flow",
-                "dc": true
-            }
-        ],
-        "action": "",
-        "property": "",
-        "from": "",
-        "to": "",
-        "reg": false,
-        "x": 760,
-        "y": 240,
-        "wires": [
-            [
-                "0408a92bd9d1a49c"
-            ]
-        ]
-    },
-    {
-        "id": "40c648f526c3cd63",
-        "type": "delay",
-        "z": "327571d15da5aceb",
-        "name": "",
-        "pauseType": "delay",
-        "timeout": "5",
-        "timeoutUnits": "seconds",
-        "rate": "1",
-        "nbRateUnits": "1",
-        "rateUnits": "second",
-        "randomFirst": "1",
-        "randomLast": "5",
-        "randomUnits": "seconds",
-        "drop": false,
-        "allowrate": false,
-        "outputs": 1,
-        "x": 900,
-        "y": 360,
-        "wires": [
-            [
-                "0c1c8a6450ad2cdc"
-            ]
-        ]
-    },
-    {
-        "id": "99f5d5d010547613",
-        "type": "debug",
-        "z": "327571d15da5aceb",
-        "name": "debug 8",
-        "active": false,
-        "tosidebar": true,
-        "console": false,
-        "tostatus": false,
-        "complete": "true",
-        "targetType": "full",
-        "statusVal": "",
-        "statusType": "auto",
-        "x": 1700,
-        "y": 440,
-        "wires": []
-    },
-    {
-        "id": "fdfeeb33a12745aa",
-        "type": "change",
-        "z": "327571d15da5aceb",
-        "name": "transform timestamps",
-        "rules": [
-            {
-                "t": "set",
-                "p": "payload",
-                "pt": "msg",
-                "to": "payload[].{ \t    \"Plant\":plant,\t    \"Department\":dept,\t    \"Line\":line,\t    \"Cell\":cell,\t    \"Time\":$round(-1*$moment(timestamp).diff($moment(), 'minutes', 1), 2)\t}",
-                "tot": "jsonata"
-            }
-        ],
-        "action": "",
-        "property": "",
-        "from": "",
-        "to": "",
-        "reg": false,
-        "x": 1280,
-        "y": 420,
-        "wires": [
-            [
-                "93a21d5dcdc32268",
-                "7429e2bad420c896",
-                "5572052e45be3a2f"
-            ]
-        ]
-    },
-    {
-        "id": "2d665c92d372ae93",
-        "type": "delay",
-        "z": "327571d15da5aceb",
-        "name": "",
-        "pauseType": "delay",
-        "timeout": "5",
-        "timeoutUnits": "seconds",
-        "rate": "1",
-        "nbRateUnits": "1",
-        "rateUnits": "second",
-        "randomFirst": "1",
-        "randomLast": "5",
-        "randomUnits": "seconds",
-        "drop": false,
-        "allowrate": false,
-        "outputs": 1,
-        "x": 900,
-        "y": 500,
-        "wires": [
-            [
-                "e095abbdc378dd80"
-            ]
-        ]
-    },
-    {
-        "id": "5b3dd757e53da23a",
-        "type": "switch",
-        "z": "327571d15da5aceb",
-        "name": "is not empty?",
-        "property": "callList",
-        "propertyType": "flow",
-        "rules": [
-            {
-                "t": "nempty"
-            }
-        ],
-        "checkall": "true",
-        "repair": false,
-        "outputs": 1,
-        "x": 750,
-        "y": 360,
-        "wires": [
-            [
-                "40c648f526c3cd63"
-            ]
-        ]
-    },
-    {
-        "id": "26197aba70f1aa94",
-        "type": "function",
-        "z": "327571d15da5aceb",
-        "name": "Delete rows onclick",
-        "func": "let queue = flow.get(\"fgQueue\");\n\nif(msg.row > -1){\n    if(queue.length > 1) {\n        queue.splice(msg.row, 1);\n    } else {\n        queue=[]; \n    }\n}\n\nflow.set(\"fgQueue\", queue);\n\nreturn msg;",
-        "outputs": 1,
-        "noerr": 0,
-        "initialize": "",
-        "finalize": "",
-        "libs": [],
-        "x": 1210,
-        "y": 520,
-        "wires": [
-            [
-                "9b3585928247d412"
-            ]
-        ]
-    },
-    {
-        "id": "9b3585928247d412",
-        "type": "switch",
-        "z": "327571d15da5aceb",
-        "name": "is not empty?",
-        "property": "fgQueue",
-        "propertyType": "flow",
-        "rules": [
-            {
-                "t": "nempty"
-            },
-            {
-                "t": "empty"
-            }
-        ],
-        "checkall": "true",
-        "repair": false,
-        "outputs": 2,
-        "x": 750,
-        "y": 440,
-        "wires": [
-            [
-                "e095abbdc378dd80"
-            ],
-            [
-                "194f316c416ded39"
-            ]
-        ]
-    },
-    {
-        "id": "194f316c416ded39",
-        "type": "change",
-        "z": "327571d15da5aceb",
-        "name": "false: empty table",
-        "rules": [
-            {
-                "t": "set",
-                "p": "payload",
-                "pt": "msg",
-                "to": "[]",
-                "tot": "json"
-            }
-        ],
-        "action": "",
-        "property": "",
-        "from": "",
-        "to": "",
-        "reg": false,
-        "x": 1070,
-        "y": 460,
-        "wires": [
-            [
-                "93a21d5dcdc32268"
-            ]
-        ]
-    },
-    {
-        "id": "5572052e45be3a2f",
-        "type": "switch",
-        "z": "327571d15da5aceb",
-        "name": "is not empty?",
-        "property": "fgQueue",
-        "propertyType": "flow",
-        "rules": [
-            {
-                "t": "nempty"
-            }
-        ],
-        "checkall": "true",
-        "repair": false,
-        "outputs": 1,
-        "x": 750,
-        "y": 500,
-        "wires": [
-            [
-                "2d665c92d372ae93"
-            ]
-        ]
-    },
-    {
-        "id": "e7a6aef5978e156b",
-        "type": "change",
-        "z": "327571d15da5aceb",
-        "name": "true: Update Queue",
-        "rules": [
-            {
-                "t": "set",
-                "p": "payload",
-                "pt": "msg",
-                "to": "kwQueue",
-                "tot": "flow"
-            },
-            {
-                "t": "set",
-                "p": "ui_control",
-                "pt": "msg",
-                "to": "{\"tabulator\":{\"responsiveLayout\":\"collapse\",\"layout\":\"fitColumns\",\"movableColumns\":true,\"index\":\"Id\",\"columns\":[{\"frozen\":true,\"title\":\"ID\",\"align\":\"center\",\"width\":\"5%\",\"formatter\":\"rownum\"},{\"frozen\":true,\"title\":\"Department\",\"field\":\"Department\"},{\"frozen\":true,\"title\":\"Line\",\"field\":\"Line\"},{\"frozen\":true,\"title\":\"Cell\",\"field\":\"Cell\"},{\"title\":\"Time (mins)\",\"field\":\"Time\"},{\"title\":\"Action\",\"align\":\"center\",\"width\":\"10%\",\"formatter\":\"buttonCross\"}],\"columnResized\":\"function(column){     var newColumn = {         field: column._column.field,         visible: column._column.visible,         width: column._column.width,         widthFixed: column._column.widthFixed,         widthStyled: column._column.widthStyled     }; this.send({topic:this.config.topic,ui_control:{callback:'columnResized',columnWidths:newColumn}}); }\",\"columnMoved\":\"function(column, columns){     var newColumns=[];     columns.forEach(function (column) {         newColumns.push({'field': column._column.definition.field, 'title': column._column.definition.title});     });     this.send({topic:this.config.topic,ui_control:{callback:'columnMoved',columns:newColumns}}); }\",\"rowFormatter\":\"function(row){     var data = row.getData();     switch (data.$state) {         case \\\"lost\\\":             row.getElement().style.backgroundColor = \\\"#9e2e66\\\";             row.getElement().style.color = \\\"#a6a6a6\\\";             break;         case \\\"sleeping\\\":             row.getElement().style.backgroundColor = \\\"#336699\\\";             break;         case \\\"disconnected\\\":             row.getElement().style.backgroundColor = \\\"#cc3300\\\";             row.getElement().style.color = \\\"#a6a6a6\\\";             break;         case \\\"alert\\\":             row.getElement().style.backgroundColor = \\\"#A6A6DF\\\";             break;         case \\\"init\\\":             row.getElement().style.backgroundColor = \\\"#f2f20d\\\";             break;         case \\\"ready\\\":             row.getElement().style.backgroundColor = \\\"\\\";             row.getElement().style.color = \\\"\\\";             break;         } }\",\"cellEdited\":\"celledited = function (cell) {         console.log('celledited callback called');    this.send(                 {                          ui_control: {callback:'cellEdited'},            payload: cell.getValue(),            oldValue: cell.getOldValue(),            field: cell.getColumn().getField(),            id: cell.getRow().getCell('Id').getValue()         });    console.log('table edit success');}\"}}",
-                "tot": "json"
-            }
-        ],
-        "action": "",
-        "property": "",
-        "from": "",
-        "to": "",
-        "reg": false,
-        "x": 1090,
-        "y": 580,
-        "wires": [
-            [
-                "77c8340879363b84"
-            ]
-        ]
-    },
-    {
-        "id": "e054f574d3e939c0",
-        "type": "ui_table",
-        "z": "327571d15da5aceb",
-        "group": "e5276d6b5a48a00a",
-        "name": "KW Queue",
-        "order": 1,
-        "width": 25,
-        "height": 7,
-        "columns": [],
-        "outputs": 1,
-        "cts": true,
-        "x": 1510,
-        "y": 620,
-        "wires": [
-            [
-                "c4d311be3afeebfe"
-            ]
-        ]
-    },
-    {
-        "id": "77c8340879363b84",
-        "type": "change",
-        "z": "327571d15da5aceb",
-        "name": "transform timestamps",
-        "rules": [
-            {
-                "t": "set",
-                "p": "payload",
-                "pt": "msg",
-                "to": "payload[].{ \t    \"Plant\":plant,\t    \"Department\":dept,\t    \"Line\":line,\t    \"Cell\":cell,\t    \"Time\":$round(-1*$moment(timestamp).diff($moment(), 'minutes', 1), 2)\t}",
-                "tot": "jsonata"
-            }
-        ],
-        "action": "",
-        "property": "",
-        "from": "",
-        "to": "",
-        "reg": false,
-        "x": 1300,
-        "y": 580,
-        "wires": [
-            [
-                "e054f574d3e939c0",
-                "7c13368efceb0c8a"
-            ]
-        ]
-    },
-    {
-        "id": "7864380f40932de4",
-        "type": "delay",
-        "z": "327571d15da5aceb",
-        "name": "",
-        "pauseType": "delay",
-        "timeout": "5",
-        "timeoutUnits": "seconds",
-        "rate": "1",
-        "nbRateUnits": "1",
-        "rateUnits": "second",
-        "randomFirst": "1",
-        "randomLast": "5",
-        "randomUnits": "seconds",
-        "drop": false,
-        "allowrate": false,
-        "outputs": 1,
-        "x": 920,
-        "y": 660,
-        "wires": [
-            [
-                "e7a6aef5978e156b"
-            ]
-        ]
-    },
-    {
-        "id": "c4d311be3afeebfe",
-        "type": "function",
-        "z": "327571d15da5aceb",
-        "name": "Delete rows onclick",
-        "func": "let queue = flow.get(\"kwQueue\");\n\nif(msg.row > -1){\n    if(queue.length > 1) {\n        queue.splice(msg.row, 1);\n    } else {\n        queue=[]; \n    }\n}\n\nflow.set(\"kwQueue\", queue);\n\nreturn msg;",
-        "outputs": 1,
-        "noerr": 0,
-        "initialize": "",
-        "finalize": "",
-        "libs": [],
-        "x": 1230,
-        "y": 680,
-        "wires": [
-            [
-                "91f6b3446bbbacb5"
-            ]
-        ]
-    },
-    {
-        "id": "91f6b3446bbbacb5",
-        "type": "switch",
-        "z": "327571d15da5aceb",
-        "name": "is not empty?",
-        "property": "kwQueue",
-        "propertyType": "flow",
-        "rules": [
-            {
-                "t": "nempty"
-            },
-            {
-                "t": "empty"
-            }
-        ],
-        "checkall": "true",
-        "repair": false,
-        "outputs": 2,
-        "x": 770,
-        "y": 600,
-        "wires": [
-            [
-                "e7a6aef5978e156b"
-            ],
-            [
-                "9c95bf426dc58e26"
-            ]
-        ]
-    },
-    {
-        "id": "9c95bf426dc58e26",
-        "type": "change",
-        "z": "327571d15da5aceb",
-        "name": "false: empty table",
-        "rules": [
-            {
-                "t": "set",
-                "p": "payload",
-                "pt": "msg",
-                "to": "[]",
-                "tot": "json"
-            }
-        ],
-        "action": "",
-        "property": "",
-        "from": "",
-        "to": "",
-        "reg": false,
-        "x": 1090,
-        "y": 620,
-        "wires": [
-            [
-                "e054f574d3e939c0"
-            ]
-        ]
-    },
-    {
-        "id": "7c13368efceb0c8a",
-        "type": "switch",
-        "z": "327571d15da5aceb",
-        "name": "is not empty?",
-        "property": "kwQueue",
-        "propertyType": "flow",
-        "rules": [
-            {
-                "t": "nempty"
-            }
-        ],
-        "checkall": "true",
-        "repair": false,
-        "outputs": 1,
-        "x": 770,
-        "y": 660,
-        "wires": [
-            [
-                "7864380f40932de4"
-            ]
-        ]
-    },
-    {
-        "id": "ab9809ea3c7053e3",
-        "type": "switch",
-        "z": "327571d15da5aceb",
-        "name": "is not empty?",
-        "property": "callList",
-        "propertyType": "flow",
-        "rules": [
-            {
-                "t": "nempty"
-            },
-            {
-                "t": "empty"
-            }
-        ],
-        "checkall": "true",
-        "repair": false,
-        "outputs": 2,
-        "x": 750,
-        "y": 300,
-        "wires": [
-            [
-                "0c1c8a6450ad2cdc"
-            ],
-            [
-                "6bd420886a8214f9"
-            ]
-        ]
-    },
-    {
-        "id": "6bd420886a8214f9",
-        "type": "change",
-        "z": "327571d15da5aceb",
-        "name": "false: empty table",
-        "rules": [
-            {
-                "t": "set",
-                "p": "payload",
-                "pt": "msg",
-                "to": "[]",
-                "tot": "json"
-            }
-        ],
-        "action": "",
-        "property": "",
-        "from": "",
-        "to": "",
-        "reg": false,
-        "x": 1070,
-        "y": 320,
-        "wires": [
-            [
-                "a48c49277460197f"
-            ]
-        ]
-    },
-    {
-        "id": "bd1b0393d3b158c1",
-        "type": "link out",
-        "z": "327571d15da5aceb",
-        "name": "send telegram message",
-        "mode": "link",
-        "links": [
-            "21f38c7085dac4ce"
-        ],
-        "x": 1195,
-        "y": 240,
-        "wires": []
-    },
-    {
-        "id": "e039e2b37c45b70f",
-        "type": "subflow:5958c5854f8ba7cd",
-        "z": "327571d15da5aceb",
-        "name": "Route & Process MQTT",
-        "x": 330,
-        "y": 320,
-        "wires": [
-            [
-                "79d2dbe7240fa5dc",
-                "0263eb07610f7c0a"
-            ]
-        ]
-    },
-    {
-        "id": "4d51428a87e920be",
-        "type": "function",
-        "z": "327571d15da5aceb",
-        "name": "Update Database",
-        "func": "let caller = msg.caller;\nlet list = env.get(\"List\");\nlet dbList = flow.get(list);\n\nif (caller.type.length < 1){\n    //if caller.type is empty, means call from caller is cleared\n    //delete caller row in list\n    dbList = dbList.filter((call) => { return call.id != caller.id });\n    flow.set(list, dbList);\n} else {\n    //else if caller.type is not empty, means call from caller is a new call\n    //if caller already exists in list, update that caller row\n    //else add caller to list. \n    let index = dbList.findIndex((call) => { return call.id == caller.id });\n    if (index != -1) {\n        dbList[index] = caller;\n    } else {    \n        dbList.push(caller);\n    }\n    flow.set(list, dbList);\n}\n\nreturn msg;",
-        "outputs": 1,
-        "noerr": 0,
-        "initialize": "",
-        "finalize": "",
-        "libs": [],
-        "x": 130,
-        "y": 600,
-        "wires": [
-            []
-        ]
-    },
-    {
-        "id": "0263eb07610f7c0a",
-        "type": "subflow:02bee84c2c61bcc8",
-        "z": "327571d15da5aceb",
-        "name": "",
-        "x": 550,
-        "y": 320,
-        "wires": [
-            [
-                "ab9809ea3c7053e3"
-            ]
-        ]
-    },
-    {
-        "id": "114adc50fe6e8c1d",
-        "type": "subflow:842e4db7b876be11",
-        "z": "327571d15da5aceb",
-        "name": "",
-        "env": [
-            {
-                "name": "Queue Name",
-                "value": "fgQueue",
-                "type": "str"
-            }
-        ],
-        "x": 540,
-        "y": 440,
-        "wires": [
-            [
-                "9b3585928247d412"
-            ]
-        ]
-    },
-    {
-        "id": "61765029e1a65f4f",
-        "type": "subflow:5958c5854f8ba7cd",
-        "z": "327571d15da5aceb",
-        "name": "Route & Process MQTT",
-        "env": [
-            {
-                "name": "Message Types",
-                "value": "FG",
-                "type": "str"
-            },
-            {
-                "name": "List",
-                "value": "false",
-                "type": "bool"
-            }
-        ],
-        "x": 330,
-        "y": 440,
-        "wires": [
-            [
-                "114adc50fe6e8c1d"
-            ]
-        ]
-    },
-    {
-        "id": "0e5e988da6ace305",
-        "type": "telegram sender",
-        "z": "b7a483d0be44dbdd",
-        "name": "send message ",
-        "bot": "ea1829c43a6e8ad0",
-        "haserroroutput": true,
-        "outputs": 2,
-        "x": 600,
-        "y": 320,
-        "wires": [
-            [
-                "5f6be6d7ecced755"
-            ],
-            [
-                "c0dc87d6283b17a7"
-            ]
-        ]
-    },
-    {
-        "id": "c0dc87d6283b17a7",
-        "type": "debug",
-        "z": "b7a483d0be44dbdd",
-        "name": "debug 9",
-        "active": false,
-        "tosidebar": true,
-        "console": false,
-        "tostatus": false,
-        "complete": "true",
-        "targetType": "full",
-        "statusVal": "",
-        "statusType": "auto",
-        "x": 800,
-        "y": 340,
-        "wires": []
-    },
-    {
-        "id": "5f6be6d7ecced755",
-        "type": "debug",
-        "z": "b7a483d0be44dbdd",
-        "name": "debug 10",
-        "active": false,
-        "tosidebar": true,
-        "console": false,
-        "tostatus": false,
-        "complete": "false",
-        "statusVal": "",
-        "statusType": "auto",
-        "x": 800,
-        "y": 300,
-        "wires": []
-    },
-    {
-        "id": "21f38c7085dac4ce",
-        "type": "link in",
-        "z": "b7a483d0be44dbdd",
-        "name": "telegram input link",
-        "links": [
-            "2fa6a4a0490e047a",
-            "bd1b0393d3b158c1",
-            "f7ec67567aefe7c7"
-        ],
-        "x": 225,
-        "y": 320,
-        "wires": [
-            [
-                "53a3a84b4660c265"
-            ]
-        ]
-    },
-    {
-        "id": "78eba51fe7dbbeb4",
-        "type": "change",
-        "z": "b7a483d0be44dbdd",
-        "name": "Setup Chat Ids Here",
-        "rules": [
-            {
-                "t": "set",
-                "p": "chatIds",
-                "pt": "flow",
-                "to": "{\"asyraf\":21709557,\"IT\":123,\"Press\":123,\"Assy\":123,\"Press Mtce\":-1001957517829,\"Die Mtce\":123,\"Assy Mtce\":123,\"Press QC\":123,\"Assy QC\":123,\"HOD\":123}",
-                "tot": "json"
-            }
-        ],
-        "action": "",
-        "property": "",
-        "from": "",
-        "to": "",
-        "reg": false,
-        "x": 440,
-        "y": 80,
-        "wires": [
-            []
-        ]
-    },
-    {
-        "id": "69b847464ff1d895",
-        "type": "comment",
-        "z": "b7a483d0be44dbdd",
-        "name": "How to configure link out msg (click here to read!)",
-        "info": "Instead of specifying chatIds, specify chat group nicknames as setup in the node below. here is an example:\n\n{\n    target: [\"IT\", \"Press Mtce\"]\n    type: \"message\"\n    content: \"this is an example message\"\n}\n\nchatIds will be generated before the message is sent to telegram. ",
-        "x": 220,
-        "y": 40,
-        "wires": []
-    },
-    {
-        "id": "53a3a84b4660c265",
-        "type": "function",
-        "z": "b7a483d0be44dbdd",
-        "name": "convert target to chatId",
-        "func": "let chatIds = flow.get(\"chatIds\");\nlet target = msg.payload.target;\n\nif(Array.isArray(target)) {\n    msg.payload[\"chatId\"] = [];\n    for(let index in target) {\n        msg.payload.chatId.push(chatIds[target[index]]);\n    }\n} else {\n    msg.payload[\"chatId\"] = chatIds[target];\n}\n\nreturn msg;",
-        "outputs": 1,
-        "noerr": 0,
-        "initialize": "",
-        "finalize": "",
-        "libs": [],
-        "x": 380,
-        "y": 320,
-        "wires": [
-            [
-                "0e5e988da6ace305",
-                "dbf1d935725ab591"
-            ]
-        ]
-    },
-    {
-        "id": "dbf1d935725ab591",
-        "type": "debug",
-        "z": "b7a483d0be44dbdd",
-        "name": "debug 12",
-        "active": false,
-        "tosidebar": true,
-        "console": false,
-        "tostatus": false,
-        "complete": "false",
-        "statusVal": "",
-        "statusType": "auto",
-        "x": 580,
-        "y": 380,
-        "wires": []
-    },
-    {
-        "id": "d3ac7ed0b7278db7",
-        "type": "inject",
-        "z": "b7a483d0be44dbdd",
-        "name": "Inject telegram id data into flow",
-        "props": [
-            {
-                "p": "payload"
-            }
-        ],
-        "repeat": "",
-        "crontab": "",
-        "once": false,
-        "onceDelay": 0.1,
-        "topic": "",
-        "payload": "",
-        "payloadType": "date",
-        "x": 170,
-        "y": 80,
-        "wires": [
-            [
-                "78eba51fe7dbbeb4"
-            ]
-        ]
-    },
-    {
-        "id": "2d6258541bda347b",
-        "type": "mqtt in",
-        "z": "1694d57381b3dfec",
-        "name": "Temp Sensors",
-        "topic": "Advantech/#",
-        "qos": "1",
-        "datatype": "auto-detect",
-        "broker": "56edfd93d9c67181",
-        "nl": false,
-        "rap": true,
-        "rh": "1",
-        "inputs": 0,
-        "x": 110,
-        "y": 200,
-        "wires": [
-            [
-                "619d49c989b8af21"
-            ]
-        ]
-    },
-    {
-        "id": "619d49c989b8af21",
-        "type": "debug",
-        "z": "1694d57381b3dfec",
-        "name": "analyze mqtt output",
-        "active": true,
-        "tosidebar": true,
-        "console": false,
-        "tostatus": false,
-        "complete": "true",
-        "targetType": "full",
-        "statusVal": "",
-        "statusType": "auto",
-        "x": 330,
-        "y": 160,
         "wires": []
     }
 ]
