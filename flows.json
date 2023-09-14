@@ -273,7 +273,7 @@
                 "value": "callList",
                 "ui": {
                     "label": {
-                        "en-US": "DataBase Name (flow context data)"
+                        "en-US": "DataBase Name (list/queue name)"
                     },
                     "type": "input",
                     "opts": {
@@ -817,7 +817,7 @@
         "type": "function",
         "z": "5958c5854f8ba7cd",
         "name": "Update List",
-        "func": "// caller is already prepared from previous nodes.\n// it will either have a list of call types, or be empty. \nlet list = \"$parent.\" + env.get(\"Database Name\");\nlet dbList = flow.get(list);\nlet callBy = msg.callBy;\n// node.warn(dbList);\n\nif (callBy.type.length < 1){\n    //if caller.type is empty, means call from caller is cleared\n    //delete caller row in list\n    dbList = dbList.filter((call) => { return call.id != callBy.id });\n    flow.set(list, dbList);\n} else {\n    //else if caller.type is not empty, means call from caller is a new call\n    //if caller already exists in list, update that caller row\n    //else add caller to list. \n    let index = dbList.findIndex((call) => { return call.id == callBy.id });\n    if (index > -1) {\n        dbList[index] = callBy;\n    } else {    \n        dbList.push(callBy);\n    }\n    flow.set(list, dbList);\n}\n\nreturn msg;",
+        "func": "// caller is already prepared from previous nodes.\n// it will either have a list of call types, or be empty. \nlet list = \"$parent.\" + env.get(\"Database Name\");\nlet dbList = flow.get(list);\nlet callBy = msg.callBy;\nmsg.saveData = {};\n// node.warn(dbList);\n\nif (callBy.type.length < 1){\n    //if caller.type is empty, means call from caller is cleared\n    //update msg.saveData\n    msg.saveData = dbList.find((call) => { return call.id == callBy.id});\n    msg.saveData.endTimeStamp = Date.now();\n    //delete caller row in list\n    dbList = dbList.filter((call) => { return call.id != callBy.id });\n    flow.set(list, dbList);\n} else {\n    //else if caller.type is not empty, means call from caller is a new call\n    //if caller already exists in list, update that caller row\n    //else add caller to list. \n    let index = dbList.findIndex((call) => { return call.id == callBy.id });\n    if (index > -1) {\n        dbList[index] = callBy;\n    } else {    \n        dbList.push(callBy);\n    }\n    flow.set(list, dbList);\n}\n\nreturn msg;",
         "outputs": 1,
         "noerr": 0,
         "initialize": "",
@@ -1104,7 +1104,7 @@
         "type": "debug",
         "z": "327571d15da5aceb",
         "name": "debug 1",
-        "active": false,
+        "active": true,
         "tosidebar": true,
         "console": false,
         "tostatus": false,
@@ -1112,8 +1112,8 @@
         "targetType": "full",
         "statusVal": "",
         "statusType": "auto",
-        "x": 300,
-        "y": 60,
+        "x": 1000,
+        "y": 180,
         "wires": []
     },
     {
