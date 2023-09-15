@@ -12,6 +12,7 @@
         "type": "tab",
         "label": "Telegram Messaging Flow",
         "disabled": false,
+        "locked": true,
         "info": "",
         "env": [
             {
@@ -25,6 +26,14 @@
         "id": "0ab2da76215ad380",
         "type": "tab",
         "label": "\"MQTT Dashboard\" App Setup",
+        "disabled": false,
+        "info": "",
+        "env": []
+    },
+    {
+        "id": "47a130afcbdaced0",
+        "type": "tab",
+        "label": "Update Database",
         "disabled": false,
         "info": "",
         "env": []
@@ -361,7 +370,7 @@
             {
                 "name": "Display Format",
                 "type": "json",
-                "value": "{}",
+                "value": "{\"tabulator\":{\"responsiveLayout\":\"collapse\",\"layout\":\"fitColumns\",\"movableColumns\":true,\"index\":\"Id\",\"columns\":[{\"frozen\":true,\"title\":\"ID\",\"align\":\"center\",\"width\":\"7%\",\"formatter\":\"rownum\"},{\"frozen\":true,\"title\":\"Dept\",\"field\":\"Department\"},{\"frozen\":true,\"title\":\"Line\",\"field\":\"Line\"},{\"frozen\":true,\"title\":\"Cell\",\"field\":\"Cell\"},{\"title\":\"Time (mins)\",\"field\":\"Time\",\"width\":\"30%\"}]}}",
                 "ui": {
                     "label": {
                         "en-US": "Display Format (JSON)"
@@ -470,7 +479,7 @@
     {
         "id": "2df0c70bc86dd6ae",
         "type": "group",
-        "z": "562197b4f4a67922",
+        "z": "327571d15da5aceb",
         "style": {
             "stroke": "#999999",
             "stroke-opacity": "1",
@@ -485,7 +494,7 @@
             "d3a0745948b821c9"
         ],
         "x": 34,
-        "y": 619,
+        "y": 499,
         "w": 232,
         "h": 122
     },
@@ -602,6 +611,7 @@
     {
         "id": "d5e27fdb153bf0a3",
         "type": "ui_tab",
+        "d": true,
         "name": "Data",
         "icon": "dashboard",
         "order": 1,
@@ -620,7 +630,8 @@
         "usetls": true,
         "protocolVersion": "5",
         "keepalive": "60",
-        "cleansession": true,
+        "cleansession": false,
+        "autoUnsubscribe": false,
         "birthTopic": "AKSB/SA/CONNECTION",
         "birthQos": "0",
         "birthPayload": "Node Red Line F Connected",
@@ -677,13 +688,14 @@
         "tab": "7f97a1b59fccc5ce",
         "order": 2,
         "disp": true,
-        "width": 20,
+        "width": "28",
         "collapse": false,
         "className": ""
     },
     {
         "id": "db830ddbd85f76c5",
         "type": "ui_tab",
+        "d": true,
         "name": "FG Queue",
         "icon": "dashboard",
         "order": 3,
@@ -704,6 +716,7 @@
     {
         "id": "145f52da01ded04e",
         "type": "ui_tab",
+        "d": true,
         "name": "Kowake",
         "icon": "dashboard",
         "order": 4,
@@ -817,8 +830,9 @@
         "type": "function",
         "z": "5958c5854f8ba7cd",
         "name": "Update List",
-        "func": "// caller is already prepared from previous nodes.\n// it will either have a list of call types, or be empty. \nlet list = \"$parent.\" + env.get(\"Database Name\");\nlet dbList = flow.get(list);\nlet callBy = msg.callBy;\nmsg.saveData = {};\n// node.warn(dbList);\n\nif (callBy.type.length < 1){\n    //if caller.type is empty, means call from caller is cleared\n    //update msg.saveData\n    msg.saveData = dbList.find((call) => { return call.id == callBy.id});\n    msg.saveData.endTimeStamp = Date.now();\n    //delete caller row in list\n    dbList = dbList.filter((call) => { return call.id != callBy.id });\n    flow.set(list, dbList);\n} else {\n    //else if caller.type is not empty, means call from caller is a new call\n    //if caller already exists in list, update that caller row\n    //else add caller to list. \n    let index = dbList.findIndex((call) => { return call.id == callBy.id });\n    if (index > -1) {\n        dbList[index] = callBy;\n    } else {    \n        dbList.push(callBy);\n    }\n    flow.set(list, dbList);\n}\n\nreturn msg;",
+        "func": "// caller is already prepared from previous nodes.\n// it will either have a list of call types, or be empty. \nlet list = \"$parent.\" + env.get(\"Database Name\");\nlet dbList = flow.get(list);\ndbList = dbList ? dbList : [];\nlet callBy = msg.callBy;\nmsg.saveData = {};\n// node.warn(dbList);\n\nif (callBy.type.length < 1){\n    //if caller.type is empty, means call from caller is cleared\n    //update msg.saveData\n    msg.saveData = dbList.find((call) => { return call.id == callBy.id});\n    msg.saveData.endTimeStamp = Date.now();\n    //delete caller row in list\n    dbList = dbList.filter((call) => { return call.id != callBy.id });\n    flow.set(list, dbList);\n} else {\n    //else if caller.type is not empty, means call from caller is a new call\n    //if caller already exists in list, update that caller row\n    //else add caller to list. \n    let index = dbList.findIndex((call) => { return call.id == callBy.id });\n    if (index > -1) {\n        dbList[index] = callBy;\n    } else {    \n        dbList.push(callBy);\n    }\n    flow.set(list, dbList);\n}\n\nreturn msg;",
         "outputs": 1,
+        "timeout": "",
         "noerr": 0,
         "initialize": "",
         "finalize": "",
@@ -834,8 +848,9 @@
         "type": "function",
         "z": "5958c5854f8ba7cd",
         "name": "Update Queue",
-        "func": "let queue = \"$parent.\"+env.get(\"Database Name\");\nlet dbQueue = flow.get(queue);\nlet callBy = msg.callBy;\n\ndbQueue.push(callBy);\nflow.set(queue, dbQueue);\n\nreturn msg;",
+        "func": "let queue = \"$parent.\"+env.get(\"Database Name\");\nlet dbQueue = flow.get(queue);\ndbQueue = dbQueue ? dbQueue : [];\nlet callBy = msg.callBy;\n\ndbQueue.push(callBy);\nflow.set(queue, dbQueue);\n\nreturn msg;",
         "outputs": 1,
+        "timeout": "",
         "noerr": 0,
         "initialize": "",
         "finalize": "",
@@ -1112,8 +1127,8 @@
         "targetType": "full",
         "statusVal": "",
         "statusType": "auto",
-        "x": 1000,
-        "y": 180,
+        "x": 300,
+        "y": 40,
         "wires": []
     },
     {
@@ -1231,8 +1246,8 @@
         "group": "02f09ba258bf6625",
         "name": "Call Queue",
         "order": 1,
-        "width": 20,
-        "height": 7,
+        "width": 28,
+        "height": 9,
         "columns": [],
         "outputs": 0,
         "cts": false,
@@ -1365,8 +1380,8 @@
         "initialize": "",
         "finalize": "",
         "libs": [],
-        "x": 210,
-        "y": 400,
+        "x": 290,
+        "y": 420,
         "wires": [
             []
         ]
@@ -1416,6 +1431,13 @@
         "type": "subflow:da1f44dea6948311",
         "z": "327571d15da5aceb",
         "name": "",
+        "env": [
+            {
+                "name": "Display Format",
+                "value": "{\"tabulator\":{\"responsiveLayout\":\"collapse\",\"layout\":\"fitColumns\",\"movableColumns\":true,\"index\":\"Id\",\"columns\":[{\"frozen\":true,\"title\":\"ID\",\"align\":\"center\",\"width\":\"7%\",\"formatter\":\"rownum\"},{\"frozen\":true,\"title\":\"Dept\",\"field\":\"Department\"},{\"frozen\":true,\"title\":\"Line\",\"field\":\"Line\"},{\"frozen\":true,\"title\":\"Cell\",\"field\":\"Cell\"},{\"title\":\"Time (mins)\",\"field\":\"Time\",\"width\":\"30%\"}]}}",
+                "type": "json"
+            }
+        ],
         "x": 560,
         "y": 160,
         "wires": [
@@ -1530,6 +1552,7 @@
         "id": "3dc9b81d6024cb0a",
         "type": "subflow:fa9ee2fc5ce99563",
         "z": "327571d15da5aceb",
+        "d": true,
         "name": "",
         "env": [
             {
@@ -1643,6 +1666,39 @@
                 "4f60142a7c9fa2c6"
             ]
         ]
+    },
+    {
+        "id": "aed69bd7994a8096",
+        "type": "ui_template",
+        "z": "327571d15da5aceb",
+        "g": "2df0c70bc86dd6ae",
+        "group": "85b12cf0fa38d858",
+        "name": "Tabulator CSS",
+        "order": 1,
+        "width": 0,
+        "height": 0,
+        "format": "<style>\n    .tabulator {\n        font-size: 3em !important; \n    }\n</style>",
+        "storeOutMessages": false,
+        "fwdInMessages": false,
+        "resendOnRefresh": false,
+        "templateScope": "global",
+        "className": "",
+        "x": 160,
+        "y": 580,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "d3a0745948b821c9",
+        "type": "comment",
+        "z": "327571d15da5aceb",
+        "g": "2df0c70bc86dd6ae",
+        "name": "Dont Delete this!",
+        "info": "",
+        "x": 140,
+        "y": 540,
+        "wires": []
     },
     {
         "id": "0e5e988da6ace305",
@@ -2259,39 +2315,6 @@
         "statusType": "auto",
         "x": 780,
         "y": 480,
-        "wires": []
-    },
-    {
-        "id": "aed69bd7994a8096",
-        "type": "ui_template",
-        "z": "562197b4f4a67922",
-        "g": "2df0c70bc86dd6ae",
-        "group": "85b12cf0fa38d858",
-        "name": "Tabulator CSS",
-        "order": 1,
-        "width": 0,
-        "height": 0,
-        "format": "<style>\n    .tabulator {\n        font-size: 1.5em !important; \n    }\n</style>",
-        "storeOutMessages": false,
-        "fwdInMessages": false,
-        "resendOnRefresh": false,
-        "templateScope": "global",
-        "className": "",
-        "x": 160,
-        "y": 700,
-        "wires": [
-            []
-        ]
-    },
-    {
-        "id": "d3a0745948b821c9",
-        "type": "comment",
-        "z": "562197b4f4a67922",
-        "g": "2df0c70bc86dd6ae",
-        "name": "Dont Delete this!",
-        "info": "",
-        "x": 140,
-        "y": 660,
         "wires": []
     },
     {
