@@ -690,7 +690,7 @@
         "disp": true,
         "width": "28",
         "collapse": false,
-        "className": ""
+        "className": "callqueue"
     },
     {
         "id": "db830ddbd85f76c5",
@@ -1434,7 +1434,7 @@
         "env": [
             {
                 "name": "Display Format",
-                "value": "{\"tabulator\":{\"responsiveLayout\":\"collapse\",\"layout\":\"fitColumns\",\"movableColumns\":true,\"index\":\"Id\",\"columns\":[{\"frozen\":true,\"title\":\"ID\",\"align\":\"center\",\"width\":\"7%\",\"formatter\":\"rownum\"},{\"frozen\":true,\"title\":\"Dept\",\"field\":\"Department\"},{\"frozen\":true,\"title\":\"Line\",\"field\":\"Line\"},{\"frozen\":true,\"title\":\"Cell\",\"field\":\"Cell\"},{\"title\":\"Time (mins)\",\"field\":\"Time\",\"width\":\"30%\"}]}}",
+                "value": "{\"tabulator\":{\"responsiveLayout\":\"collapse\",\"layout\":\"fitColumns\",\"movableColumns\":true,\"index\":\"Id\",\"columns\":[{\"frozen\":true,\"title\":\"ID\",\"align\":\"center\",\"width\":\"7%\",\"formatter\":\"rownum\"},{\"frozen\":true,\"title\":\"Dept\",\"field\":\"Department\"},{\"frozen\":true,\"title\":\"Line\",\"field\":\"Line\"},{\"title\":\"Time (mins)\",\"field\":\"Time\",\"width\":\"35%\"}]}}",
                 "type": "json"
             }
         ],
@@ -1677,7 +1677,7 @@
         "order": 1,
         "width": 0,
         "height": 0,
-        "format": "<style>\n    .tabulator {\n        font-size: 3em !important; \n    }\n</style>",
+        "format": "<style>\n    .callqueue .tabulator {\n        font-size: 4.5em !important; \n    }\n\n    .callqueue .nr-dashboard-cardtitle {\n        font-size: 5em !important;\n        max-height: 100px;\n        text-align: center\n    }\n</style>",
         "storeOutMessages": false,
         "fwdInMessages": false,
         "resendOnRefresh": false,
