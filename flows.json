@@ -1,9 +1,9 @@
 [
     {
-        "id": "327571d15da5aceb",
+        "id": "562197b4f4a67922",
         "type": "tab",
-        "label": "MQTT Server",
-        "disabled": false,
+        "label": "Prodn Dashboard Flow",
+        "disabled": true,
         "locked": true,
         "info": "",
         "env": []
@@ -13,7 +13,6 @@
         "type": "tab",
         "label": "Call SV,FM.DM,QC",
         "disabled": false,
-        "locked": true,
         "info": "",
         "env": []
     },
@@ -36,9 +35,18 @@
         "env": []
     },
     {
+        "id": "327571d15da5aceb",
+        "type": "tab",
+        "label": "Sys: MQTT Server",
+        "disabled": false,
+        "locked": true,
+        "info": "",
+        "env": []
+    },
+    {
         "id": "0ab2da76215ad380",
         "type": "tab",
-        "label": "App Setup",
+        "label": "Sys: App Setup",
         "disabled": false,
         "locked": true,
         "info": "",
@@ -47,7 +55,7 @@
     {
         "id": "b7a483d0be44dbdd",
         "type": "tab",
-        "label": "Send T/Gram Msg",
+        "label": "Sys: Send T/Gram Msg",
         "disabled": false,
         "locked": true,
         "info": "",
@@ -62,17 +70,8 @@
     {
         "id": "47a130afcbdaced0",
         "type": "tab",
-        "label": "Update Database",
+        "label": "Sys: Update Database",
         "disabled": false,
-        "locked": true,
-        "info": "",
-        "env": []
-    },
-    {
-        "id": "562197b4f4a67922",
-        "type": "tab",
-        "label": "Prodn Dashboard Flow",
-        "disabled": true,
         "locked": true,
         "info": "",
         "env": []
@@ -1201,7 +1200,7 @@
         "type": "function",
         "z": "f5b1a306a8b9c006",
         "name": "function 1",
-        "func": "let dbName = env.get(\"List Name\");\nlet db = env.get(\"parent.\"+dbName);\n\nif(db.length == 0){\n    msg.payload = 0;\n} else {\n    msg.payload = 1;\n}\n\nreturn msg;",
+        "func": "let dbName = env.get(\"List/Queue Name\");\nlet db = env.get(\"parent.\"+dbName);\n\nif(db.length == 0){\n    msg.payload = 0;\n} else {\n    msg.payload = 1;\n}\n\nreturn msg;",
         "outputs": 1,
         "timeout": 0,
         "noerr": 0,
@@ -1214,762 +1213,6 @@
             [
                 "4f60142a7c9fa2c6"
             ]
-        ]
-    },
-    {
-        "id": "d7197fbf265fda54",
-        "type": "mqtt in",
-        "z": "327571d15da5aceb",
-        "name": "AKSB MQTT Server",
-        "topic": "AKSB/SA/call/#",
-        "qos": "1",
-        "datatype": "json",
-        "broker": "56edfd93d9c67181",
-        "nl": false,
-        "rap": true,
-        "rh": "2",
-        "inputs": 0,
-        "x": 210,
-        "y": 200,
-        "wires": [
-            [
-                "bbea780b13bb2921",
-                "1b28f3be2fd19962"
-            ]
-        ]
-    },
-    {
-        "id": "bbea780b13bb2921",
-        "type": "debug",
-        "z": "327571d15da5aceb",
-        "name": "debug 13",
-        "active": false,
-        "tosidebar": true,
-        "console": false,
-        "tostatus": false,
-        "complete": "true",
-        "targetType": "full",
-        "statusVal": "",
-        "statusType": "auto",
-        "x": 420,
-        "y": 160,
-        "wires": []
-    },
-    {
-        "id": "aed69bd7994a8096",
-        "type": "ui_template",
-        "z": "327571d15da5aceb",
-        "g": "2df0c70bc86dd6ae",
-        "group": "85b12cf0fa38d858",
-        "name": "Tabulator CSS",
-        "order": 1,
-        "width": 0,
-        "height": 0,
-        "format": "<style>\n    .callqueue .tabulator {\n        font-size: 4.5em !important; \n    }\n\n    .callqueue .nr-dashboard-cardtitle {\n        font-size: 5em !important;\n        max-height: 100px;\n        text-align: center\n    }\n</style>",
-        "storeOutMessages": false,
-        "fwdInMessages": false,
-        "resendOnRefresh": false,
-        "templateScope": "global",
-        "className": "",
-        "x": 160,
-        "y": 580,
-        "wires": [
-            []
-        ]
-    },
-    {
-        "id": "d3a0745948b821c9",
-        "type": "comment",
-        "z": "327571d15da5aceb",
-        "g": "2df0c70bc86dd6ae",
-        "name": "Dont Delete this!",
-        "info": "",
-        "x": 140,
-        "y": 540,
-        "wires": []
-    },
-    {
-        "id": "1b28f3be2fd19962",
-        "type": "link out",
-        "z": "327571d15da5aceb",
-        "name": "from MQTT Server",
-        "mode": "link",
-        "links": [
-            "5ea3f20af6afd9c7",
-            "88b9e8b972cdd871",
-            "c6f07004e1c3a6b5"
-        ],
-        "x": 365,
-        "y": 240,
-        "wires": []
-    },
-    {
-        "id": "79d2dbe7240fa5dc",
-        "type": "debug",
-        "z": "d9c16620383ec561",
-        "name": "debug 1",
-        "active": true,
-        "tosidebar": true,
-        "console": false,
-        "tostatus": false,
-        "complete": "true",
-        "targetType": "full",
-        "statusVal": "",
-        "statusType": "auto",
-        "x": 500,
-        "y": 120,
-        "wires": []
-    },
-    {
-        "id": "a48c49277460197f",
-        "type": "ui_table",
-        "z": "d9c16620383ec561",
-        "group": "02f09ba258bf6625",
-        "name": "Call Queue",
-        "order": 1,
-        "width": 28,
-        "height": 9,
-        "columns": [],
-        "outputs": 0,
-        "cts": false,
-        "x": 710,
-        "y": 240,
-        "wires": []
-    },
-    {
-        "id": "bd1b0393d3b158c1",
-        "type": "link out",
-        "z": "d9c16620383ec561",
-        "name": "send telegram message",
-        "mode": "link",
-        "links": [
-            "21f38c7085dac4ce"
-        ],
-        "x": 665,
-        "y": 300,
-        "wires": []
-    },
-    {
-        "id": "e039e2b37c45b70f",
-        "type": "subflow:5958c5854f8ba7cd",
-        "z": "d9c16620383ec561",
-        "name": "Call SV, QC, FM, DM",
-        "env": [
-            {
-                "name": "Message Types",
-                "value": "SV,QC,FM,DM",
-                "type": "str"
-            }
-        ],
-        "x": 300,
-        "y": 240,
-        "wires": [
-            [
-                "79d2dbe7240fa5dc",
-                "957b54dad0221a9d",
-                "3dc9b81d6024cb0a",
-                "95a92770a318f850"
-            ]
-        ]
-    },
-    {
-        "id": "957b54dad0221a9d",
-        "type": "subflow:da1f44dea6948311",
-        "z": "d9c16620383ec561",
-        "name": "",
-        "env": [
-            {
-                "name": "Display Format",
-                "value": "{\"tabulator\":{\"responsiveLayout\":\"collapse\",\"layout\":\"fitColumns\",\"movableColumns\":true,\"index\":\"Id\",\"columns\":[{\"frozen\":true,\"title\":\"ID\",\"align\":\"center\",\"width\":\"7%\",\"formatter\":\"rownum\"},{\"frozen\":true,\"title\":\"Dept\",\"field\":\"Department\"},{\"frozen\":true,\"title\":\"Line\",\"field\":\"Line\"},{\"title\":\"Time (mins)\",\"field\":\"Time\",\"width\":\"35%\"}]}}",
-                "type": "json"
-            }
-        ],
-        "x": 510,
-        "y": 240,
-        "wires": [
-            [
-                "a48c49277460197f"
-            ]
-        ]
-    },
-    {
-        "id": "3dc9b81d6024cb0a",
-        "type": "subflow:fa9ee2fc5ce99563",
-        "z": "d9c16620383ec561",
-        "d": true,
-        "name": "",
-        "env": [
-            {
-                "name": "Recipient List",
-                "value": "{\"SV\":\"Press\",\"QC\":\"Press QC\",\"FM\":\"Press Mtce\",\"DM\":\"Die Mtce\",\"HOD\":\"HOD\"}",
-                "type": "json"
-            }
-        ],
-        "x": 530,
-        "y": 300,
-        "wires": [
-            [
-                "bd1b0393d3b158c1"
-            ]
-        ]
-    },
-    {
-        "id": "95a92770a318f850",
-        "type": "subflow:f5b1a306a8b9c006",
-        "z": "d9c16620383ec561",
-        "name": "",
-        "x": 520,
-        "y": 180,
-        "wires": []
-    },
-    {
-        "id": "88b9e8b972cdd871",
-        "type": "link in",
-        "z": "d9c16620383ec561",
-        "name": "to call SV,FM,DM,QC",
-        "links": [
-            "1b28f3be2fd19962"
-        ],
-        "x": 145,
-        "y": 240,
-        "wires": [
-            [
-                "e039e2b37c45b70f"
-            ]
-        ]
-    },
-    {
-        "id": "80b1fb2dd47643d8",
-        "type": "ui_ui_control",
-        "z": "d9c16620383ec561",
-        "d": true,
-        "g": "80a9d3eddd3850f6",
-        "name": "",
-        "events": "all",
-        "x": 600,
-        "y": 480,
-        "wires": [
-            []
-        ]
-    },
-    {
-        "id": "2022fca4a20f48d0",
-        "type": "change",
-        "z": "d9c16620383ec561",
-        "d": true,
-        "g": "80a9d3eddd3850f6",
-        "name": "false: Dashboard",
-        "rules": [
-            {
-                "t": "set",
-                "p": "payload",
-                "pt": "msg",
-                "to": "{\"tab\":\"Data\"}",
-                "tot": "json"
-            }
-        ],
-        "action": "",
-        "property": "",
-        "from": "",
-        "to": "",
-        "reg": false,
-        "x": 430,
-        "y": 480,
-        "wires": [
-            [
-                "80b1fb2dd47643d8"
-            ]
-        ]
-    },
-    {
-        "id": "39f563b3717d924b",
-        "type": "ui_ui_control",
-        "z": "d9c16620383ec561",
-        "d": true,
-        "g": "80a9d3eddd3850f6",
-        "name": "",
-        "events": "all",
-        "x": 600,
-        "y": 440,
-        "wires": [
-            []
-        ]
-    },
-    {
-        "id": "60ec8fc7c03081d6",
-        "type": "change",
-        "z": "d9c16620383ec561",
-        "d": true,
-        "g": "80a9d3eddd3850f6",
-        "name": "true: Alert",
-        "rules": [
-            {
-                "t": "set",
-                "p": "payload",
-                "pt": "msg",
-                "to": "{\"tab\":\"Alert\"}",
-                "tot": "json"
-            }
-        ],
-        "action": "",
-        "property": "",
-        "from": "",
-        "to": "",
-        "reg": false,
-        "x": 400,
-        "y": 440,
-        "wires": [
-            [
-                "39f563b3717d924b"
-            ]
-        ]
-    },
-    {
-        "id": "eb8b7ad763ba6eb8",
-        "type": "switch",
-        "z": "d9c16620383ec561",
-        "d": true,
-        "g": "80a9d3eddd3850f6",
-        "name": "Change Tab?",
-        "property": "payload",
-        "propertyType": "msg",
-        "rules": [
-            {
-                "t": "true"
-            },
-            {
-                "t": "false"
-            }
-        ],
-        "checkall": "true",
-        "repair": false,
-        "outputs": 2,
-        "x": 230,
-        "y": 460,
-        "wires": [
-            [
-                "60ec8fc7c03081d6"
-            ],
-            [
-                "2022fca4a20f48d0"
-            ]
-        ]
-    },
-    {
-        "id": "93a21d5dcdc32268",
-        "type": "ui_table",
-        "z": "c7abb9e37b8610b1",
-        "group": "569dc256923818f6",
-        "name": "FG Queue",
-        "order": 1,
-        "width": 25,
-        "height": 7,
-        "columns": [],
-        "outputs": 1,
-        "cts": true,
-        "x": 690,
-        "y": 140,
-        "wires": [
-            [
-                "26197aba70f1aa94"
-            ]
-        ]
-    },
-    {
-        "id": "26197aba70f1aa94",
-        "type": "function",
-        "z": "c7abb9e37b8610b1",
-        "name": "Delete rows onclick",
-        "func": "let queue = flow.get(\"fgQueue\");\n\nif(msg.row > -1){\n    if(queue.length > 1) {\n        queue.splice(msg.row, 1);\n    } else {\n        queue=[]; \n    }\n}\n\nflow.set(\"fgQueue\", queue);\n\nreturn msg;",
-        "outputs": 1,
-        "noerr": 0,
-        "initialize": "",
-        "finalize": "",
-        "libs": [],
-        "x": 590,
-        "y": 200,
-        "wires": [
-            [
-                "d693f6da18b37b36"
-            ]
-        ]
-    },
-    {
-        "id": "61765029e1a65f4f",
-        "type": "subflow:5958c5854f8ba7cd",
-        "z": "c7abb9e37b8610b1",
-        "name": "Call FG",
-        "env": [
-            {
-                "name": "Message Types",
-                "value": "FG",
-                "type": "str"
-            },
-            {
-                "name": "Database Name",
-                "value": "fgQueue",
-                "type": "str"
-            },
-            {
-                "name": "Database Type",
-                "value": "queue",
-                "type": "str"
-            },
-            {
-                "name": "Type of Data",
-                "value": "queue",
-                "type": "str"
-            },
-            {
-                "name": "List",
-                "value": "false",
-                "type": "bool"
-            }
-        ],
-        "x": 240,
-        "y": 140,
-        "wires": [
-            [
-                "d693f6da18b37b36"
-            ]
-        ]
-    },
-    {
-        "id": "d693f6da18b37b36",
-        "type": "subflow:da1f44dea6948311",
-        "z": "c7abb9e37b8610b1",
-        "name": "",
-        "env": [
-            {
-                "name": "List/Queue Name",
-                "value": "fgQueue",
-                "type": "str"
-            },
-            {
-                "name": "Display Format",
-                "value": "{\"tabulator\":{\"responsiveLayout\":\"collapse\",\"layout\":\"fitColumns\",\"movableColumns\":true,\"index\":\"Id\",\"columns\":[{\"frozen\":true,\"title\":\"ID\",\"align\":\"center\",\"width\":\"5%\",\"formatter\":\"rownum\"},{\"frozen\":true,\"title\":\"Department\",\"field\":\"Department\"},{\"frozen\":true,\"title\":\"Line\",\"field\":\"Line\"},{\"frozen\":true,\"title\":\"Cell\",\"field\":\"Cell\"},{\"title\":\"Time (mins)\",\"field\":\"Time\"},{\"title\":\"Action\",\"align\":\"center\",\"width\":\"10%\",\"formatter\":\"buttonCross\"}],\"columnResized\":\"function(column){     var newColumn = {         field: column._column.field,         visible: column._column.visible,         width: column._column.width,         widthFixed: column._column.widthFixed,         widthStyled: column._column.widthStyled     }; this.send({topic:this.config.topic,ui_control:{callback:'columnResized',columnWidths:newColumn}}); }\",\"columnMoved\":\"function(column, columns){     var newColumns=[];     columns.forEach(function (column) {         newColumns.push({'field': column._column.definition.field, 'title': column._column.definition.title});     });     this.send({topic:this.config.topic,ui_control:{callback:'columnMoved',columns:newColumns}}); }\",\"rowFormatter\":\"function(row){     var data = row.getData();     switch (data.$state) {         case \\\"lost\\\":             row.getElement().style.backgroundColor = \\\"#9e2e66\\\";             row.getElement().style.color = \\\"#a6a6a6\\\";             break;         case \\\"sleeping\\\":             row.getElement().style.backgroundColor = \\\"#336699\\\";             break;         case \\\"disconnected\\\":             row.getElement().style.backgroundColor = \\\"#cc3300\\\";             row.getElement().style.color = \\\"#a6a6a6\\\";             break;         case \\\"alert\\\":             row.getElement().style.backgroundColor = \\\"#A6A6DF\\\";             break;         case \\\"init\\\":             row.getElement().style.backgroundColor = \\\"#f2f20d\\\";             break;         case \\\"ready\\\":             row.getElement().style.backgroundColor = \\\"\\\";             row.getElement().style.color = \\\"\\\";             break;         } }\",\"cellEdited\":\"celledited = function (cell) {         console.log('celledited callback called');    this.send(                 {                          ui_control: {callback:'cellEdited'},            payload: cell.getValue(),            oldValue: cell.getOldValue(),            field: cell.getColumn().getField(),            id: cell.getRow().getCell('Id').getValue()         });    console.log('table edit success');}\"}}",
-                "type": "json"
-            }
-        ],
-        "x": 490,
-        "y": 140,
-        "wires": [
-            [
-                "93a21d5dcdc32268"
-            ]
-        ]
-    },
-    {
-        "id": "c6f07004e1c3a6b5",
-        "type": "link in",
-        "z": "c7abb9e37b8610b1",
-        "name": "from MQTT to call FG",
-        "links": [
-            "1b28f3be2fd19962"
-        ],
-        "x": 125,
-        "y": 140,
-        "wires": [
-            [
-                "61765029e1a65f4f"
-            ]
-        ]
-    },
-    {
-        "id": "e054f574d3e939c0",
-        "type": "ui_table",
-        "z": "f2f642efde1fe996",
-        "group": "e5276d6b5a48a00a",
-        "name": "KW Queue",
-        "order": 1,
-        "width": 25,
-        "height": 7,
-        "columns": [],
-        "outputs": 1,
-        "cts": true,
-        "x": 650,
-        "y": 160,
-        "wires": [
-            [
-                "c4d311be3afeebfe"
-            ]
-        ]
-    },
-    {
-        "id": "c4d311be3afeebfe",
-        "type": "function",
-        "z": "f2f642efde1fe996",
-        "name": "Delete rows onclick",
-        "func": "let queue = flow.get(\"kwQueue\");\n\nif(msg.row > -1){\n    if(queue.length > 1) {\n        queue.splice(msg.row, 1);\n    } else {\n        queue=[]; \n    }\n}\n\nflow.set(\"kwQueue\", queue);\n\nreturn msg;",
-        "outputs": 1,
-        "noerr": 0,
-        "initialize": "",
-        "finalize": "",
-        "libs": [],
-        "x": 550,
-        "y": 220,
-        "wires": [
-            [
-                "55b1db195a6345cf"
-            ]
-        ]
-    },
-    {
-        "id": "b25444582b5abffb",
-        "type": "subflow:5958c5854f8ba7cd",
-        "z": "f2f642efde1fe996",
-        "name": "Call Kowake",
-        "env": [
-            {
-                "name": "Message Types",
-                "value": "KW",
-                "type": "str"
-            },
-            {
-                "name": "Database Name",
-                "value": "kwQueue",
-                "type": "str"
-            },
-            {
-                "name": "Database Type",
-                "value": "queue",
-                "type": "str"
-            },
-            {
-                "name": "Type of Data",
-                "value": "queue",
-                "type": "str"
-            }
-        ],
-        "x": 210,
-        "y": 160,
-        "wires": [
-            [
-                "55b1db195a6345cf"
-            ]
-        ]
-    },
-    {
-        "id": "55b1db195a6345cf",
-        "type": "subflow:da1f44dea6948311",
-        "z": "f2f642efde1fe996",
-        "name": "",
-        "env": [
-            {
-                "name": "List/Queue Name",
-                "value": "kwQueue",
-                "type": "str"
-            },
-            {
-                "name": "Display Format",
-                "value": "{     \"tabulator\": {         \"responsiveLayout\": \"collapse\",         \"layout\": \"fitColumns\",         \"movableColumns\": true,         \"index\": \"Id\",         \"columns\": [             {                 \"frozen\": true,                 \"title\": \"ID\",                 \"align\": \"center\",                 \"width\": \"5%\",                 \"formatter\": \"rownum\"             },             {                 \"frozen\": true,                 \"title\": \"Department\",                 \"field\": \"Department\"             },             {                 \"frozen\": true,                 \"title\": \"Line\",                 \"field\": \"Line\"             },             {                 \"frozen\": true,                 \"title\": \"Cell\",                 \"field\": \"Cell\"             },             {                 \"title\": \"Time (mins)\",                 \"field\": \"Time\"             },             {                 \"title\": \"Action\",                 \"align\": \"center\",                 \"width\": \"10%\",                 \"formatter\": \"buttonCross\"             }         ],         \"columnResized\": \"function(column){     var newColumn = {         field: column._column.field,         visible: column._column.visible,         width: column._column.width,         widthFixed: column._column.widthFixed,         widthStyled: column._column.widthStyled     }; this.send({topic:this.config.topic,ui_control:{callback:'columnResized',columnWidths:newColumn}}); }\",         \"columnMoved\": \"function(column, columns){     var newColumns=[];     columns.forEach(function (column) {         newColumns.push({'field': column._column.definition.field, 'title': column._column.definition.title});     });     this.send({topic:this.config.topic,ui_control:{callback:'columnMoved',columns:newColumns}}); }\",         \"rowFormatter\": \"function(row){     var data = row.getData();     switch (data.$state) {         case \\\"lost\\\":             row.getElement().style.backgroundColor = \\\"#9e2e66\\\";             row.getElement().style.color = \\\"#a6a6a6\\\";             break;         case \\\"sleeping\\\":             row.getElement().style.backgroundColor = \\\"#336699\\\";             break;         case \\\"disconnected\\\":             row.getElement().style.backgroundColor = \\\"#cc3300\\\";             row.getElement().style.color = \\\"#a6a6a6\\\";             break;         case \\\"alert\\\":             row.getElement().style.backgroundColor = \\\"#A6A6DF\\\";             break;         case \\\"init\\\":             row.getElement().style.backgroundColor = \\\"#f2f20d\\\";             break;         case \\\"ready\\\":             row.getElement().style.backgroundColor = \\\"\\\";             row.getElement().style.color = \\\"\\\";             break;         } }\",         \"cellEdited\": \"celledited = function (cell) {         console.log('celledited callback called');    this.send(                 {                          ui_control: {callback:'cellEdited'},            payload: cell.getValue(),            oldValue: cell.getOldValue(),            field: cell.getColumn().getField(),            id: cell.getRow().getCell('Id').getValue()         });    console.log('table edit success');}\"     } }",
-                "type": "json"
-            }
-        ],
-        "x": 450,
-        "y": 160,
-        "wires": [
-            [
-                "e054f574d3e939c0"
-            ]
-        ]
-    },
-    {
-        "id": "5ea3f20af6afd9c7",
-        "type": "link in",
-        "z": "f2f642efde1fe996",
-        "name": "from MQTT to call Kowake",
-        "links": [
-            "1b28f3be2fd19962"
-        ],
-        "x": 85,
-        "y": 160,
-        "wires": [
-            [
-                "b25444582b5abffb"
-            ]
-        ]
-    },
-    {
-        "id": "6ab44a13f195e788",
-        "type": "mqtt in",
-        "z": "0ab2da76215ad380",
-        "name": "AKSB MQTT Server",
-        "topic": "json_exchange",
-        "qos": "1",
-        "datatype": "json",
-        "broker": "56edfd93d9c67181",
-        "nl": false,
-        "rap": true,
-        "rh": "2",
-        "inputs": 0,
-        "x": 150,
-        "y": 140,
-        "wires": [
-            [
-                "c0fd4308ca80b391"
-            ]
-        ]
-    },
-    {
-        "id": "c0fd4308ca80b391",
-        "type": "debug",
-        "z": "0ab2da76215ad380",
-        "name": "debug 15",
-        "active": true,
-        "tosidebar": true,
-        "console": false,
-        "tostatus": false,
-        "complete": "true",
-        "targetType": "full",
-        "statusVal": "",
-        "statusType": "auto",
-        "x": 340,
-        "y": 140,
-        "wires": []
-    },
-    {
-        "id": "0e5e988da6ace305",
-        "type": "telegram sender",
-        "z": "b7a483d0be44dbdd",
-        "name": "send message ",
-        "bot": "ea1829c43a6e8ad0",
-        "haserroroutput": true,
-        "outputs": 2,
-        "x": 620,
-        "y": 180,
-        "wires": [
-            [
-                "5f6be6d7ecced755"
-            ],
-            [
-                "c0dc87d6283b17a7"
-            ]
-        ]
-    },
-    {
-        "id": "c0dc87d6283b17a7",
-        "type": "debug",
-        "z": "b7a483d0be44dbdd",
-        "name": "debug 9",
-        "active": false,
-        "tosidebar": true,
-        "console": false,
-        "tostatus": false,
-        "complete": "true",
-        "targetType": "full",
-        "statusVal": "",
-        "statusType": "auto",
-        "x": 820,
-        "y": 200,
-        "wires": []
-    },
-    {
-        "id": "5f6be6d7ecced755",
-        "type": "debug",
-        "z": "b7a483d0be44dbdd",
-        "name": "debug 10",
-        "active": false,
-        "tosidebar": true,
-        "console": false,
-        "tostatus": false,
-        "complete": "false",
-        "statusVal": "",
-        "statusType": "auto",
-        "x": 820,
-        "y": 160,
-        "wires": []
-    },
-    {
-        "id": "21f38c7085dac4ce",
-        "type": "link in",
-        "z": "b7a483d0be44dbdd",
-        "name": "telegram input link",
-        "links": [
-            "2fa6a4a0490e047a",
-            "bd1b0393d3b158c1",
-            "f7ec67567aefe7c7"
-        ],
-        "x": 245,
-        "y": 180,
-        "wires": [
-            [
-                "53a3a84b4660c265"
-            ]
-        ]
-    },
-    {
-        "id": "69b847464ff1d895",
-        "type": "comment",
-        "z": "b7a483d0be44dbdd",
-        "name": "How to configure link out msg from your other flows (click here to read!)",
-        "info": "Instead of specifying chatIds, specify chat group names for each message type, in the heirarchical order as defined in the Chat Ids JSON as setup in the \"Chat Ids\" environment variable of this flow. See the example below:\n\n`{\n    \"SV\": [\"Mgmt/IT\", \"Mgmt/Press\"],\n    \"FM\": \"Mgmt/FM/Press\",\n    \"QC\": \"Mgmt/QC/Press\"\n}`\n\nYou can define multiple group names for each type of message. This allows for debugging work to be done, or for telegram notifications to be sent to multiple groups.  \n\nThe 'Prepare Messaging' subflow will automatically escalate the messaging according to the hierarchy, whenever calls exceed the Escalation Time as defined for each subflow node used.\n\nchatIds will be generated before the message is sent to telegram. ",
-        "x": 290,
-        "y": 80,
-        "wires": []
-    },
-    {
-        "id": "53a3a84b4660c265",
-        "type": "function",
-        "z": "b7a483d0be44dbdd",
-        "name": "convert target to chatId",
-        "func": "let chatIds = env.get(\"Chat Ids\");\nlet target = msg.payload.target;\n\n// will always receive an array\n// traverses chatIds according to the array provided and returns the telegram\n// id corresponding to the relevant group to notify\nmsg.payload.chatId = target.reduce((cur, key) => {\n    return cur[key];\n    \n}, chatIds).id;\n\n// if(Array.isArray(target)) {\n//     msg.payload[\"chatId\"] = [];\n//     for(let index in target) {\n//         msg.payload.chatId.push(chatIds[target[index]]);\n//     }\n// } else {\n//     msg.payload[\"chatId\"] = chatIds[target];\n//}\n\nreturn msg;",
-        "outputs": 1,
-        "noerr": 0,
-        "initialize": "",
-        "finalize": "",
-        "libs": [],
-        "x": 400,
-        "y": 180,
-        "wires": [
-            [
-                "0e5e988da6ace305",
-                "dbf1d935725ab591"
-            ]
-        ]
-    },
-    {
-        "id": "dbf1d935725ab591",
-        "type": "debug",
-        "z": "b7a483d0be44dbdd",
-        "name": "debug 12",
-        "active": false,
-        "tosidebar": true,
-        "console": false,
-        "tostatus": false,
-        "complete": "false",
-        "statusVal": "",
-        "statusType": "auto",
-        "x": 600,
-        "y": 240,
-        "wires": []
-    },
-    {
-        "id": "c7ab74162d9d95c3",
-        "type": "comment",
-        "z": "b7a483d0be44dbdd",
-        "name": "IMPORTANT: Configure Telegram Chat Ids in the flow Environment Variable",
-        "info": "",
-        "x": 300,
-        "y": 40,
-        "wires": [],
-        "icon": "node-red/alert.svg"
-    },
-    {
-        "id": "4d51428a87e920be",
-        "type": "function",
-        "z": "47a130afcbdaced0",
-        "name": "Update Database",
-        "func": "let caller = msg.caller;\nlet list = env.get(\"List\");\nlet dbList = flow.get(list);\n\nif (caller.type.length < 1){\n    //if caller.type is empty, means call from caller is cleared\n    //delete caller row in list\n    dbList = dbList.filter((call) => { return call.id != caller.id });\n    flow.set(list, dbList);\n} else {\n    //else if caller.type is not empty, means call from caller is a new call\n    //if caller already exists in list, update that caller row\n    //else add caller to list. \n    let index = dbList.findIndex((call) => { return call.id == caller.id });\n    if (index != -1) {\n        dbList[index] = caller;\n    } else {    \n        dbList.push(caller);\n    }\n    flow.set(list, dbList);\n}\n\nreturn msg;",
-        "outputs": 1,
-        "noerr": 0,
-        "initialize": "",
-        "finalize": "",
-        "libs": [],
-        "x": 464,
-        "y": 195,
-        "wires": [
-            []
         ]
     },
     {
@@ -2436,5 +1679,795 @@
         "x": 755,
         "y": 260,
         "wires": []
+    },
+    {
+        "id": "79d2dbe7240fa5dc",
+        "type": "debug",
+        "z": "d9c16620383ec561",
+        "name": "debug 1",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "true",
+        "targetType": "full",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 500,
+        "y": 120,
+        "wires": []
+    },
+    {
+        "id": "a48c49277460197f",
+        "type": "ui_table",
+        "z": "d9c16620383ec561",
+        "group": "02f09ba258bf6625",
+        "name": "Call Queue",
+        "order": 1,
+        "width": 28,
+        "height": 9,
+        "columns": [],
+        "outputs": 0,
+        "cts": false,
+        "x": 710,
+        "y": 240,
+        "wires": []
+    },
+    {
+        "id": "bd1b0393d3b158c1",
+        "type": "link out",
+        "z": "d9c16620383ec561",
+        "name": "send telegram message",
+        "mode": "link",
+        "links": [
+            "21f38c7085dac4ce"
+        ],
+        "x": 665,
+        "y": 300,
+        "wires": []
+    },
+    {
+        "id": "e039e2b37c45b70f",
+        "type": "subflow:5958c5854f8ba7cd",
+        "z": "d9c16620383ec561",
+        "name": "Call SV, QC, FM, DM",
+        "env": [
+            {
+                "name": "Message Types",
+                "value": "SV,QC,FM,DM",
+                "type": "str"
+            }
+        ],
+        "x": 300,
+        "y": 240,
+        "wires": [
+            [
+                "79d2dbe7240fa5dc",
+                "957b54dad0221a9d",
+                "3dc9b81d6024cb0a",
+                "5929c6d9dd58cd72"
+            ]
+        ]
+    },
+    {
+        "id": "957b54dad0221a9d",
+        "type": "subflow:da1f44dea6948311",
+        "z": "d9c16620383ec561",
+        "name": "",
+        "env": [
+            {
+                "name": "Display Format",
+                "value": "{\"tabulator\":{\"responsiveLayout\":\"collapse\",\"layout\":\"fitColumns\",\"movableColumns\":true,\"index\":\"Id\",\"columns\":[{\"frozen\":true,\"title\":\"ID\",\"align\":\"center\",\"width\":\"7%\",\"formatter\":\"rownum\"},{\"frozen\":true,\"title\":\"Dept\",\"field\":\"Department\"},{\"frozen\":true,\"title\":\"Line\",\"field\":\"Line\"},{\"title\":\"Time (mins)\",\"field\":\"Time\",\"width\":\"35%\"}]}}",
+                "type": "json"
+            }
+        ],
+        "x": 510,
+        "y": 240,
+        "wires": [
+            [
+                "a48c49277460197f"
+            ]
+        ]
+    },
+    {
+        "id": "3dc9b81d6024cb0a",
+        "type": "subflow:fa9ee2fc5ce99563",
+        "z": "d9c16620383ec561",
+        "d": true,
+        "name": "",
+        "env": [
+            {
+                "name": "Recipient List",
+                "value": "{\"SV\":\"Press\",\"QC\":\"Press QC\",\"FM\":\"Press Mtce\",\"DM\":\"Die Mtce\",\"HOD\":\"HOD\"}",
+                "type": "json"
+            }
+        ],
+        "x": 530,
+        "y": 300,
+        "wires": [
+            [
+                "bd1b0393d3b158c1"
+            ]
+        ]
+    },
+    {
+        "id": "88b9e8b972cdd871",
+        "type": "link in",
+        "z": "d9c16620383ec561",
+        "name": "to call SV,FM,DM,QC",
+        "links": [
+            "1b28f3be2fd19962"
+        ],
+        "x": 145,
+        "y": 240,
+        "wires": [
+            [
+                "e039e2b37c45b70f"
+            ]
+        ]
+    },
+    {
+        "id": "80b1fb2dd47643d8",
+        "type": "ui_ui_control",
+        "z": "d9c16620383ec561",
+        "d": true,
+        "g": "80a9d3eddd3850f6",
+        "name": "",
+        "events": "all",
+        "x": 600,
+        "y": 480,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "2022fca4a20f48d0",
+        "type": "change",
+        "z": "d9c16620383ec561",
+        "d": true,
+        "g": "80a9d3eddd3850f6",
+        "name": "false: Dashboard",
+        "rules": [
+            {
+                "t": "set",
+                "p": "payload",
+                "pt": "msg",
+                "to": "{\"tab\":\"Data\"}",
+                "tot": "json"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 430,
+        "y": 480,
+        "wires": [
+            [
+                "80b1fb2dd47643d8"
+            ]
+        ]
+    },
+    {
+        "id": "39f563b3717d924b",
+        "type": "ui_ui_control",
+        "z": "d9c16620383ec561",
+        "d": true,
+        "g": "80a9d3eddd3850f6",
+        "name": "",
+        "events": "all",
+        "x": 600,
+        "y": 440,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "60ec8fc7c03081d6",
+        "type": "change",
+        "z": "d9c16620383ec561",
+        "d": true,
+        "g": "80a9d3eddd3850f6",
+        "name": "true: Alert",
+        "rules": [
+            {
+                "t": "set",
+                "p": "payload",
+                "pt": "msg",
+                "to": "{\"tab\":\"Alert\"}",
+                "tot": "json"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 400,
+        "y": 440,
+        "wires": [
+            [
+                "39f563b3717d924b"
+            ]
+        ]
+    },
+    {
+        "id": "eb8b7ad763ba6eb8",
+        "type": "switch",
+        "z": "d9c16620383ec561",
+        "d": true,
+        "g": "80a9d3eddd3850f6",
+        "name": "Change Tab?",
+        "property": "payload",
+        "propertyType": "msg",
+        "rules": [
+            {
+                "t": "true"
+            },
+            {
+                "t": "false"
+            }
+        ],
+        "checkall": "true",
+        "repair": false,
+        "outputs": 2,
+        "x": 230,
+        "y": 460,
+        "wires": [
+            [
+                "60ec8fc7c03081d6"
+            ],
+            [
+                "2022fca4a20f48d0"
+            ]
+        ]
+    },
+    {
+        "id": "5929c6d9dd58cd72",
+        "type": "subflow:f5b1a306a8b9c006",
+        "z": "d9c16620383ec561",
+        "name": "",
+        "x": 520,
+        "y": 180,
+        "wires": []
+    },
+    {
+        "id": "93a21d5dcdc32268",
+        "type": "ui_table",
+        "z": "c7abb9e37b8610b1",
+        "group": "569dc256923818f6",
+        "name": "FG Queue",
+        "order": 1,
+        "width": 25,
+        "height": 7,
+        "columns": [],
+        "outputs": 1,
+        "cts": true,
+        "x": 690,
+        "y": 140,
+        "wires": [
+            [
+                "26197aba70f1aa94"
+            ]
+        ]
+    },
+    {
+        "id": "26197aba70f1aa94",
+        "type": "function",
+        "z": "c7abb9e37b8610b1",
+        "name": "Delete rows onclick",
+        "func": "let queue = flow.get(\"fgQueue\");\n\nif(msg.row > -1){\n    if(queue.length > 1) {\n        queue.splice(msg.row, 1);\n    } else {\n        queue=[]; \n    }\n}\n\nflow.set(\"fgQueue\", queue);\n\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 590,
+        "y": 200,
+        "wires": [
+            [
+                "d693f6da18b37b36"
+            ]
+        ]
+    },
+    {
+        "id": "61765029e1a65f4f",
+        "type": "subflow:5958c5854f8ba7cd",
+        "z": "c7abb9e37b8610b1",
+        "name": "Call FG",
+        "env": [
+            {
+                "name": "Message Types",
+                "value": "FG",
+                "type": "str"
+            },
+            {
+                "name": "Database Name",
+                "value": "fgQueue",
+                "type": "str"
+            },
+            {
+                "name": "Database Type",
+                "value": "queue",
+                "type": "str"
+            },
+            {
+                "name": "Type of Data",
+                "value": "queue",
+                "type": "str"
+            },
+            {
+                "name": "List",
+                "value": "false",
+                "type": "bool"
+            }
+        ],
+        "x": 300,
+        "y": 140,
+        "wires": [
+            [
+                "d693f6da18b37b36",
+                "6ff3a088a0d87147"
+            ]
+        ]
+    },
+    {
+        "id": "d693f6da18b37b36",
+        "type": "subflow:da1f44dea6948311",
+        "z": "c7abb9e37b8610b1",
+        "name": "",
+        "env": [
+            {
+                "name": "List/Queue Name",
+                "value": "fgQueue",
+                "type": "str"
+            },
+            {
+                "name": "Display Format",
+                "value": "{\"tabulator\":{\"responsiveLayout\":\"collapse\",\"layout\":\"fitColumns\",\"movableColumns\":true,\"index\":\"Id\",\"columns\":[{\"frozen\":true,\"title\":\"ID\",\"align\":\"center\",\"width\":\"5%\",\"formatter\":\"rownum\"},{\"frozen\":true,\"title\":\"Department\",\"field\":\"Department\"},{\"frozen\":true,\"title\":\"Line\",\"field\":\"Line\"},{\"frozen\":true,\"title\":\"Cell\",\"field\":\"Cell\"},{\"title\":\"Time (mins)\",\"field\":\"Time\"},{\"title\":\"Action\",\"align\":\"center\",\"width\":\"10%\",\"formatter\":\"buttonCross\"}],\"columnResized\":\"function(column){     var newColumn = {         field: column._column.field,         visible: column._column.visible,         width: column._column.width,         widthFixed: column._column.widthFixed,         widthStyled: column._column.widthStyled     }; this.send({topic:this.config.topic,ui_control:{callback:'columnResized',columnWidths:newColumn}}); }\",\"columnMoved\":\"function(column, columns){     var newColumns=[];     columns.forEach(function (column) {         newColumns.push({'field': column._column.definition.field, 'title': column._column.definition.title});     });     this.send({topic:this.config.topic,ui_control:{callback:'columnMoved',columns:newColumns}}); }\",\"rowFormatter\":\"function(row){     var data = row.getData();     switch (data.$state) {         case \\\"lost\\\":             row.getElement().style.backgroundColor = \\\"#9e2e66\\\";             row.getElement().style.color = \\\"#a6a6a6\\\";             break;         case \\\"sleeping\\\":             row.getElement().style.backgroundColor = \\\"#336699\\\";             break;         case \\\"disconnected\\\":             row.getElement().style.backgroundColor = \\\"#cc3300\\\";             row.getElement().style.color = \\\"#a6a6a6\\\";             break;         case \\\"alert\\\":             row.getElement().style.backgroundColor = \\\"#A6A6DF\\\";             break;         case \\\"init\\\":             row.getElement().style.backgroundColor = \\\"#f2f20d\\\";             break;         case \\\"ready\\\":             row.getElement().style.backgroundColor = \\\"\\\";             row.getElement().style.color = \\\"\\\";             break;         } }\",\"cellEdited\":\"celledited = function (cell) {         console.log('celledited callback called');    this.send(                 {                          ui_control: {callback:'cellEdited'},            payload: cell.getValue(),            oldValue: cell.getOldValue(),            field: cell.getColumn().getField(),            id: cell.getRow().getCell('Id').getValue()         });    console.log('table edit success');}\"}}",
+                "type": "json"
+            }
+        ],
+        "x": 490,
+        "y": 140,
+        "wires": [
+            [
+                "93a21d5dcdc32268"
+            ]
+        ]
+    },
+    {
+        "id": "c6f07004e1c3a6b5",
+        "type": "link in",
+        "z": "c7abb9e37b8610b1",
+        "name": "from MQTT to call FG",
+        "links": [
+            "1b28f3be2fd19962"
+        ],
+        "x": 175,
+        "y": 140,
+        "wires": [
+            [
+                "61765029e1a65f4f"
+            ]
+        ]
+    },
+    {
+        "id": "6ff3a088a0d87147",
+        "type": "subflow:f5b1a306a8b9c006",
+        "z": "c7abb9e37b8610b1",
+        "name": "",
+        "env": [
+            {
+                "name": "List/Queue Name",
+                "value": "fgQueue",
+                "type": "str"
+            }
+        ],
+        "x": 500,
+        "y": 80,
+        "wires": []
+    },
+    {
+        "id": "e054f574d3e939c0",
+        "type": "ui_table",
+        "z": "f2f642efde1fe996",
+        "group": "e5276d6b5a48a00a",
+        "name": "KW Queue",
+        "order": 1,
+        "width": 25,
+        "height": 7,
+        "columns": [],
+        "outputs": 1,
+        "cts": true,
+        "x": 650,
+        "y": 160,
+        "wires": [
+            [
+                "c4d311be3afeebfe"
+            ]
+        ]
+    },
+    {
+        "id": "c4d311be3afeebfe",
+        "type": "function",
+        "z": "f2f642efde1fe996",
+        "name": "Delete rows onclick",
+        "func": "let queue = flow.get(\"kwQueue\");\n\nif(msg.row > -1){\n    if(queue.length > 1) {\n        queue.splice(msg.row, 1);\n    } else {\n        queue=[]; \n    }\n}\n\nflow.set(\"kwQueue\", queue);\n\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 550,
+        "y": 220,
+        "wires": [
+            [
+                "55b1db195a6345cf"
+            ]
+        ]
+    },
+    {
+        "id": "b25444582b5abffb",
+        "type": "subflow:5958c5854f8ba7cd",
+        "z": "f2f642efde1fe996",
+        "name": "Call Kowake",
+        "env": [
+            {
+                "name": "Message Types",
+                "value": "KW",
+                "type": "str"
+            },
+            {
+                "name": "Database Name",
+                "value": "kwQueue",
+                "type": "str"
+            },
+            {
+                "name": "Database Type",
+                "value": "queue",
+                "type": "str"
+            },
+            {
+                "name": "Type of Data",
+                "value": "queue",
+                "type": "str"
+            }
+        ],
+        "x": 250,
+        "y": 160,
+        "wires": [
+            [
+                "55b1db195a6345cf",
+                "1184eb7b2fe49467"
+            ]
+        ]
+    },
+    {
+        "id": "55b1db195a6345cf",
+        "type": "subflow:da1f44dea6948311",
+        "z": "f2f642efde1fe996",
+        "name": "",
+        "env": [
+            {
+                "name": "List/Queue Name",
+                "value": "kwQueue",
+                "type": "str"
+            },
+            {
+                "name": "Display Format",
+                "value": "{     \"tabulator\": {         \"responsiveLayout\": \"collapse\",         \"layout\": \"fitColumns\",         \"movableColumns\": true,         \"index\": \"Id\",         \"columns\": [             {                 \"frozen\": true,                 \"title\": \"ID\",                 \"align\": \"center\",                 \"width\": \"5%\",                 \"formatter\": \"rownum\"             },             {                 \"frozen\": true,                 \"title\": \"Department\",                 \"field\": \"Department\"             },             {                 \"frozen\": true,                 \"title\": \"Line\",                 \"field\": \"Line\"             },             {                 \"frozen\": true,                 \"title\": \"Cell\",                 \"field\": \"Cell\"             },             {                 \"title\": \"Time (mins)\",                 \"field\": \"Time\"             },             {                 \"title\": \"Action\",                 \"align\": \"center\",                 \"width\": \"10%\",                 \"formatter\": \"buttonCross\"             }         ],         \"columnResized\": \"function(column){     var newColumn = {         field: column._column.field,         visible: column._column.visible,         width: column._column.width,         widthFixed: column._column.widthFixed,         widthStyled: column._column.widthStyled     }; this.send({topic:this.config.topic,ui_control:{callback:'columnResized',columnWidths:newColumn}}); }\",         \"columnMoved\": \"function(column, columns){     var newColumns=[];     columns.forEach(function (column) {         newColumns.push({'field': column._column.definition.field, 'title': column._column.definition.title});     });     this.send({topic:this.config.topic,ui_control:{callback:'columnMoved',columns:newColumns}}); }\",         \"rowFormatter\": \"function(row){     var data = row.getData();     switch (data.$state) {         case \\\"lost\\\":             row.getElement().style.backgroundColor = \\\"#9e2e66\\\";             row.getElement().style.color = \\\"#a6a6a6\\\";             break;         case \\\"sleeping\\\":             row.getElement().style.backgroundColor = \\\"#336699\\\";             break;         case \\\"disconnected\\\":             row.getElement().style.backgroundColor = \\\"#cc3300\\\";             row.getElement().style.color = \\\"#a6a6a6\\\";             break;         case \\\"alert\\\":             row.getElement().style.backgroundColor = \\\"#A6A6DF\\\";             break;         case \\\"init\\\":             row.getElement().style.backgroundColor = \\\"#f2f20d\\\";             break;         case \\\"ready\\\":             row.getElement().style.backgroundColor = \\\"\\\";             row.getElement().style.color = \\\"\\\";             break;         } }\",         \"cellEdited\": \"celledited = function (cell) {         console.log('celledited callback called');    this.send(                 {                          ui_control: {callback:'cellEdited'},            payload: cell.getValue(),            oldValue: cell.getOldValue(),            field: cell.getColumn().getField(),            id: cell.getRow().getCell('Id').getValue()         });    console.log('table edit success');}\"     } }",
+                "type": "json"
+            }
+        ],
+        "x": 450,
+        "y": 160,
+        "wires": [
+            [
+                "e054f574d3e939c0"
+            ]
+        ]
+    },
+    {
+        "id": "5ea3f20af6afd9c7",
+        "type": "link in",
+        "z": "f2f642efde1fe996",
+        "name": "from MQTT to call Kowake",
+        "links": [
+            "1b28f3be2fd19962"
+        ],
+        "x": 135,
+        "y": 160,
+        "wires": [
+            [
+                "b25444582b5abffb"
+            ]
+        ]
+    },
+    {
+        "id": "1184eb7b2fe49467",
+        "type": "subflow:f5b1a306a8b9c006",
+        "z": "f2f642efde1fe996",
+        "name": "",
+        "env": [
+            {
+                "name": "List/Queue Name",
+                "value": "kwQueue",
+                "type": "str"
+            }
+        ],
+        "x": 460,
+        "y": 100,
+        "wires": []
+    },
+    {
+        "id": "d7197fbf265fda54",
+        "type": "mqtt in",
+        "z": "327571d15da5aceb",
+        "name": "AKSB MQTT Server",
+        "topic": "AKSB/SA/call/#",
+        "qos": "1",
+        "datatype": "json",
+        "broker": "56edfd93d9c67181",
+        "nl": false,
+        "rap": true,
+        "rh": "2",
+        "inputs": 0,
+        "x": 210,
+        "y": 200,
+        "wires": [
+            [
+                "bbea780b13bb2921",
+                "1b28f3be2fd19962"
+            ]
+        ]
+    },
+    {
+        "id": "bbea780b13bb2921",
+        "type": "debug",
+        "z": "327571d15da5aceb",
+        "name": "debug 13",
+        "active": false,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "true",
+        "targetType": "full",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 420,
+        "y": 160,
+        "wires": []
+    },
+    {
+        "id": "aed69bd7994a8096",
+        "type": "ui_template",
+        "z": "327571d15da5aceb",
+        "g": "2df0c70bc86dd6ae",
+        "group": "85b12cf0fa38d858",
+        "name": "Tabulator CSS",
+        "order": 1,
+        "width": 0,
+        "height": 0,
+        "format": "<style>\n    .callqueue .tabulator {\n        font-size: 4.5em !important; \n    }\n\n    .callqueue .nr-dashboard-cardtitle {\n        font-size: 5em !important;\n        max-height: 100px;\n        text-align: center\n    }\n</style>",
+        "storeOutMessages": false,
+        "fwdInMessages": false,
+        "resendOnRefresh": false,
+        "templateScope": "global",
+        "className": "",
+        "x": 160,
+        "y": 580,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "d3a0745948b821c9",
+        "type": "comment",
+        "z": "327571d15da5aceb",
+        "g": "2df0c70bc86dd6ae",
+        "name": "Dont Delete this!",
+        "info": "",
+        "x": 140,
+        "y": 540,
+        "wires": []
+    },
+    {
+        "id": "1b28f3be2fd19962",
+        "type": "link out",
+        "z": "327571d15da5aceb",
+        "name": "from MQTT Server",
+        "mode": "link",
+        "links": [
+            "5ea3f20af6afd9c7",
+            "88b9e8b972cdd871",
+            "c6f07004e1c3a6b5"
+        ],
+        "x": 365,
+        "y": 240,
+        "wires": []
+    },
+    {
+        "id": "6ab44a13f195e788",
+        "type": "mqtt in",
+        "z": "0ab2da76215ad380",
+        "name": "AKSB MQTT Server",
+        "topic": "json_exchange",
+        "qos": "1",
+        "datatype": "json",
+        "broker": "56edfd93d9c67181",
+        "nl": false,
+        "rap": true,
+        "rh": "2",
+        "inputs": 0,
+        "x": 150,
+        "y": 140,
+        "wires": [
+            [
+                "c0fd4308ca80b391"
+            ]
+        ]
+    },
+    {
+        "id": "c0fd4308ca80b391",
+        "type": "debug",
+        "z": "0ab2da76215ad380",
+        "name": "debug 15",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "true",
+        "targetType": "full",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 340,
+        "y": 140,
+        "wires": []
+    },
+    {
+        "id": "0e5e988da6ace305",
+        "type": "telegram sender",
+        "z": "b7a483d0be44dbdd",
+        "name": "send message ",
+        "bot": "ea1829c43a6e8ad0",
+        "haserroroutput": true,
+        "outputs": 2,
+        "x": 620,
+        "y": 180,
+        "wires": [
+            [
+                "5f6be6d7ecced755"
+            ],
+            [
+                "c0dc87d6283b17a7"
+            ]
+        ]
+    },
+    {
+        "id": "c0dc87d6283b17a7",
+        "type": "debug",
+        "z": "b7a483d0be44dbdd",
+        "name": "debug 9",
+        "active": false,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "true",
+        "targetType": "full",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 820,
+        "y": 200,
+        "wires": []
+    },
+    {
+        "id": "5f6be6d7ecced755",
+        "type": "debug",
+        "z": "b7a483d0be44dbdd",
+        "name": "debug 10",
+        "active": false,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "false",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 820,
+        "y": 160,
+        "wires": []
+    },
+    {
+        "id": "21f38c7085dac4ce",
+        "type": "link in",
+        "z": "b7a483d0be44dbdd",
+        "name": "telegram input link",
+        "links": [
+            "2fa6a4a0490e047a",
+            "bd1b0393d3b158c1",
+            "f7ec67567aefe7c7"
+        ],
+        "x": 245,
+        "y": 180,
+        "wires": [
+            [
+                "53a3a84b4660c265"
+            ]
+        ]
+    },
+    {
+        "id": "69b847464ff1d895",
+        "type": "comment",
+        "z": "b7a483d0be44dbdd",
+        "name": "How to configure link out msg from your other flows (click here to read!)",
+        "info": "Instead of specifying chatIds, specify chat group names for each message type, in the heirarchical order as defined in the Chat Ids JSON as setup in the \"Chat Ids\" environment variable of this flow. See the example below:\n\n`{\n    \"SV\": [\"Mgmt/IT\", \"Mgmt/Press\"],\n    \"FM\": \"Mgmt/FM/Press\",\n    \"QC\": \"Mgmt/QC/Press\"\n}`\n\nYou can define multiple group names for each type of message. This allows for debugging work to be done, or for telegram notifications to be sent to multiple groups.  \n\nThe 'Prepare Messaging' subflow will automatically escalate the messaging according to the hierarchy, whenever calls exceed the Escalation Time as defined for each subflow node used.\n\nchatIds will be generated before the message is sent to telegram. ",
+        "x": 290,
+        "y": 80,
+        "wires": []
+    },
+    {
+        "id": "53a3a84b4660c265",
+        "type": "function",
+        "z": "b7a483d0be44dbdd",
+        "name": "convert target to chatId",
+        "func": "let chatIds = env.get(\"Chat Ids\");\nlet target = msg.payload.target;\n\n// will always receive an array\n// traverses chatIds according to the array provided and returns the telegram\n// id corresponding to the relevant group to notify\nmsg.payload.chatId = target.reduce((cur, key) => {\n    return cur[key];\n    \n}, chatIds).id;\n\n// if(Array.isArray(target)) {\n//     msg.payload[\"chatId\"] = [];\n//     for(let index in target) {\n//         msg.payload.chatId.push(chatIds[target[index]]);\n//     }\n// } else {\n//     msg.payload[\"chatId\"] = chatIds[target];\n//}\n\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 400,
+        "y": 180,
+        "wires": [
+            [
+                "0e5e988da6ace305",
+                "dbf1d935725ab591"
+            ]
+        ]
+    },
+    {
+        "id": "dbf1d935725ab591",
+        "type": "debug",
+        "z": "b7a483d0be44dbdd",
+        "name": "debug 12",
+        "active": false,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "false",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 600,
+        "y": 240,
+        "wires": []
+    },
+    {
+        "id": "c7ab74162d9d95c3",
+        "type": "comment",
+        "z": "b7a483d0be44dbdd",
+        "name": "IMPORTANT: Configure Telegram Chat Ids in the flow Environment Variable",
+        "info": "",
+        "x": 300,
+        "y": 40,
+        "wires": [],
+        "icon": "node-red/alert.svg"
+    },
+    {
+        "id": "4d51428a87e920be",
+        "type": "function",
+        "z": "47a130afcbdaced0",
+        "name": "Update Database",
+        "func": "let caller = msg.caller;\nlet list = env.get(\"List\");\nlet dbList = flow.get(list);\n\nif (caller.type.length < 1){\n    //if caller.type is empty, means call from caller is cleared\n    //delete caller row in list\n    dbList = dbList.filter((call) => { return call.id != caller.id });\n    flow.set(list, dbList);\n} else {\n    //else if caller.type is not empty, means call from caller is a new call\n    //if caller already exists in list, update that caller row\n    //else add caller to list. \n    let index = dbList.findIndex((call) => { return call.id == caller.id });\n    if (index != -1) {\n        dbList[index] = caller;\n    } else {    \n        dbList.push(caller);\n    }\n    flow.set(list, dbList);\n}\n\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 464,
+        "y": 195,
+        "wires": [
+            []
+        ]
     }
 ]
