@@ -44,15 +44,6 @@
         "env": []
     },
     {
-        "id": "0ab2da76215ad380",
-        "type": "tab",
-        "label": "Sys: App Setup",
-        "disabled": false,
-        "locked": true,
-        "info": "",
-        "env": []
-    },
-    {
         "id": "b7a483d0be44dbdd",
         "type": "tab",
         "label": "Sys: Send T/Gram Msg",
@@ -71,6 +62,15 @@
         "id": "47a130afcbdaced0",
         "type": "tab",
         "label": "Sys: Update Database",
+        "disabled": false,
+        "locked": true,
+        "info": "",
+        "env": []
+    },
+    {
+        "id": "0ab2da76215ad380",
+        "type": "tab",
+        "label": "Sys: App Setup",
         "disabled": false,
         "locked": true,
         "info": "",
@@ -560,8 +560,8 @@
             "aed69bd7994a8096",
             "d3a0745948b821c9"
         ],
-        "x": 34,
-        "y": 499,
+        "x": 134,
+        "y": 339,
         "w": 232,
         "h": 122
     },
@@ -1773,7 +1773,6 @@
         "id": "3dc9b81d6024cb0a",
         "type": "subflow:fa9ee2fc5ce99563",
         "z": "d9c16620383ec561",
-        "d": true,
         "name": "",
         "env": [
             {
@@ -2228,7 +2227,7 @@
         "type": "debug",
         "z": "327571d15da5aceb",
         "name": "debug 13",
-        "active": false,
+        "active": true,
         "tosidebar": true,
         "console": false,
         "tostatus": false,
@@ -2256,8 +2255,8 @@
         "resendOnRefresh": false,
         "templateScope": "global",
         "className": "",
-        "x": 160,
-        "y": 580,
+        "x": 260,
+        "y": 420,
         "wires": [
             []
         ]
@@ -2269,8 +2268,8 @@
         "g": "2df0c70bc86dd6ae",
         "name": "Dont Delete this!",
         "info": "",
-        "x": 140,
-        "y": 540,
+        "x": 240,
+        "y": 380,
         "wires": []
     },
     {
@@ -2286,44 +2285,6 @@
         ],
         "x": 365,
         "y": 240,
-        "wires": []
-    },
-    {
-        "id": "6ab44a13f195e788",
-        "type": "mqtt in",
-        "z": "0ab2da76215ad380",
-        "name": "AKSB MQTT Server",
-        "topic": "json_exchange",
-        "qos": "1",
-        "datatype": "json",
-        "broker": "56edfd93d9c67181",
-        "nl": false,
-        "rap": true,
-        "rh": "2",
-        "inputs": 0,
-        "x": 150,
-        "y": 140,
-        "wires": [
-            [
-                "c0fd4308ca80b391"
-            ]
-        ]
-    },
-    {
-        "id": "c0fd4308ca80b391",
-        "type": "debug",
-        "z": "0ab2da76215ad380",
-        "name": "debug 15",
-        "active": true,
-        "tosidebar": true,
-        "console": false,
-        "tostatus": false,
-        "complete": "true",
-        "targetType": "full",
-        "statusVal": "",
-        "statusType": "auto",
-        "x": 340,
-        "y": 140,
         "wires": []
     },
     {
@@ -2469,5 +2430,43 @@
         "wires": [
             []
         ]
+    },
+    {
+        "id": "6ab44a13f195e788",
+        "type": "mqtt in",
+        "z": "0ab2da76215ad380",
+        "name": "AKSB MQTT Server",
+        "topic": "json_exchange",
+        "qos": "1",
+        "datatype": "json",
+        "broker": "56edfd93d9c67181",
+        "nl": false,
+        "rap": true,
+        "rh": "2",
+        "inputs": 0,
+        "x": 150,
+        "y": 140,
+        "wires": [
+            [
+                "c0fd4308ca80b391"
+            ]
+        ]
+    },
+    {
+        "id": "c0fd4308ca80b391",
+        "type": "debug",
+        "z": "0ab2da76215ad380",
+        "name": "debug 15",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "true",
+        "targetType": "full",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 340,
+        "y": 140,
+        "wires": []
     }
 ]
