@@ -63,7 +63,6 @@
         "type": "tab",
         "label": "Sys: Update Database",
         "disabled": false,
-        "locked": true,
         "info": "",
         "env": []
     },
@@ -561,9 +560,7 @@
             "d3a0745948b821c9"
         ],
         "x": 134,
-        "y": 339,
-        "w": 232,
-        "h": 122
+        "y": 339
     },
     {
         "id": "80a9d3eddd3850f6",
@@ -1200,7 +1197,7 @@
         "type": "function",
         "z": "f5b1a306a8b9c006",
         "name": "function 1",
-        "func": "let dbName = env.get(\"List/Queue Name\");\nlet db = env.get(\"parent.\"+dbName);\n\nif(db.length == 0){\n    msg.payload = 0;\n} else {\n    msg.payload = 1;\n}\n\nreturn msg;",
+        "func": "let dbName = env.get(\"List/Queue Name\");\nlet db = flow.get(\"$parent.\" + dbName);\nnode.warn(db);\n\nif(db.length == 0){\n    msg.payload = 0;\n} else {\n    msg.payload = 1;\n}\n\nreturn msg;",
         "outputs": 1,
         "timeout": 0,
         "noerr": 0,
@@ -2427,6 +2424,55 @@
         "libs": [],
         "x": 464,
         "y": 195,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "3674459c27d87a9a",
+        "type": "file",
+        "z": "47a130afcbdaced0",
+        "name": "",
+        "filename": "",
+        "filenameType": "str",
+        "appendNewline": true,
+        "createDir": false,
+        "overwriteFile": "false",
+        "encoding": "none",
+        "x": 460,
+        "y": 320,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "e16b46d70a80de67",
+        "type": "link in",
+        "z": "47a130afcbdaced0",
+        "name": "link in 1",
+        "links": [],
+        "x": 345,
+        "y": 320,
+        "wires": [
+            [
+                "3674459c27d87a9a"
+            ]
+        ]
+    },
+    {
+        "id": "814691fa507df7e9",
+        "type": "file in",
+        "z": "47a130afcbdaced0",
+        "name": "",
+        "filename": "",
+        "filenameType": "str",
+        "format": "utf8",
+        "chunk": false,
+        "sendError": false,
+        "encoding": "none",
+        "allProps": false,
+        "x": 460,
+        "y": 380,
         "wires": [
             []
         ]
