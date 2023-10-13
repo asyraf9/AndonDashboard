@@ -39,7 +39,6 @@
         "type": "tab",
         "label": "Sys: MQTT Server",
         "disabled": false,
-        "locked": true,
         "info": "",
         "env": []
     },
@@ -399,7 +398,7 @@
             {
                 "name": "Display Format",
                 "type": "json",
-                "value": "{\"tabulator\":{\"responsiveLayout\":\"collapse\",\"layout\":\"fitColumns\",\"movableColumns\":true,\"index\":\"Id\",\"columns\":[{\"frozen\":true,\"title\":\"ID\",\"align\":\"center\",\"width\":\"7%\",\"formatter\":\"rownum\"},{\"frozen\":true,\"title\":\"Dept\",\"field\":\"Department\"},{\"frozen\":true,\"title\":\"Line\",\"field\":\"Line\"},{\"frozen\":true,\"title\":\"Cell\",\"field\":\"Cell\"},{\"title\":\"Time (mins)\",\"field\":\"Time\",\"width\":\"30%\"}]}}",
+                "value": "{\"tabulator\":{\"responsiveLayout\":\"collapse\",\"layout\":\"fitColumns\",\"movableColumns\":true,\"index\":\"Id\",\"columns\":[{\"title\":\"ID\",\"align\":\"center\",\"width\":\"7%\",\"formatter\":\"rownum\"},{\"title\":\"Dept\",\"field\":\"Department\"},{\"title\":\"Line\",\"field\":\"Line\"},{\"title\":\"Cell\",\"field\":\"Cell\"},{\"title\":\"For\",\"field\":\"Type\"},{\"title\":\"Time\",\"field\":\"Time\",\"width\":\"25%\"}]}}",
                 "ui": {
                     "label": {
                         "en-US": "Display Format (JSON)"
@@ -560,7 +559,9 @@
             "d3a0745948b821c9"
         ],
         "x": 134,
-        "y": 339
+        "y": 339,
+        "w": 232,
+        "h": 122
     },
     {
         "id": "80a9d3eddd3850f6",
@@ -957,7 +958,7 @@
                 "t": "set",
                 "p": "payload",
                 "pt": "msg",
-                "to": "payload[].{ \t    \"Plant\":plant,\t    \"Department\":dept,\t    \"Line\":line,\t    \"Cell\":cell,\t    \"Calling\":type,\t    \"Time\":$moment(timestamp).fromNow()\t}",
+                "to": "payload[].{ \t    \"Plant\":plant,\t    \"Department\":dept,\t    \"Line\":line,\t    \"Cell\":cell,\t    \"Type\":type,\t    \"Time\":$moment(timestamp).fromNow()\t}",
                 "tot": "jsonata"
             }
         ],
@@ -1754,7 +1755,7 @@
         "env": [
             {
                 "name": "Display Format",
-                "value": "{\"tabulator\":{\"responsiveLayout\":\"collapse\",\"layout\":\"fitColumns\",\"movableColumns\":true,\"index\":\"Id\",\"columns\":[{\"frozen\":true,\"title\":\"ID\",\"align\":\"center\",\"width\":\"7%\",\"formatter\":\"rownum\"},{\"frozen\":true,\"title\":\"Dept\",\"field\":\"Department\"},{\"frozen\":true,\"title\":\"Line\",\"field\":\"Line\"},{\"title\":\"Time (mins)\",\"field\":\"Time\",\"width\":\"35%\"}]}}",
+                "value": "{\"tabulator\":{\"responsiveLayout\":\"collapse\",\"layout\":\"fitColumns\",\"movableColumns\":true,\"index\":\"Id\",\"columns\":[{\"title\":\"ID\",\"align\":\"center\",\"width\":\"7%\",\"formatter\":\"rownum\"},{\"title\":\"Dept\",\"field\":\"Department\"},{\"title\":\"Line\",\"field\":\"Line\"},{\"title\":\"For\",\"field\":\"Type\"},{\"title\":\"Time\",\"field\":\"Time\",\"width\":\"25%\"}]}}",
                 "type": "json"
             }
         ],
@@ -2246,7 +2247,7 @@
         "order": 1,
         "width": 0,
         "height": 0,
-        "format": "<style>\n    .callqueue .tabulator {\n        font-size: 4.5em !important; \n    }\n\n    .callqueue .nr-dashboard-cardtitle {\n        font-size: 5em !important;\n        max-height: 100px;\n        text-align: center\n    }\n</style>",
+        "format": "<style>\n    .callqueue .tabulator {\n        font-size: 4em !important; \n    }\n\n    .callqueue .nr-dashboard-cardtitle {\n        font-size: 5em !important;\n        max-height: 100px;\n        text-align: center\n    }\n</style>",
         "storeOutMessages": false,
         "fwdInMessages": false,
         "resendOnRefresh": false,
